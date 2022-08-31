@@ -20,3 +20,17 @@ User Access system & User Management system
 
 Tim:  
 Ordering system & Payment system
+
+------------------------------------------------------------------
+
+Build Tool: Maven webapp archetype          
+Database SQL: MySQL            
+Server:  Local server is up to you, doesn't matter. Currently using Tomcat              
+Language:  Java            
+Test:  JUnit          
+IDE:  Up to you. Currently using IntelliJ Ultimate           
+Servlet:  jakarta.servlet            
+Compiler:  up to you.           
+
+
+------------------------------------------------------------------
