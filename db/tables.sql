@@ -143,7 +143,7 @@ CREATE TABLE Coupon
     Coupon_Scope INT NOT NULL,
     Coupon_Type INT NOT NULL,
     Coupon_Min_Money INT,
-    Create_Date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    Created_Date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     Coupon_Value DOUBLE NOT NULL,
     Coupon_Description VARCHAR(255) NOT NULL,
     Coupon_Image VARCHAR(200) NOT NULL
