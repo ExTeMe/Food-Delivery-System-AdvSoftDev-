@@ -17,7 +17,7 @@
 
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>
-        <url-pattern>/hello</url-pattern>
+        <url-pattern>/HelloServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateCategoryServlet</servlet-name>
