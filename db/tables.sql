@@ -1,7 +1,7 @@
 #DROP DATABASE IF EXISTS db;
 #CREATE DATABASE db;
 
-#USE db;
+USE db;
 
 #DROP TABLE IF EXISTS `User`;
 CREATE TABLE `User`
@@ -200,8 +200,23 @@ CREATE TABLE C_Batch_Customer
     FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID)
 );
 
+#DROP TABLE IF EXISTS Driver;
+CREATE TABLE Driver
+(
+    Driver_ID INT NOT NULL AUTO_INCREMENT,
+    User_ID INT NOT NULL,
+    Plate_ID INT UNIQUE NOT NULL,
+    Vehicle_Description VARCHAR(20) NOT NULL,
+    Rating FLOAT,
+    D_Account_Name VARCHAR(20) NOT NULL,
+    D_BSB INT NOT NULL,
+    D_Account_Number INT NOT NULL,
+    PRIMARY KEY (Driver_ID),
+    FOREIGN KEY (User_ID) REFERENCES `User`(UserID)
+);
+
 #DROP TABLE IF EXISTS Order;
-CREATE TABLE Order
+CREATE TABLE `Order`
 (
     Order_ID INT NOT NULL AUTO_INCREMENT,
     Customer_ID INT NOT NULL,
@@ -219,20 +234,6 @@ CREATE TABLE Order
     Driver_Tip FLOAT,
     PRIMARY KEY (Order_ID),
     FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID),
-    FOREIGN KEY (Driver_ID) REFERENCES Driver(Driver_ID)
-);
-
-#DROP TABLE IF EXISTS Driver;
-CREATE TABLE Driver
-(
-    Driver_ID INT NOT NULL AUTO_INCREMENT,
-    User_ID INT NOT NULL,
-    Plate_ID INT NOT NULL,
-    Vehicle_Description VARCHAR(20) NOT NULL,
-    Rating FLOAT,
-    D_Account_Name VARCHAR(20) NOT NULL,
-    D_BSB INT NOT NULL,
-    D_Account_Number INT NOT NULL,
-    PRIMARY KEY (Driver_ID),
-    FOREIGN KEY (User_ID) REFERENCES Order(Customer_ID)
+    FOREIGN KEY (Driver_ID) REFERENCES Driver(Driver_ID),
+    FOREIGN KEY (Coupon_ID) REFERENCES Coupon(Coupon_ID)
 );
