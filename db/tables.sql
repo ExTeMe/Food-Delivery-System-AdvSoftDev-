@@ -199,3 +199,40 @@ CREATE TABLE C_Batch_Customer
     FOREIGN KEY (C_Batch_ID) REFERENCES Coupon_Batch(C_Batch_ID),
     FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID)
 );
+
+#DROP TABLE IF EXISTS Order;
+CREATE TABLE Order
+(
+    Order_ID INT NOT NULL AUTO_INCREMENT,
+    Customer_ID INT NOT NULL,
+    Driver_ID INT,
+    Order_Type VARCHAR(10) NOT NULL,
+    Delivery_Fee FLOAT,
+    Coupon_ID INT,
+    `Status` VARCHAR(10) NOT NULL,
+    Food_Rating INT,
+    Driver_Rating INT,
+    Food_Instructions VARCHAR(100),
+    Driver_Instructions VARCHAR(100),
+    Food_Feedback VARCHAR(100),
+    Driver_Feedback VARCHAR(100),
+    Driver_Tip FLOAT,
+    PRIMARY KEY (Order_ID),
+    FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID),
+    FOREIGN KEY (Driver_ID) REFERENCES Driver(Driver_ID)
+);
+
+#DROP TABLE IF EXISTS Driver;
+CREATE TABLE Driver
+(
+    Driver_ID INT NOT NULL AUTO_INCREMENT,
+    User_ID INT NOT NULL,
+    Plate_ID INT NOT NULL,
+    Vehicle_Description VARCHAR(20) NOT NULL,
+    Rating FLOAT,
+    D_Account_Name VARCHAR(20) NOT NULL,
+    D_BSB INT NOT NULL,
+    D_Account_Number INT NOT NULL,
+    PRIMARY KEY (Driver_ID),
+    FOREIGN KEY (User_ID) REFERENCES Order(Customer_ID)
+);
