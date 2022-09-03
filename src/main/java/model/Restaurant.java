@@ -44,12 +44,6 @@ public class Restaurant {
         return category;
     }
 
-    // Rather than calling UpdateServlet to update the database, and recreate the a new object with the updated fields and
-    // then passing it to the view through Session for display.
-    // We can immediately update (set) the current Object's attributes and at the same time, update the database
-    // The main menu will contain the restaurants and their categories, when we want to update a restaurant, we will retrieve
-    // the RCategory from the dropdown list
-    // (There will be an ArrayList in the jsp to store the list of categories, simply retrieve from there)
     public void setCategory(RCategory category) {
         this.category = category;
     }

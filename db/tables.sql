@@ -1,10 +1,10 @@
-#DROP DATABASE IF EXISTS db;
-#CREATE DATABASE db;
+DROP DATABASE IF EXISTS db;
+CREATE DATABASE db;
 
-#USE db;
+USE db;
 
-#DROP TABLE IF EXISTS `User`;
-CREATE TABLE `User`
+DROP TABLE IF EXISTS User;
+CREATE TABLE User
 (
     UserID INT NOT NULL AUTO_INCREMENT,
     First_Name VARCHAR(10) NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE `User`
     PRIMARY KEY (UserID)
 );
 
-#DROP TABLE IF EXISTS Restaurant;
+DROP TABLE IF EXISTS Restaurant;
 CREATE TABLE Restaurant
 (
     Restaurant_ID INT NOT NULL AUTO_INCREMENT,
@@ -42,7 +42,7 @@ CREATE TABLE Restaurant
     PRIMARY KEY (Restaurant_ID)
 );
 
-#DROP TABLE IF EXISTS Staff;
+DROP TABLE IF EXISTS Staff;
 CREATE TABLE Staff
 (
     Staff_ID INT NOT NULL AUTO_INCREMENT,
@@ -55,7 +55,7 @@ CREATE TABLE Staff
     FOREIGN KEY (Restaurant_ID) REFERENCES Restaurant(Restaurant_ID)
 );
 
-#DROP TABLE IF EXISTS AppStaff;
+DROP TABLE IF EXISTS AppStaff;
 CREATE TABLE AppStaff
 (
     A_Staff_ID INT NOT NULL AUTO_INCREMENT,
@@ -65,7 +65,7 @@ CREATE TABLE AppStaff
     FOREIGN KEY (UserID) REFERENCES `User`(UserID)
 );
 
-#DROP TABLE IF EXISTS `Log`;
+DROP TABLE IF EXISTS `Log`;
 CREATE TABLE `Log`
 (
     Log_ID INT NOT NULL AUTO_INCREMENT,
@@ -75,7 +75,7 @@ CREATE TABLE `Log`
     FOREIGN KEY (A_Staff_ID) REFERENCES AppStaff(A_Staff_ID)
 );
 
-#DROP TABLE IF EXISTS Request;
+DROP TABLE IF EXISTS Request;
 CREATE TABLE Request
 (
     Request_ID INT NOT NULL AUTO_INCREMENT,
@@ -87,7 +87,7 @@ CREATE TABLE Request
     FOREIGN KEY (Restaurant_ID) REFERENCES Restaurant(Restaurant_ID)
 );
 
-#DROP TABLE IF EXISTS RCategory;
+DROP TABLE IF EXISTS RCategory;
 CREATE TABLE RCategory
 (
     RCategory_ID INT NOT NULL AUTO_INCREMENT,
@@ -96,7 +96,7 @@ CREATE TABLE RCategory
     PRIMARY KEY (RCategory_ID)
 );
 
-#DROP TABLE IF EXISTS Restaurant_RCategory;
+DROP TABLE IF EXISTS Restaurant_RCategory;
 CREATE TABLE Restaurant_RCategory
 (
     RCategory_ID INT NOT NULL,
@@ -106,7 +106,7 @@ CREATE TABLE Restaurant_RCategory
     FOREIGN KEY (Restaurant_ID) REFERENCES Restaurant(Restaurant_ID)
 );
 
-#DROP TABLE IF EXISTS Customer;
+DROP TABLE IF EXISTS Customer;
 CREATE TABLE Customer
 (
     Customer_ID INT PRIMARY KEY AUTO_INCREMENT,
@@ -118,7 +118,7 @@ CREATE TABLE Customer
     FOREIGN KEY (User_ID) REFERENCES `User`(UserID)
 );
 
-#DROP TABLE IF EXISTS Menu_Item;
+DROP TABLE IF EXISTS Menu_Item;
 CREATE TABLE Menu_Item
 (
     Item_ID INT PRIMARY KEY AUTO_INCREMENT,
@@ -135,7 +135,7 @@ CREATE TABLE Menu_Item
     FOREIGN KEY (Restaurant_ID) REFERENCES Restaurant(Restaurant_ID)
 );
 
-#DROP TABLE IF EXISTS Coupon;
+DROP TABLE IF EXISTS Coupon;
 CREATE TABLE Coupon
 (
     Coupon_ID INT PRIMARY KEY AUTO_INCREMENT,
@@ -149,7 +149,7 @@ CREATE TABLE Coupon
     Coupon_Image VARCHAR(200) NOT NULL
 );
 
-#DROP TABLE IF EXISTS Coupon_Item;
+DROP TABLE IF EXISTS Coupon_Item;
 CREATE TABLE Coupon_Item
 (
     Coupon_ID INT NOT NULL,
@@ -159,7 +159,7 @@ CREATE TABLE Coupon_Item
     FOREIGN KEY (Item_ID) REFERENCES Menu_Item(Item_ID)
 );
 
-#DROP TABLE IF EXISTS Distribution_Rule;
+DROP TABLE IF EXISTS Distribution_Rule;
 CREATE TABLE Distribution_Rule
 (
     D_Rule_ID INT PRIMARY KEY AUTO_INCREMENT,
@@ -167,7 +167,7 @@ CREATE TABLE Distribution_Rule
     Additional_Conditions VARCHAR(100)
 );
 
-#DROP TABLE IF EXISTS Coupon_Batch;
+DROP TABLE IF EXISTS Coupon_Batch;
 CREATE TABLE Coupon_Batch
 (
     C_Batch_ID INT PRIMARY KEY AUTO_INCREMENT,
@@ -188,7 +188,7 @@ CREATE TABLE Coupon_Batch
     FOREIGN KEY (User_ID) REFERENCES `User`(UserID)
 );
 
-#DROP TABLE IF EXISTS C_Batch_Customer;
+DROP TABLE IF EXISTS C_Batch_Customer;
 CREATE TABLE C_Batch_Customer
 (
     C_Batch_ID INT NOT NULL,
@@ -199,3 +199,42 @@ CREATE TABLE C_Batch_Customer
     FOREIGN KEY (C_Batch_ID) REFERENCES Coupon_Batch(C_Batch_ID),
     FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID)
 );
+
+DROP TABLE IF EXISTS Driver;
+CREATE TABLE Driver
+(
+    Driver_ID INT NOT NULL AUTO_INCREMENT,
+    User_ID INT NOT NULL,
+    Plate_ID INT NOT NULL,
+    Vehicle_Description VARCHAR(20) NOT NULL,
+    Rating FLOAT,
+    D_Account_Name VARCHAR(20) NOT NULL,
+    D_BSB INT NOT NULL,
+    D_Account_Number INT NOT NULL,
+    PRIMARY KEY (Driver_ID),
+    FOREIGN KEY (User_ID) REFERENCES User(UserID)
+);
+
+DROP TABLE IF EXISTS db.Order;
+CREATE TABLE db.Order
+(
+    Order_ID INT NOT NULL AUTO_INCREMENT,
+    Customer_ID INT NOT NULL,
+    Driver_ID INT,
+    Order_Type VARCHAR(10) NOT NULL,
+    Delivery_Fee FLOAT,
+    Coupon_ID INT,
+    Status VARCHAR(10) NOT NULL,
+    Food_Rating INT,
+    Driver_Rating INT,
+    Food_Instructions VARCHAR(100),
+    Driver_Instructions VARCHAR(100),
+    Food_Feedback VARCHAR(100),
+    Driver_Feedback VARCHAR(100),
+    Driver_Tip FLOAT,
+    PRIMARY KEY (Order_ID),
+    FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID),
+    FOREIGN KEY (Driver_ID) REFERENCES Driver(Driver_ID),
+    FOREIGN KEY (Coupon_ID) REFERENCES Coupon(Coupon_ID)
+);
+
