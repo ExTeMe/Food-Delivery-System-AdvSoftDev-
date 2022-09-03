@@ -1,0 +1,40 @@
+* {
+    box-sizing: border-box;
+    font-family: Raleway, serif;
+    color: grey;
+    margin: 0;
+    padding: 0;
+}
+
+.res img {
+    width: 12em;
+    height: 10em;
+}
+
+a.btn, .search, .searchf, .searchbar{
+    background-color: #d3d3d3;
+    border: none;
+    border-radius: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-weight: 600;
+}
+
+a.btn:hover, .search:hover{
+    background-color: #C0C0C0;
+    color: black;
+}
+
+a.h1 {
+    font-size: 30px;
+}
+
+.bs {
+    border: 1px solid black;
+    padding: 15px 0;
+}
+
+.disabled {
+    background-color: blue;
+    color: white;
+}
