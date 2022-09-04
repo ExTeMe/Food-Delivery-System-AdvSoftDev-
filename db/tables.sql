@@ -60,19 +60,8 @@ CREATE TABLE AppStaff
 (
     A_Staff_ID INT NOT NULL AUTO_INCREMENT,
     UserID INT NOT NULL,
-    Privilege INT NOT NULL DEFAULT 0,
     PRIMARY KEY  (A_Staff_ID),
     FOREIGN KEY (UserID) REFERENCES `User`(UserID)
-);
-
-DROP TABLE IF EXISTS `Log`;
-CREATE TABLE `Log`
-(
-    Log_ID INT NOT NULL AUTO_INCREMENT,
-    A_Staff_ID INT NOT NULL,
-    `Description` VARCHAR(100),
-    PRIMARY KEY (Log_ID),
-    FOREIGN KEY (A_Staff_ID) REFERENCES AppStaff(A_Staff_ID)
 );
 
 DROP TABLE IF EXISTS Request;
@@ -198,6 +187,16 @@ CREATE TABLE C_Batch_Customer
     PRIMARY KEY (C_Batch_ID, Customer_ID),
     FOREIGN KEY (C_Batch_ID) REFERENCES Coupon_Batch(C_Batch_ID),
     FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID)
+);
+
+DROP TABLE IF EXISTS Coupon_R;
+CREATE TABLE Coupon_R
+(
+    Coupon_ID INT NOT NULL,
+    Restaurant_ID INT NOT NULL,
+    PRIMARY KEY (Coupon_ID, Restaurant_ID),
+    FOREIGN KEY (Coupon_ID) REFERENCES Coupon(Coupon_ID),
+    FOREIGN KEY (Restaurant_ID) REFERENCES Restaurant(Restaurant_ID)
 );
 
 DROP TABLE IF EXISTS Driver;
