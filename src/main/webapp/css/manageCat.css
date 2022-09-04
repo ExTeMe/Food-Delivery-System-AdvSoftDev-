@@ -6,7 +6,7 @@
     padding: 0;
 }
 
-a.btn, .search, .searchf, .searchbar{
+.btn {
     background-color: #d3d3d3;
     border: none;
     border-radius: 20px;
@@ -15,22 +15,11 @@ a.btn, .search, .searchf, .searchbar{
     font-weight: 600;
 }
 
-a.btn:hover, .search:hover{
+.btn:hover {
     background-color: #C0C0C0;
     color: black;
 }
 
-a.h1 {
-    font-size: 30px;
-}
-
-.bs {
-    border: 1px solid black;
-    padding: 15px 0;
-}
-
-.res img {
-    width: 200px;
-    height: 180px;
-    padding-bottom: 5px;
+.catrow {
+    padding-right: 40px;
 }

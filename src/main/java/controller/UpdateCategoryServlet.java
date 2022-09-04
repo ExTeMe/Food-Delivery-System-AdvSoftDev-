@@ -15,7 +15,7 @@ package controller;
  import dao.*;
  import model.*;
 
- @WebServlet(name = "UpdateCategoryServlet", value = "update-category")
+ @WebServlet(name = "controller/UpdateCategoryServlet", value = "/update-category")
  public class UpdateCategoryServlet extends HttpServlet {
 
       @Override

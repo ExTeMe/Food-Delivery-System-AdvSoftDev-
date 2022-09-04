@@ -21,7 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.*;
+import jakarta.servlet.annotation.WebServlet;
 
+@WebServlet(name = "controller/ConnServlet", value = "/ConnServlet")
 public class ConnServlet extends HttpServlet {
 
     private DBConnector db;
