@@ -20,4 +20,8 @@ public class RCategories {
     public ArrayList<RCategory> getCategories() {
         return categories;
     }
+
+    public void addCategory(RCategory category) { categories.add(category); }
+
+    public void deleteCategory(RCategory category) { categories.remove(category); }
 }
