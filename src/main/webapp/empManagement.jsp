@@ -6,13 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script
+            src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+            crossorigin="anonymous">
+    </script>
     <%-- Dynamically set the base path for the entire page --%>
     <base href ="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/">
     <title>Emp Management</title>
 </head>
+<c:if test="${not empty success}">
+    <script>
+        $(document).ready(function() {
+            $("#div1").fadeIn();
+            $("#div1").fadeOut(3000);
+        });
+    </script>
+</c:if>
 <body>
     <div class = "container">
-        <p class="text-center">Emp List</p>
+        <h1 class="h1 text-center">Emp List</h1>
+        <a href="index.jsp" class="position-absolute top-0 end-10 btn btn-info btn-lg">Main</a>
+        <div class="alert alert-success" style="display:none" id="div1">Successful!</div>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -34,7 +49,7 @@
                     <td>${staff.position}</td>
                     <td>
                         <a href="#" class="btn btn-primary">Edit</a>
-                        <a href="#" class="btn btn-danger">Remove</a>
+                        <a href="EmpRemove?id=${staff.staffID}" class="btn btn-danger">Remove</a>
                     </td>
                 </tr>
             </c:forEach>
