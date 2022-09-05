@@ -1,8 +1,6 @@
-<%-- 
-    Document   : delivery
-    Created on : 14 May 2022, 12:32:19 pm
-    Author     : Minh Quan Tran
---%>
+<%@page import="model.Order"%>
+<%@page import="model.Delivery"%>
+<%@page import="dao.DBManager"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -21,6 +19,11 @@
                     <a class="header-button" href="ShowProductsController"><h3>Home</h3></a>
                 </div>
                 
+                <%
+                    Order order = (Order) session.getAttribute("order");
+                    DBManager manager = (DBManager) session.getAttribute("manager");
+                    Delivery delivery = (Delivery) manager.getDelivery(order);
+                %>
 
                 <div class="header-end">
                     <div class="user-info header-button">
@@ -39,7 +42,7 @@
         </header>
                         
         <main>
-            <h1>Order no 2</h1>
+            <h1>Order no <%= order.getOrderID() %></h1>
             <div class="delivery">
                 <ul class="status">
                     <li>
@@ -64,15 +67,15 @@
                         <p>dd/mm/yyyy</p>
                     </li>
                 </ul>
-                <p>Order type: Delivery</p>  
-                <p>Street: 15 Broadway</p>
-                <p>Suburb: Ultimo</p>
-                <p>State: NSW</p>
-                <p>Postal: 2007</p>
-                <p>Order Status: Preparing</p>
+                <p>Order type: <%= order.getOrderType() %></p>  
+                <p>Street: <%= delivery.getDeliveryStreet() %></p>
+                <p>Suburb: <%= delivery.getDeliverySuburb() %></p>
+                <p>State: <%= delivery.getDeliveryState() %></p>
+                <p>Postal: <%= delivery.getDeliveryPostal() %></p>
+                <p>Order Status: <%= order.getStatus() %></p>
                 <hr />
                 <div class="actions">
-                    <form action="ShippingController" method="post">
+                    <form action="create-delivery" method="post">
                         <input type="hidden" name="order-to-update" value="orderID" />
                         <button type="submit" name="action" class="update-button" value="update">Update</button>
                         <button type="submit" name="action" class="delete-button" value="delete">Delete</button>

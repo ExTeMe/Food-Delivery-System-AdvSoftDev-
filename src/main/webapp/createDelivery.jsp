@@ -1,17 +1,11 @@
-<%-- 
-    Document   : shipping
-    Created on : 14 May 2022, 6:50:41 pm
-    Author     : someo
---%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="./css/placeOrder.css" rel="stylesheet" type="text/css" >
+        <link href="./css/createOrder.css" rel="stylesheet" type="text/css" >
         <link href="./css/header.css" rel="stylesheet" type="text/css" >
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Place Delivery</title>
     </head>
     <body>
@@ -36,7 +30,7 @@
             <div class="header-outline"></div>
         </header>
         <main>
-            <form action="ShippingController" method="post">
+            <form action="create-delivery" method="post">
                 <h1>Delivery details</h1>
                 <hr />
                 <label>Order type</label>
@@ -49,22 +43,45 @@
                         <input type="radio" id="pickup" name="order-type" value="pickup" required>
                         <label for="pickup">Pickup</label>
                     </li>
+                    <li>
+                        <input type="radio" id="dinein" name="order-type" value="dinein" required>
+                        <label for="dinein">Dine-in</label>
+                    </li>
                 </ul>
                 <hr />
-                <label>Delivery Address</label>
-                <div id="address" class="address">
-                    <label for="street">Street</label>
-                    <input type="text" id="street" name="street" required>
-                    <label for="suburb">Suburb</label>
-                    <input type="text" id="suburb" name="suburb" required>
-                    <label for="state">State</label>
-                    <input type="text" id="state" name="state" required>
-                    <label for="postal">Postal Code</label>
-                    <input type="text" id="postal" name="postal" required>
+                <div class="delivery-input">
+                    <label>Delivery Address</label>
+                    <div id="address" class="address">
+                        <label for="street">Street</label>
+                        <input type="text" id="street" name="street" required>
+                        <label for="suburb">Suburb</label>
+                        <input type="text" id="suburb" name="suburb" required>
+                        <label for="state">State</label>
+                        <input type="text" id="state" name="state" required>
+                        <label for="postal">Postal Code</label>
+                        <input type="text" id="postal" name="postal" required>
+                    </div>
+                    <hr />
+                    <label for="instructions">Instructions</label>
+                    <textarea id="instructions" name="instructions" maxlength="100" rows="4"></textarea>
+                    <hr />
                 </div>
-                <hr />
                 <button type="submit">Continue</button>
             </form>
         </main>
+
+        <script>
+            const orderType = document.querySelector("#order-type");
+            const delivery = document.querySelector("#delivery");
+            const deliveryInput = document.querySelector(".delivery-input");
+
+            orderType.addEventListener("click", () => {
+                if (delivery.checked){
+                    deliveryInput.style.display = "flex";
+                } else {
+                    deliveryInput.style.display = "none";
+                }
+            })
+        </script>
     </body>
 </html>
