@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Staff Register Page</title>
+    <title>Log in: May need to separate into staff and customer login</title>
 </head>
 <body>
 <h1><%= "Hello CCCCWorld!" %>
