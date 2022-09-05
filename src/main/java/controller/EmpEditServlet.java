@@ -19,7 +19,14 @@ public class EmpEditServlet extends HttpServlet{
         {
             if(staffId == ((Staff)staffs.get(i)).getStaffID())
             {
-                ((Staff) staffs.get(i)).setPrivilege(Integer.parseInt(request.getParameter("privilege")));
+                try{
+                    ((Staff) staffs.get(i)).setPrivilege(Integer.parseInt(request.getParameter("privilege")));
+                }
+                catch (NumberFormatException e){
+                    e.printStackTrace();
+                    request.setAttribute("fail", true);
+                    request.getRequestDispatcher("/empManagement.jsp").forward(request, response);
+                }
                 ((Staff) staffs.get(i)).setPosition(request.getParameter("position"));
             }
         }
