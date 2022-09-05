@@ -1,10 +1,8 @@
 package dao;
 
 import java.sql.*;
-
 import model.Customer;
 import model.Staff;
-
 
 public class DBManager {
     
@@ -15,6 +13,7 @@ public class DBManager {
     }
 
     public void testAdder(String firstName, String lastName) {
+        System.out.println("in dbmangaer");
         String fetch = "INSERT INTO db.tables.Customer " + "VALUES (" + firstName + ", '" + lastName + "')";
         System.out.println(fetch);
     }

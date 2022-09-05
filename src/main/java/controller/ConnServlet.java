@@ -23,13 +23,11 @@ import javax.servlet.http.HttpSession;
 import dao.*;
 import jakarta.servlet.annotation.WebServlet;
 
-@WebServlet(name = "controller/ConnServlet", value = "/ConnServlet")
+@WebServlet(name = "controller/ConnServlet", value = "ConnServlet")
 public class ConnServlet extends HttpServlet {
 
     private DBConnector db;
-
     private DBManager manager;
-
     private Connection conn;
 
 
@@ -52,7 +50,6 @@ public class ConnServlet extends HttpServlet {
 
 
     @Override //Add the DBConnector, DBManager, Connection instances to the session
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 
             throws ServletException, IOException {
@@ -64,17 +61,12 @@ public class ConnServlet extends HttpServlet {
         conn = db.openConnection();
 
         try {
-
             manager = new DBManager(conn);
-
-
         } catch (SQLException ex) {
-
             Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
-
         }
 
-        session.setAttribute("DBManager", manager);
+        session.setAttribute("manager", manager);
 
     }
 
