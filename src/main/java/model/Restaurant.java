@@ -15,11 +15,11 @@ public class Restaurant {
     private final long abn;
     private String accountName;
     private int bsb;
-    private int accountNum;
+    private long accountNum;
 
     public Restaurant(int restaurantID, RCategory category, String restaurantName, int streetNum, String streetName,
                       int postcode, String state, String suburb, String country, Boolean activate, long abn, String accountName,
-                      int bsb, int accountNum) {
+                      int bsb, long accountNum) {
         this.restaurantID = restaurantID;
         this.category = category;
         this.restaurantName = restaurantName;
@@ -44,12 +44,6 @@ public class Restaurant {
         return category;
     }
 
-    // Rather than calling UpdateServlet to update the database, and recreate the a new object with the updated fields and
-    // then passing it to the view through Session for display.
-    // We can immediately update (set) the current Object's attributes and at the same time, update the database
-    // The main menu will contain the restaurants and their categories, when we want to update a restaurant, we will retrieve
-    // the RCategory from the dropdown list
-    // (There will be an ArrayList in the jsp to store the list of categories, simply retrieve from there)
     public void setCategory(RCategory category) {
         this.category = category;
     }
@@ -138,11 +132,11 @@ public class Restaurant {
         this.bsb = bsb;
     }
 
-    public int getAccountNum() {
+    public long getAccountNum() {
         return accountNum;
     }
 
-    public void setAccountNum(int accountNum) {
+    public void setAccountNum(long accountNum) {
         this.accountNum = accountNum;
     }
 
