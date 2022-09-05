@@ -23,11 +23,20 @@
         });
     </script>
 </c:if>
+<c:if test="${not empty fail}">
+    <script>
+        $(document).ready(function() {
+            $("#div2").fadeIn();
+            $("#div2").fadeOut(2000);
+        });
+    </script>
+</c:if>
 <body>
     <div class = "container">
         <h1 class="h1 text-center">Emp List</h1>
         <a href="index.jsp" class="position-absolute top-0 end-10 btn btn-info btn-lg">Main</a>
         <div class="alert alert-success" style="display:none" id="div1">Successful!</div>
+        <div class="alert alert-danger" style="display:none" id="div2">Failed!</div>
         <div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="EditLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
