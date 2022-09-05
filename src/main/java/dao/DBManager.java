@@ -14,8 +14,19 @@ public class DBManager {
         st = conn.createStatement();   
     }
 
-    public void addUser(String firstName, String lastName, String email, String phone, String password, String dateOfBirth, String address, String cardNumber, String cardExpiration, int cardPin, String cardName) {
-        
+    public void testAdder(String firstName, String lastName) {
+        String fetch = "INSERT INTO db.tables.Customer " + "VALUES (" + firstName + ", '" + lastName + "')";
+        System.out.println(fetch);
+    }
+
+    public void addCustomer(String firstName, String lastName, String password, String email, String phoneNumber, String dob, String streetNumber, String streetName, String postcode, String state, String suburb, String country, boolean activated, String cardNumber, String cardExpiration, int cardPin, String cardName) throws SQLException {
+        String fetch = "INSERT INTO db.tables.Customer " + "VALUES (" + firstName + ", '" + lastName + "', '" + password + "', '" + email + "', '" + phoneNumber + "', '" + dob + "', '" + streetNumber + "', '" + streetName + "', '" + postcode + "', '" + state + "', '" + suburb + "', '" + country + "', '" + activated + "', '" + cardNumber + "', '" + cardExpiration + "', '" + cardPin + "', '" + cardName + "')";
+        System.out.println(fetch);
+    }
+
+    public void addStaff(String firstName, String lastName, String password, String email, String phoneNumber, String dob, String streetNumber, String streetName, String postcode, String state, String suburb, String country, boolean activated, int privilege, String position) throws SQLException {
+        String fetch = "INSERT INTO db.tables.Staff " + "VALUES (" + firstName + ", '" + lastName + "', '" + password + "', '" + email + "', '" + phoneNumber + "', '" + dob + "', '" + streetNumber + "', '" + streetName + "', '" + postcode + "', '" + state + "', '" + suburb + "', '" + country + "', '" + activated + "', '" + privilege + "', '" + position + "')";
+        System.out.println(fetch);
     }
 
     public Customer findCustomer(String email, String password) {
