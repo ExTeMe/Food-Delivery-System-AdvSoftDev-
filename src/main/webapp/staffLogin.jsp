@@ -11,11 +11,11 @@
         <form action="StaffLoginServlet" method="post">
             <table>
                 <tr>
-                    <td><label>email:</label></td>
+                    <td><label>Email:</label></td>
                     <td><input type="text" name="email" required="true"></td>
                 </tr> 
                 <tr>
-                    <td><label>password:</label></td>
+                    <td><label>Password:</label></td>
                     <td><input type="text" name="password" required="true"></td>
                 </tr> 
             </table> 
