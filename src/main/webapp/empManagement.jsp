@@ -19,7 +19,7 @@
     <script>
         $(document).ready(function() {
             $("#div1").fadeIn();
-            $("#div1").fadeOut(3000);
+            $("#div1").fadeOut(2000);
         });
     </script>
 </c:if>
@@ -28,6 +28,33 @@
         <h1 class="h1 text-center">Emp List</h1>
         <a href="index.jsp" class="position-absolute top-0 end-10 btn btn-info btn-lg">Main</a>
         <div class="alert alert-success" style="display:none" id="div1">Successful!</div>
+        <div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="EditLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="EditLabel">Set permission or position</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="EmpEdit" class ="form-horizontal" method="post">
+                        <div class="modal-body">
+                            <input type="hidden" id="staffId" name="staffId" value=""/>
+                            <div class = "form-floating mb-2">
+                                <input type="text" id="privilege" name="privilege" class="form-control" value=""/>
+                                <label for="privilege" class="col-md-1 control-label">Privilege</label>
+                            </div>
+                            <div class = "form-floating mb-2">
+                                <input type="text" id="position" name="position" class="form-control" value=""/>
+                                <label for="position" class="col-md-1 control-label">Position</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -48,7 +75,8 @@
                     <td>${staff.privilege}</td>
                     <td>${staff.position}</td>
                     <td>
-                        <a href="#" class="btn btn-primary">Edit</a>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#EditModal"
+                                data-id="${staff.staffID}" data-privilege="${staff.privilege}" data-position="${staff.position}">Edit</button>
                         <a href="EmpRemove?id=${staff.staffID}" class="btn btn-danger">Remove</a>
                     </td>
                 </tr>
@@ -56,5 +84,12 @@
             </tbody>
         </table>
     </div>
+<script>
+    $('#EditModal').on('show.bs.modal', function (event) {
+        $(this).find('#staffId').val($(event.relatedTarget).data('id'));
+        $(this).find('#privilege').val($(event.relatedTarget).data('privilege'));
+        $(this).find('#position').val($(event.relatedTarget).data('position'));
+    })
+</script>
 </body>
 </html>
