@@ -20,12 +20,12 @@ public class CustomerRegisterServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         HttpSession session = request.getSession();
-//        Customer customer = null;
+        Customer customer = null;
 
-//        String email = request.getParameter("email");
+        String email = request.getParameter("email");
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
-/*         String password = request.getParameter("password");
+        String password = request.getParameter("password");
         String phone = request.getParameter("phone");
         String dob = request.getParameter("dob"); 
 
@@ -49,24 +49,21 @@ public class CustomerRegisterServlet extends HttpServlet{
         catch (NumberFormatException ex){
             ex.printStackTrace();
         }
- */       
-
+        
         DBManager manager = (DBManager) session.getAttribute("manager");
-        System.out.println("Trying to add Customer");
-        manager.testAdder(firstName, lastName);
 
         try {
-            System.out.println("Trying to add Customer 2");
+            System.out.println("Trying to add Customer");
             manager.testAdder(firstName, lastName);
- //           manager.addCustomer(firstName, lastName, password, email, phone, dob, streetNumber, streetName, postcode, state, suburb, country, true, cardNumber, cardExpiration, cardPin, cardName);
+            manager.addCustomer(firstName, lastName, password, email, phone, dob, streetNumber, streetName, postcode, state, suburb, country, true, cardNumber, cardExpiration, cardPin, cardName);
             System.out.println("Customer entered Successful");
         }
         catch (NullPointerException ex) {
             System.out.println("nullptr exception");
         }
-   //     catch (SQLException ex) {
-    //        System.out.println("sql exception");
-   //     }
+        catch (SQLException ex) {
+            System.out.println("sql exception");
+        }
     }
 
 }
