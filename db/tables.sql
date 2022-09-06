@@ -204,7 +204,7 @@ CREATE TABLE Driver
 (
     Driver_ID INT NOT NULL AUTO_INCREMENT,
     User_ID INT NOT NULL,
-    Plate_ID INT NOT NULL,
+    Number_Plate VARCHAR(10) NOT NULL UNIQUE,
     Vehicle_Description VARCHAR(20) NOT NULL,
     Rating FLOAT,
     D_Account_Name VARCHAR(20) NOT NULL,
@@ -235,7 +235,7 @@ DROP TABLE IF EXISTS Delivery;
 CREATE TABLE Delivery
 (
     Delivery_ID INT NOT NULL AUTO_INCREMENT,
-    Order_ID INT NOT NULL,
+    Order_ID INT NOT NULL UNIQUE,
     Driver_ID INT,
     Delivery_Street VARCHAR(100),
     Delivery_Suburb VARCHAR(15),

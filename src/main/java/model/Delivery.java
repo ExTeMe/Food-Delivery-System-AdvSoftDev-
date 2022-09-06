@@ -58,101 +58,100 @@ public class Delivery {
         this.driverInstructions = driverInstructions;
     }
 
-    // Get
     public int getDeliveryID() {
         return deliveryID;
+    }
+
+    public void setDeliveryID(int deliveryID) {
+        this.deliveryID = deliveryID;
     }
 
     public int getOrderID() {
         return orderID;
     }
 
-    public int getDriverID() {
-        return driverID;
-    }
-
-    public String getDeliveryStreet() {
-        return deliveryStreet;
-    }
-
-    public String getDeliverySuburb() {
-        return deliverySuburb;
-    }
-
-    public String getDeliveryState() {
-        return deliveryState;
-    }
-
-    public String getDeliveryPostal() {
-        return deliveryPostal;
-    }
-
-    public double getDeliveryFee() {
-        return deliveryFee;
-    }
-
-    public int getDriverRating() {
-        return driverRating;
-    }
-
-    public String getDriverInstructions() {
-        return driverInstructions;
-    }
-
-    public String getDriverFeedback() {
-        return driverFeedback;
-    }
-
-    public double getDriverTip() {
-        return driverTip;
-    }
-
-    // Set
-    public void setDeliveryID(int deliveryID) {
-        this.deliveryID = deliveryID;
-    }
-
     public void setOrderID(int orderID) {
         this.orderID = orderID;
+    }
+
+    public int getDriverID() {
+        return driverID;
     }
 
     public void setDriverID(int driverID) {
         this.driverID = driverID;
     }
 
+    public String getDeliveryStreet() {
+        return deliveryStreet;
+    }
+
     public void setDeliveryStreet(String deliveryStreet) {
         this.deliveryStreet = deliveryStreet;
+    }
+
+    public String getDeliverySuburb() {
+        return deliverySuburb;
     }
 
     public void setDeliverySuburb(String deliverySuburb) {
         this.deliverySuburb = deliverySuburb;
     }
 
+    public String getDeliveryState() {
+        return deliveryState;
+    }
+
     public void setDeliveryState(String deliveryState) {
         this.deliveryState = deliveryState;
+    }
+
+    public String getDeliveryPostal() {
+        return deliveryPostal;
     }
 
     public void setDeliveryPostal(String deliveryPostal) {
         this.deliveryPostal = deliveryPostal;
     }
 
+    public double getDeliveryFee() {
+        return deliveryFee;
+    }
+
     public void setDeliveryFee(double deliveryFee) {
         this.deliveryFee = deliveryFee;
+    }
+
+    public int getDriverRating() {
+        return driverRating;
     }
 
     public void setDriverRating(int driverRating) {
         this.driverRating = driverRating;
     }
 
+    public String getDriverInstructions() {
+        return driverInstructions;
+    }
+
     public void setDriverInstructions(String driverInstructions) {
         this.driverInstructions = driverInstructions;
+    }
+
+    public String getDriverFeedback() {
+        return driverFeedback;
     }
 
     public void setDriverFeedback(String driverFeedback) {
         this.driverFeedback = driverFeedback;
     }
 
+    public double getDriverTip() {
+        return driverTip;
+    }
+
     public void setDriverTip(double driverTip) {
         this.driverTip = driverTip;
     }
+
 }

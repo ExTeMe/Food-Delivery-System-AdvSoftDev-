@@ -1,102 +1,95 @@
 package model;
 
 public class Order {
-    private int Order_ID;
-    private int Customer_ID;
-    private String Order_Type;
-    private int Coupon_ID;
-    private String Status;
-    private int Food_Rating;
-    private String Food_Instructions;
-    private String Food_Feedback;
+    private int orderID;
+    private int customerID;
+    private String orderType;
+    private int couponID;
+    private String status;
+    private int foodRating;
+    private String foodInstructions;
+    private String foodFeedback;
 
-    public Order(
-            int Order_ID,
-            int Customer_ID,
-            String Order_Type,
-            int Coupon_ID,
-            String Status,
-            int Food_Rating,
-            String Food_Instructions,
-            String Food_Feedback) {
-        this.Order_ID = Order_ID;
-        this.Customer_ID = Customer_ID;
-        this.Order_Type = Order_Type;
-        this.Coupon_ID = Coupon_ID;
-        this.Status = Status;
-        this.Food_Rating = Food_Rating;
-        this.Food_Instructions = Food_Instructions;
-        this.Food_Feedback = Food_Feedback;
+    public Order(int orderID, int customerID, String orderType, int couponID, String status, int foodRating,
+            String foodInstructions, String foodFeedback) {
+        this.orderID = orderID;
+        this.customerID = customerID;
+        this.orderType = orderType;
+        this.couponID = couponID;
+        this.status = status;
+        this.foodRating = foodRating;
+        this.foodInstructions = foodInstructions;
+        this.foodFeedback = foodFeedback;
     }
 
-    public Order(int Order_ID, int Customer_ID) {
-        this.Order_ID = Order_ID;
-        this.Customer_ID = Customer_ID;
+    // for testing
+    public Order(int orderID, int customerID) {
+        this.orderID = orderID;
+        this.customerID = customerID;
     }
 
-    // Get
     public int getOrderID() {
-        return Order_ID;
+        return orderID;
+    }
+
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
     }
 
     public int getCustomerID() {
-        return Customer_ID;
+        return customerID;
+    }
+
+    public void setCustomerID(int customerID) {
+        this.customerID = customerID;
     }
 
     public String getOrderType() {
-        return Order_Type;
+        return orderType;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
     }
 
     public int getCouponID() {
-        return Coupon_ID;
+        return couponID;
+    }
+
+    public void setCouponID(int couponID) {
+        this.couponID = couponID;
     }
 
     public String getStatus() {
-        return Status;
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public int getFoodRating() {
-        return Food_Rating;
+        return foodRating;
+    }
+
+    public void setFoodRating(int foodRating) {
+        this.foodRating = foodRating;
     }
 
     public String getFoodInstructions() {
-        return Food_Instructions;
+        return foodInstructions;
+    }
+
+    public void setFoodInstructions(String foodInstructions) {
+        this.foodInstructions = foodInstructions;
     }
 
     public String getFoodFeedback() {
-        return Food_Feedback;
+        return foodFeedback;
     }
 
-    // Set
-    public void setOrderID(int Order_ID) {
-        this.Order_ID = Order_ID;
+    public void setFoodFeedback(String foodFeedback) {
+        this.foodFeedback = foodFeedback;
     }
 
-    public void setCustomerID(int Customer_ID) {
-        this.Customer_ID = Customer_ID;
-    }
-
-    public void setOrderType(String Order_Type) {
-        this.Order_Type = Order_Type;
-    }
-
-    public void setCouponID(int Coupon_ID) {
-        this.Coupon_ID = Coupon_ID;
-    }
-
-    public void setStatus(String Status) {
-        this.Status = Status;
-    }
-
-    public void setFoodRating(int Food_Rating) {
-        this.Food_Rating = Food_Rating;
-    }
-
-    public void setFoodInstructions(String Food_Instructions) {
-        this.Food_Instructions = Food_Instructions;
-    }
-
-    public void setFoodFeedback(String Food_Feedback) {
-        this.Food_Feedback = Food_Feedback;
-    }
 }

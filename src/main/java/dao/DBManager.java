@@ -43,7 +43,7 @@ public class DBManager {
         } catch (
 
         Exception e) {
-            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, "createDelivery", e);
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
             System.out.println("Exception is: " + e);
         }
     }
@@ -61,11 +61,11 @@ public class DBManager {
                     ", DRIVER_RATING = " + delivery.getDriverRating() +
                     ", DRIVER_INSTRUCTIONS = '" + delivery.getDriverInstructions() +
                     "', DRIVER_TIP = " + delivery.getDriverTip() +
-                    ");");
+                    " WHERE DELIVERY_ID = " + delivery.getDeliveryID());
         } catch (
 
         Exception e) {
-            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, "createDelivery", e);
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
             System.out.println("Exception is: " + e);
         }
     }
@@ -90,7 +90,30 @@ public class DBManager {
                 return delivery;
             }
         } catch (Exception e) {
-            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, "createDelivery", e);
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println("Exception is: " + e);
+        }
+        return null;
+    }
+
+    // Driver
+    public DeliveryDriver getDriver(User user) {
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM DRIVER WHERE USER_ID = " + user.getUserID());
+            while (rs.next()) {
+                DeliveryDriver driver = new DeliveryDriver(
+                        rs.getInt("DRIVER_ID"),
+                        rs.getInt("USER_ID"),
+                        rs.getString("NUMBER_PLATE"),
+                        rs.getString("VEHICLE_DESCRIPTION"),
+                        rs.getFloat("RATING"),
+                        rs.getString("D_ACCOUNT_NAME"),
+                        rs.getInt("D_BSB"),
+                        rs.getInt("D_ACCOUNT_NUMBER"));
+                return driver;
+            }
+        } catch (Exception e) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
             System.out.println("Exception is: " + e);
         }
         return null;
