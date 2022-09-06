@@ -3,6 +3,7 @@
 <html>
     <head>
         <title>Welcome to the Register Page</title>
+        <link rel="stylesheet" href="css/basic.css">
     </head>
     <body>
         <h1>Register</h1>
@@ -26,10 +27,6 @@
                     <td><input type="password"  name="password" required="true"></td>
                 </tr>
                 <tr>
-                    <td><label for="address">Address:</label>
-                    <td><input type="text"  name="address" required="true"></td>
-                </tr>
-                <tr>
                     <td><label for="phone">Phone:</label>
                     <td><input type="text"  name="phone" required="true"></td>
                 </tr>
@@ -38,12 +35,36 @@
                     <td><input type="date" name="dob" required="true"></td>
                 </tr>
                 <tr>
-                    <td><label for="cardNumber">Card Number</label>
-                    <td><input type="text" name="cardNumber" required="true"></td>
+                    <td><label>Street Number</label>
+                    <td><input type="text" name="streetNumber" required="true"></td>
                 </tr> 
                 <tr>
+                    <td><label>Street Name</label>
+                    <td><input type="text" name="streetName" required="true"></td>
+                </tr> 
+                <tr>
+                    <td><label>Postcode</label>
+                    <td><input type="text" name="postcode" required="true"></td>
+                </tr> 
+                <tr>
+                    <td><label>State</label>
+                    <td><input type="text" name="state" required="true"></td>
+                </tr> 
+                <tr>
+                    <td><label>Suburb</label>
+                    <td><input type="text" name="suburb" required="true"></td>
+                </tr> 
+                <tr>
+                    <td><label>Country</label>
+                    <td><input type="text" name="country" required="true"></td>
+                </tr>
+                <tr>
+                    <td><label for="cardNumber">Card Number</label>
+                    <td><input type="text" name="cardNumber" required="true"></td>
+                </tr>  
+                <tr>
                     <td><label>Card Expiration</label>
-                    <td><input type="text" name="cardExpiration" required="true"></td>
+                    <td><input type="date" name="cardExpiration" required="true"></td>
                 </tr> 
                 <tr>
                     <td><label>Card Pin</label>

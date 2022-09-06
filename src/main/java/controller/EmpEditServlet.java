@@ -24,10 +24,9 @@ public class EmpEditServlet extends HttpServlet{
                 }
                 catch (NumberFormatException e){
                     e.printStackTrace();
-                    request.setAttribute("error", true);
+                    request.setAttribute("fail", true);
                     request.getRequestDispatcher("/empManagement.jsp").forward(request, response);
                 }
-                ((Staff) staffs.get(i)).setPrivilege(Integer.parseInt(request.getParameter("privilege")));
                 ((Staff) staffs.get(i)).setPosition(request.getParameter("position"));
             }
         }

@@ -23,7 +23,7 @@
         });
     </script>
 </c:if>
-<c:if test="${not empty error}">
+<c:if test="${not empty fail}">
     <script>
         $(document).ready(function() {
             $("#div2").fadeIn();
