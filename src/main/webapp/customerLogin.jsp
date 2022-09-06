@@ -8,7 +8,7 @@
     <body>
         <h1>Customer Login</h1>
         <br/>
-        <form action="StaffLoginServlet" method="post">
+        <form action="CustomerLoginServlet" method="post">
             <table>
                 <tr>
                     <td><label>Email:</label></td>

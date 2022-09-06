@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
 import dao.*;
 import jakarta.servlet.annotation.WebServlet;
 
-@WebServlet(name = "controller/ConnServlet", value = "/ConnServlet")
+@WebServlet(name = "ConnServlet", value = "/ConnServlet")
 public class ConnServlet extends HttpServlet {
 
     private DBConnector db;
@@ -74,7 +74,7 @@ public class ConnServlet extends HttpServlet {
 
         }
 
-        session.setAttribute("DBManager", manager);
+        session.setAttribute("manager", manager);
 
     }
 
