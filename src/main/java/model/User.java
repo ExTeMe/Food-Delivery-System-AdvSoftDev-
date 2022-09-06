@@ -20,8 +20,8 @@ public class User {
     private Boolean activated;
 
     public User(int userID, String fname, String lname, String pass,
-                String email, int phoneNo, LocalDate dob, int streetNo, String streetName,
-                int postcode, String state, String suburb, String country, Boolean activated) {
+            String email, int phoneNo, LocalDate dob, int streetNo, String streetName,
+            int postcode, String state, String suburb, String country, Boolean activated) {
         this.UserID = userID;
         this.fname = fname;
         this.lname = lname;
@@ -36,6 +36,13 @@ public class User {
         this.suburb = suburb;
         this.country = country;
         this.activated = activated;
+    }
+
+    // for testing
+    public User(int userID, String fname, String lname) {
+        UserID = userID;
+        this.fname = fname;
+        this.lname = lname;
     }
 
     public int getUserID() {
