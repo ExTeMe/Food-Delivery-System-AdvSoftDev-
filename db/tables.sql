@@ -60,19 +60,8 @@ CREATE TABLE AppStaff
 (
     A_Staff_ID INT NOT NULL AUTO_INCREMENT,
     UserID INT NOT NULL,
-    Privilege INT NOT NULL DEFAULT 0,
     PRIMARY KEY  (A_Staff_ID),
     FOREIGN KEY (UserID) REFERENCES `User`(UserID)
-);
-
-DROP TABLE IF EXISTS `Log`;
-CREATE TABLE `Log`
-(
-    Log_ID INT NOT NULL AUTO_INCREMENT,
-    A_Staff_ID INT NOT NULL,
-    `Description` VARCHAR(100),
-    PRIMARY KEY (Log_ID),
-    FOREIGN KEY (A_Staff_ID) REFERENCES AppStaff(A_Staff_ID)
 );
 
 DROP TABLE IF EXISTS Request;
@@ -200,12 +189,22 @@ CREATE TABLE C_Batch_Customer
     FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID)
 );
 
+DROP TABLE IF EXISTS Coupon_R;
+CREATE TABLE Coupon_R
+(
+    Coupon_ID INT NOT NULL,
+    Restaurant_ID INT NOT NULL,
+    PRIMARY KEY (Coupon_ID, Restaurant_ID),
+    FOREIGN KEY (Coupon_ID) REFERENCES Coupon(Coupon_ID),
+    FOREIGN KEY (Restaurant_ID) REFERENCES Restaurant(Restaurant_ID)
+);
+
 DROP TABLE IF EXISTS Driver;
 CREATE TABLE Driver
 (
     Driver_ID INT NOT NULL AUTO_INCREMENT,
     User_ID INT NOT NULL,
-    Plate_ID INT NOT NULL,
+    Number_Plate VARCHAR(10) NOT NULL UNIQUE,
     Vehicle_Description VARCHAR(20) NOT NULL,
     Rating FLOAT,
     D_Account_Name VARCHAR(20) NOT NULL,
@@ -220,21 +219,15 @@ CREATE TABLE db.Order
 (
     Order_ID INT NOT NULL AUTO_INCREMENT,
     Customer_ID INT NOT NULL,
-    Driver_ID INT,
     Order_Type VARCHAR(10) NOT NULL,
-    Delivery_Fee FLOAT,
     Coupon_ID INT,
     Status VARCHAR(10) NOT NULL,
     Food_Rating INT,
     Driver_Rating INT,
     Food_Instructions VARCHAR(100),
-    Driver_Instructions VARCHAR(100),
     Food_Feedback VARCHAR(100),
-    Driver_Feedback VARCHAR(100),
-    Driver_Tip FLOAT,
     PRIMARY KEY (Order_ID),
     FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID),
-    FOREIGN KEY (Driver_ID) REFERENCES Driver(Driver_ID),
     FOREIGN KEY (Coupon_ID) REFERENCES Coupon(Coupon_ID)
 );
 <<<<<<< HEAD
@@ -242,3 +235,22 @@ CREATE TABLE db.Order
 
 >>>>>>> c23b8f33df8e918157b24be3629d41741cd8548f
 
+DROP TABLE IF EXISTS Delivery;
+CREATE TABLE Delivery
+(
+    Delivery_ID INT NOT NULL AUTO_INCREMENT,
+    Order_ID INT NOT NULL UNIQUE,
+    Driver_ID INT,
+    Delivery_Street VARCHAR(100),
+    Delivery_Suburb VARCHAR(15),
+    Delivery_State CHAR(3),
+    Delivery_Postal VARCHAR(10),
+    Delivery_Fee FLOAT,
+    Driver_Rating INT,
+    Driver_Instructions VARCHAR(100),
+    Driver_Feedback VARCHAR(100),
+    Driver_Tip FLOAT,
+    PRIMARY KEY (Delivery_ID),
+    FOREIGN KEY (Order_ID) REFERENCES db.Order(Order_ID),
+    FOREIGN KEY (Driver_ID) REFERENCES Driver(Driver_ID)
+);

@@ -15,11 +15,11 @@ public class Restaurant {
     private final long abn;
     private String accountName;
     private int bsb;
-    private int accountNum;
+    private long accountNum;
 
     public Restaurant(int restaurantID, RCategory category, String restaurantName, int streetNum, String streetName,
                       int postcode, String state, String suburb, String country, Boolean activate, long abn, String accountName,
-                      int bsb, int accountNum) {
+                      int bsb, long accountNum) {
         this.restaurantID = restaurantID;
         this.category = category;
         this.restaurantName = restaurantName;
@@ -132,11 +132,11 @@ public class Restaurant {
         this.bsb = bsb;
     }
 
-    public int getAccountNum() {
+    public long getAccountNum() {
         return accountNum;
     }
 
-    public void setAccountNum(int accountNum) {
+    public void setAccountNum(long accountNum) {
         this.accountNum = accountNum;
     }
 
