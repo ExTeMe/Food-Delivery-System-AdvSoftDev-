@@ -13,19 +13,19 @@
         <title>Delivery Status</title>
     </head>
     <body>
+        <%
+            Order order = (Order) session.getAttribute("order");
+            DBManager manager = (DBManager) session.getAttribute("manager");
+            Delivery delivery = (Delivery) manager.getDelivery(order);
+
+            User user = (User) session.getAttribute("user");
+        %>
+
         <header>
             <div class="header-content">
                 <div class="header-start">
                     <a class="header-button" href="index.jsp"><h3>Home</h3></a>
                 </div>
-                
-                <%
-                    Order order = (Order) session.getAttribute("order");
-                    DBManager manager = (DBManager) session.getAttribute("manager");
-                    Delivery delivery = (Delivery) manager.getDelivery(order);
-
-                    User user = (User) session.getAttribute("user");
-                %>
 
                 <div class="header-end">
                     <div class="user-info header-button">

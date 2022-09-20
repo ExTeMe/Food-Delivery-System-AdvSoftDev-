@@ -11,17 +11,17 @@
     </head>
     <body>
         <header>
+            <%
+                // for testing
+                session.setAttribute("user", new User(989898, "Minh Quan", "Tran"));
+
+                User user = (User) session.getAttribute("user");
+            %>
+
             <div class="header-content">
                 <div class="header-start">
                     <a class="header-button" href="index.jsp"><h3>Home</h3></a>
                 </div>
-
-                <%
-                    // for testing
-                    session.setAttribute("user", new User(989898, "Minh Quan", "Tran"));
-
-                    User user = (User) session.getAttribute("user");
-                %>
 
                 <div class="header-end">
                     <div class="user-info header-button">

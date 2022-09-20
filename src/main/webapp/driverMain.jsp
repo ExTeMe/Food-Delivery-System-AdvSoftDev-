@@ -11,26 +11,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="./css/driverMain.css" rel="stylesheet" type="text/css" >
         <link href="./css/header.css" rel="stylesheet" type="text/css" >
-        <title>Delivery Driver</title>
+        <title>Driver Main</title>
     </head>
     <body>
+        <%
+            // for testing
+            session.setAttribute("user", new User(989898, "Minh Quan", "Tran"));
+
+            User user = (User) session.getAttribute("user");
+            DBManager manager = (DBManager) session.getAttribute("manager");
+            DeliveryDriver driver = (DeliveryDriver) manager.getDriver(user);
+
+            Order order = (Order) session.getAttribute("order");
+            Delivery delivery = (Delivery) manager.getDelivery(order);
+        %>
+        
         <header>
             <div class="header-content">
                 <div class="header-start">
                     <a class="header-button" href="index.jsp"><h3>Home</h3></a>
                 </div>
-                
-                <%
-                    // for testing
-                    session.setAttribute("user", new User(989898, "Minh Quan", "Tran"));
-
-                    User user = (User) session.getAttribute("user");
-                    DBManager manager = (DBManager) session.getAttribute("manager");
-                    DeliveryDriver driver = (DeliveryDriver) manager.getDriver(user);
-
-                    Order order = (Order) session.getAttribute("order");
-                    Delivery delivery = (Delivery) manager.getDelivery(order);
-                %>
 
                 <div class="header-end">
                     <div class="user-info header-button">
