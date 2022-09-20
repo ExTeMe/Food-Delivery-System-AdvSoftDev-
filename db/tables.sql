@@ -230,10 +230,6 @@ CREATE TABLE db.Order
     FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID),
     FOREIGN KEY (Coupon_ID) REFERENCES Coupon(Coupon_ID)
 );
-<<<<<<< HEAD
-=======
-
->>>>>>> c23b8f33df8e918157b24be3629d41741cd8548f
 
 DROP TABLE IF EXISTS Delivery;
 CREATE TABLE Delivery
