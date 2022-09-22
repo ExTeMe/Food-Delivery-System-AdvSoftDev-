@@ -3,7 +3,6 @@ package controller;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import model.RCategories;
 import model.RCategory;
 
 import java.io.IOException;
@@ -18,15 +17,15 @@ public class DeleteCatServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         int cat = Integer.parseInt(request.getParameter("cat"));
-
-        RCategories categories = (RCategories) session.getAttribute("categories");
-
-        for (RCategory category : categories.getCategories()) {
-            if (category.getRCat_ID() == cat) {
-                categories.deleteCategory(category);
-                break;
-            }
-        }
+//
+//        RCategories categories = (RCategories) session.getAttribute("categories");
+//
+//        for (RCategory category : categories.getCategories()) {
+//            if (category.getRCat_ID() == cat) {
+//                categories.deleteCategory(category);
+//                break;
+//            }
+//        }
 
         request.getRequestDispatcher("manageCat.jsp").include(request, response);
 

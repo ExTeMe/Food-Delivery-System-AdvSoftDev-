@@ -6,7 +6,7 @@ USE db;
 DROP TABLE IF EXISTS User;
 CREATE TABLE User
 (
-    UserID INT NOT NULL AUTO_INCREMENT,
+    UserID INT UNSIGNED NOT NULL AUTO_INCREMENT,
     First_Name VARCHAR(10) NOT NULL,
     Last_Name VARCHAR(10) NOT NULL,
     `Password` VARCHAR(10) NOT NULL,
@@ -26,8 +26,9 @@ CREATE TABLE User
 DROP TABLE IF EXISTS Restaurant;
 CREATE TABLE Restaurant
 (
-    Restaurant_ID INT NOT NULL AUTO_INCREMENT,
+    Restaurant_ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
     Restaurant_Name VARCHAR(20) NOT NULL,
+    Image_Reference VARCHAR(100),
     Street_Number INT NOT NULL,
     Street_Name VARCHAR(20) NOT NULL,
     Postcode INT NOT NULL,
@@ -46,8 +47,8 @@ DROP TABLE IF EXISTS Staff;
 CREATE TABLE Staff
 (
     Staff_ID INT NOT NULL AUTO_INCREMENT,
-    UserID INT NOT NULL,
-    Restaurant_ID INT NOT NULL,
+    UserID INT UNSIGNED NOT NULL,
+    Restaurant_ID INT UNSIGNED NOT NULL,
     Privilege INT NOT NULL DEFAULT 0,
     Position VARCHAR(10),
     PRIMARY KEY  (Staff_ID),
@@ -58,8 +59,8 @@ CREATE TABLE Staff
 DROP TABLE IF EXISTS AppStaff;
 CREATE TABLE AppStaff
 (
-    A_Staff_ID INT NOT NULL AUTO_INCREMENT,
-    UserID INT NOT NULL,
+    A_Staff_ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    UserID INT UNSIGNED NOT NULL,
     PRIMARY KEY  (A_Staff_ID),
     FOREIGN KEY (UserID) REFERENCES `User`(UserID)
 );
@@ -67,8 +68,8 @@ CREATE TABLE AppStaff
 DROP TABLE IF EXISTS Request;
 CREATE TABLE Request
 (
-    Request_ID INT NOT NULL AUTO_INCREMENT,
-    Restaurant_ID INT NOT NULL,
+    Request_ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    Restaurant_ID INT UNSIGNED NOT NULL,
     Request_Type VARCHAR(10) NOT NULL,
     Request_Date DATETIME NOT NULL DEFAULT NOW(),
     Request_Status INT NOT NULL DEFAULT 0,
@@ -79,7 +80,7 @@ CREATE TABLE Request
 DROP TABLE IF EXISTS RCategory;
 CREATE TABLE RCategory
 (
-    RCategory_ID INT NOT NULL AUTO_INCREMENT,
+    RCategory_ID INT UNSIGNED NOT NULL AUTO_INCREMENT,
     RCategory_Name VARCHAR(20) NOT NULL,
     RCategory_Description VARCHAR(100),
     PRIMARY KEY (RCategory_ID)
@@ -88,8 +89,8 @@ CREATE TABLE RCategory
 DROP TABLE IF EXISTS Restaurant_RCategory;
 CREATE TABLE Restaurant_RCategory
 (
-    RCategory_ID INT NOT NULL,
-    Restaurant_ID INT NOT NULL,
+    RCategory_ID INT UNSIGNED NOT NULL,
+    Restaurant_ID INT UNSIGNED NOT NULL,
     PRIMARY KEY (RCategory_ID, Restaurant_ID),
     FOREIGN KEY (RCategory_ID) REFERENCES RCategory(RCategory_ID),
     FOREIGN KEY (Restaurant_ID) REFERENCES Restaurant(Restaurant_ID)
@@ -99,7 +100,7 @@ DROP TABLE IF EXISTS Customer;
 CREATE TABLE Customer
 (
     Customer_ID INT PRIMARY KEY AUTO_INCREMENT,
-    User_ID INT NOT NULL,
+    User_ID INT UNSIGNED NOT NULL,
     Card_Number BIGINT,
     Card_Expiration DATE,
     Card_Pin INT,
@@ -111,12 +112,12 @@ DROP TABLE IF EXISTS Menu_Item;
 CREATE TABLE Menu_Item
 (
     Item_ID INT PRIMARY KEY AUTO_INCREMENT,
-    Restaurant_ID INT NOT NULL,
+    Restaurant_ID INT UNSIGNED NOT NULL,
     Item_Type Varchar(10) NOT NULL,
     Servings INT NOT NULL,
     Price FLOAT NOT NULL,
     Calories INT NOT NULL,
-    Image VARBINARY(60000) NOT NULL,
+    Image VARCHAR(200) NOT NULL,
     `Description` VARCHAR(100) NOT NULL,
     Ingredients VARCHAR(100) NOT NULL,
     Allergy VARCHAR(50),
@@ -170,7 +171,7 @@ CREATE TABLE Coupon_Batch
     Start_Date DATE NOT NULL,
     End_Date DATE NOT NULL,
     Distribution_Time TIMESTAMP NOT NULL,
-    User_ID INT NOT NULL,
+    User_ID INT UNSIGNED NOT NULL,
     Receive_Num INT NOT NULL,
     FOREIGN KEY (Coupon_ID) REFERENCES Coupon(Coupon_ID),
     FOREIGN KEY (D_Rule_ID) REFERENCES Distribution_Rule(D_Rule_ID),
@@ -193,7 +194,7 @@ DROP TABLE IF EXISTS Coupon_R;
 CREATE TABLE Coupon_R
 (
     Coupon_ID INT NOT NULL,
-    Restaurant_ID INT NOT NULL,
+    Restaurant_ID INT UNSIGNED NOT NULL,
     PRIMARY KEY (Coupon_ID, Restaurant_ID),
     FOREIGN KEY (Coupon_ID) REFERENCES Coupon(Coupon_ID),
     FOREIGN KEY (Restaurant_ID) REFERENCES Restaurant(Restaurant_ID)
@@ -203,7 +204,7 @@ DROP TABLE IF EXISTS Driver;
 CREATE TABLE Driver
 (
     Driver_ID INT NOT NULL AUTO_INCREMENT,
-    User_ID INT NOT NULL,
+    User_ID INT UNSIGNED NOT NULL,
     Number_Plate VARCHAR(10) NOT NULL UNIQUE,
     Vehicle_Description VARCHAR(20) NOT NULL,
     Rating FLOAT,
