@@ -1,22 +1,19 @@
-package controller;
+package controller.rms;
 
 // import controller.Validator; // Validator implementation in the future
  import java.io.IOException;
- import java.sql.Connection;
- import java.sql.SQLException;
- import java.util.logging.Level;
- import java.util.logging.Logger;
+
  import jakarta.servlet.ServletException;
  import jakarta.servlet.annotation.*;
  import jakarta.servlet.http.HttpServlet;
  import jakarta.servlet.http.HttpServletRequest;
  import jakarta.servlet.http.HttpServletResponse;
  import jakarta.servlet.http.HttpSession;
- import dao.*;
  import model.*;
 
- @WebServlet(name = "controller/UpdateCategoryServlet", value = "/update-category")
- public class UpdateCategoryServlet extends HttpServlet {
+ // Update what
+ @WebServlet(name = "controller/rms/UpdateCategoryServlet", value = "/update-category")
+ public class SetResCatServlet extends HttpServlet {
 
       @Override
       protected void doGet(HttpServletRequest request, HttpServletResponse response)

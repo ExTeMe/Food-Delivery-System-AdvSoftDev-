@@ -18,10 +18,17 @@ public class RCategory {
         this.restaurants = restaurants;
     }
 
-    // For controller to use to create/update a RCategory object which can be passed to the DBManager for use
+    // For controller to use to create a RCategory object which can be passed to the DBManager for use
     // Initially, there is no restaurants
     public RCategory(String rCatName, String rCatDescription) {
         this.RCat_ID = -1;
+        this.rCatName = rCatName;
+        this.rCatDescription = rCatDescription;
+    }
+
+    // For controller to use to update a RCategory object which can be passed to the DBManager for use
+    public RCategory(int RCat_ID, String rCatName, String rCatDescription) {
+        this.RCat_ID = RCat_ID;
         this.rCatName = rCatName;
         this.rCatDescription = rCatDescription;
     }

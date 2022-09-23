@@ -18,14 +18,14 @@ public class Restaurant {
     private final long abn;
     private String accountName;
     private int bsb;
-    private long accountNum;
+    private int accountNum;
 
     // For DBManager to use to fill in info + categories and passed to the controller fo use.
     public Restaurant(int restaurantID, String imageReference, String restaurantName,
                       ArrayList<RCategory> categories, int streetNum, String streetName,
                       int postcode, String state, String suburb, String country,
                       Boolean activate, long abn, String accountName,
-                      int bsb, long accountNum) {
+                      int bsb, int accountNum) {
         this.restaurantID = restaurantID;
         this.imageReference = imageReference;
         this.categories = categories;
@@ -43,12 +43,12 @@ public class Restaurant {
         this.accountNum = accountNum;
     }
 
-    // For creating restaurants where controller uses this to pass to the DBManager for record creation/update
+    // For creating restaurants where controller uses this to pass to the DBManager for record creation
     // Initially it has no categories
     public Restaurant(String imageReference, String restaurantName,
                       int streetNum, String streetName, int postcode, String state,
                       String suburb, String country, Boolean activate, long abn, String accountName,
-                      int bsb, long accountNum) {
+                      int bsb, int accountNum) {
         this.restaurantID = -1;
         this.imageReference = imageReference;
         this.restaurantName = restaurantName;
@@ -64,6 +64,28 @@ public class Restaurant {
         this.bsb = bsb;
         this.accountNum = accountNum;
     }
+
+    // For Update w/ ID being passed in for check
+    public Restaurant(int restaurantID, String imageReference, String restaurantName,
+                      int streetNum, String streetName, int postcode, String state,
+                      String suburb, String country, Boolean activate, long abn, String accountName,
+                      int bsb, int accountNum) {
+        this.restaurantID = restaurantID;
+        this.imageReference = imageReference;
+        this.restaurantName = restaurantName;
+        this.streetNum = streetNum;
+        this.streetName = streetName;
+        this.postcode = postcode;
+        this.state = state;
+        this.suburb = suburb;
+        this.country = country;
+        this.activate = activate;
+        this.abn = abn;
+        this.accountName = accountName;
+        this.bsb = bsb;
+        this.accountNum = accountNum;
+    }
+
 
     // To be used only when viewing list of restaurants under a particular category, no concern for other information
     public Restaurant(int restaurantID, String restaurantName) {
@@ -184,11 +206,11 @@ public class Restaurant {
         this.bsb = bsb;
     }
 
-    public long getAccountNum() {
+    public int getAccountNum() {
         return accountNum;
     }
 
-    public void setAccountNum(long accountNum) {
+    public void setAccountNum(int accountNum) {
         this.accountNum = accountNum;
     }
 

@@ -16,12 +16,12 @@ INSERT INTO rcategory VALUES (DEFAULT,'Slow Food', 'slow food');
 
 # RES ROWS
 INSERT INTO restaurant VALUES
-    (DEFAULT,'Obama Fried Chicken', './src/main/webapp/images/ofc.png', 91, 'Obama',
+    (DEFAULT,'Obama Fried Chicken', 'ofc.png', 91, 'Obama',
      1728, 'NSE', 'Chinatown', 'Austrelie', 1, 11122233344, 'Benz Chua',
      345678, 928718);
 
 INSERT INTO restaurant VALUES
-    (DEFAULT,'Obama Fish Chips', './src/main/webapp/images/ofc.png', 18, 'Obama',
+    (DEFAULT,'Obama Fish Chips', 'ofc.png', 18, 'Obama',
      1578, 'NSE', 'Chinatown', 'Austrelie', 1, 12123233544, 'Benzz Chua',
      342978, 920978);
 

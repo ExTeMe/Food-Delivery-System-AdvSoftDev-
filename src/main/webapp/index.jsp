@@ -42,7 +42,7 @@
                         <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="./staffLogin.jsp">Staff Login</a>
                         <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="./staffRegister.jsp">Staff Register</a>
                     <% } else { %>
-                        <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="manageCat.jsp">Manage Category</a>
+                        <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="all-category">Manage Category</a>
                         <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="empManagement.jsp">Emp Management</a>
                     <% } %>
                     <%--Temporary Authentication. Main authentication will come from user login. To demonstrate what a normal customer and appstaff can see.--%>
@@ -52,6 +52,7 @@
                         </a>
                     <% } %>
                 </div>
+                <%-- Add a action= property to redirect searches & set method= to post --%>
                 <form class="searchf d-flex me-5" role="search">
                     <input class="searchbar form-control me-1" type="search" placeholder="Search" aria-label="Search">
                     <button class="search btn btn-outline-success" type="submit">Search</button>

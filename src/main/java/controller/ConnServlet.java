@@ -29,6 +29,7 @@ public class ConnServlet extends HttpServlet {
     private DBConnector db;
 
     private DBManager manager;
+    private ResDBManager resmanager;
 
     private Connection conn;
 
@@ -66,6 +67,7 @@ public class ConnServlet extends HttpServlet {
         try {
 
             manager = new DBManager(conn);
+            resmanager = new ResDBManager(conn);
 
 
         } catch (SQLException ex) {
@@ -75,6 +77,7 @@ public class ConnServlet extends HttpServlet {
         }
 
         session.setAttribute("DBManager", manager);
+        session.setAttribute("ResDBManager", resmanager);
 
     }
 
