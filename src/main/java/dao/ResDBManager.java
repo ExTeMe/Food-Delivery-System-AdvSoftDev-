@@ -104,6 +104,39 @@ public class ResDBManager {
 
     }
 
+    // Manual way of creating restaurants, for R1, AppStaff will manually add them
+    // Also acts as an alternative way to add restaurants
+    public void createRestaurant(Restaurant restaurant) throws SQLException, Exception {
+        String fetch = "INSERT INTO db.restaurant VALUES (DEFAULT, '" + restaurant.getRestaurantName() + "', '"
+                + restaurant.getImageReference() + "', " + restaurant.getStreetNum() + ", '" +
+                restaurant.getStreetName() + "', " + restaurant.getPostcode() + ", '"
+                + restaurant.getState() + "', '" + restaurant.getSuburb() + "', '" + restaurant.getCountry()
+                + "', " + restaurant.getActivate() + ", " + restaurant.getAbn() + ", '"
+                + restaurant.getAccountName() + "', " + restaurant.getBsb() + ", "
+                + restaurant.getAccountNum() + ")";
+
+        st.executeUpdate(fetch);
+        // NOTE: Boolean is converted to 1/0 when inserted and when querying from DB, it returns an INT representation
+    }
+
+    // Manual way of updating restaurants, for R1, AppStaff will manually update them
+    // Also acts as an alternative way to update restaurants
+    public void updateRestaurant(Restaurant restaurant, String oldRestaurantName) throws SQLException, Exception {
+        String fetch = "UPDATE db.restaurant SET Restaurant_Name = '" + restaurant.getRestaurantName()
+                + "', Image_Reference = '" + restaurant.getImageReference()
+                + "', Street_Number = " + restaurant.getStreetNum()
+                + ", Street_Name = '" + restaurant.getStreetName()
+                + "', Postcode = " + restaurant.getPostcode()
+                + ", State = '" + restaurant.getState() + "', Suburb = '" + restaurant.getSuburb()
+                + "', Country = '" + restaurant.getCountry()
+                + "', Activated = " + restaurant.getActivate()
+                + ", ABN = " + restaurant.getAbn() + ", Account_Name = '" + restaurant.getAccountName()
+                + "', BSB = " + restaurant.getBsb() + ", Account_Number = " + restaurant.getAccountNum()
+                + " WHERE Restaurant_Name = '" + oldRestaurantName + "'";
+
+        st.executeUpdate(fetch);
+    }
+
     // Force activation to require specific name, don't want to activate the wrong restaurant
     public void activateRestaurant(String name) throws SQLException, Exception {
         String fetch = "SELECT Restaurant_ID FROM db.restaurant WHERE Restaurant_Name = '" + name + "'";
