@@ -40,17 +40,13 @@ public class ModifyCategoryServlet extends HttpServlet {
             request.getRequestDispatcher("modifyCat.jsp").include(request, response);
         }
 
-
-        // Modify URL name here
-        String url = "modifyCat.jsp";
-
         // If ID is empty means we want to create a new record
         // ID is a hidden field which will have an ID if we are modifying an existing record
         if (catID.equals("")) {
             try {
                 manager.createCategory(new RCategory(catName, catDesc));
                 session.setAttribute("ModifySuccess", "Successfully Added Category!");
-                request.getRequestDispatcher(url).include(request, response);
+                request.getRequestDispatcher("modifyCat.jsp").include(request, response);
             } catch (Exception e) {
                 Logger.getLogger(ModifyCategoryServlet.class.getName()).log(Level.SEVERE, null, e);
                 request.getRequestDispatcher("modifyCat.jsp").include(request, response);
@@ -59,9 +55,8 @@ public class ModifyCategoryServlet extends HttpServlet {
         else {
             try {
                 manager.updateCategory(new RCategory(Integer.parseInt(catID), catName, catDesc));
-                url = url + "?cat=" + catID;
                 session.setAttribute("ModifySuccess", "Successfully Edited Category!");
-                request.getRequestDispatcher(url).include(request, response);
+                request.getRequestDispatcher("find-cat?id=" + catID).include(request, response);
             } catch (Exception e) {
                 Logger.getLogger(ModifyCategoryServlet.class.getName()).log(Level.SEVERE, null, e);
                 request.getRequestDispatcher("modifyCat.jsp").include(request, response);

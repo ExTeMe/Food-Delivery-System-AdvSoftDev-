@@ -26,7 +26,7 @@ public class DeleteCatServlet extends HttpServlet {
         try {
             manager.deleteCategory(cat);
             session.setAttribute("cDeleteSuccess", "Successfully Deleted Category!");
-            request.getRequestDispatcher("manageCat.jsp").include(request, response);
+            request.getRequestDispatcher("all-category").include(request, response);
         } catch (Exception e) {
             Logger.getLogger(DeleteCatServlet.class.getName()).log(Level.SEVERE, null, e);
             session.setAttribute("cDeleteError", "Unable To Delete Category!");

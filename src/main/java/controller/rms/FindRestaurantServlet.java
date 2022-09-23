@@ -21,11 +21,21 @@ public class FindRestaurantServlet extends HttpServlet {
         ResDBManager manager = (ResDBManager) session.getAttribute("ResDBManager");
 
         String resName = request.getParameter("name");
+        String resID = request.getParameter("id");
+
+        ArrayList<Restaurant> restaurants;
 
         try {
-            ArrayList<Restaurant> restaurants = manager.findRestaurants(resName);
-            session.setAttribute("restaurants", restaurants);
-            request.getRequestDispatcher("manageRes.jsp").include(request, response);
+            if (resName.equals("")) {
+                restaurants = manager.findRestaurant(resID);
+                session.setAttribute("restaurants", restaurants);
+                request.getRequestDispatcher("modifyRes.jsp").include(request, response);
+            }
+            else {
+                restaurants = manager.findRestaurant(resName);
+                session.setAttribute("restaurants", restaurants);
+                request.getRequestDispatcher("manageRes.jsp").include(request, response);
+            }
         } catch (Exception e) {
             Logger.getLogger(GetAllCategoryServlet.class.getName()).log(Level.SEVERE, null, e);
             request.getRequestDispatcher("manageRes.jsp").include(request, response);

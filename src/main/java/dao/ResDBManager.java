@@ -12,8 +12,15 @@ public class ResDBManager {
         st = conn.createStatement();
     }
 
-    public ArrayList<Restaurant> findRestaurants(String name) throws SQLException, Exception {
+    public ArrayList<Restaurant> findRestaurant(String name) throws SQLException, Exception {
         String fetch = "SELECT * FROM db.restaurant WHERE Restaurant_Name LIKE '%" + name + "%'";
+        // Return list of restaurants matching a certain name pattern
+        return getRestaurants(fetch);
+    }
+
+    // For Update Forms to retrieve up-to-date information for that particular restaurant
+    public ArrayList<Restaurant> findRestaurant(int id) throws SQLException, Exception {
+        String fetch = "SELECT * FROM db.restaurant WHERE Restaurant_Name = " + id;
         // Return list of restaurants matching a certain name pattern
         return getRestaurants(fetch);
     }
@@ -60,7 +67,7 @@ public class ResDBManager {
     private ArrayList<RCategory> getRestaurantCategories(int id) throws SQLException, Exception {
         String fetch = "SELECT RC.RCategory_ID, RCategory_Name " +
                 "FROM db.restaurant_rcategory RR INNER JOIN db.restaurant R " +
-                "INNER JOIN db.rcategory RC WHERE Restaurant_ID = " + id + " AND " +
+                "INNER JOIN db.rcategory RC WHERE R.Restaurant_ID = " + id + " AND " +
                 "RR.Restaurant_ID = R.Restaurant_ID AND RR.RCategory_ID = RC.RCategory_ID";
 
         // Not using LIKE %% because this function is only used for searching categories under a specific restaurant
@@ -124,36 +131,23 @@ public class ResDBManager {
         st.executeUpdate(fetch);
     }
 
-    // Force activation to require specific name, don't want to activate the wrong restaurant
-    public void activateRestaurant(int id) throws SQLException, Exception {
+    public int restaurantActivation(int id) throws SQLException, Exception {
         String fetch = "SELECT Activated FROM db.restaurant WHERE Restaurant_ID = " + id;
 
         ResultSet rs = st.executeQuery(fetch);
 
         if (rs.next()) {
             if (Integer.parseInt(rs.getString("Activated")) == 1) {
-                throw new Exception("Restaurant Already Activated!");
+                st.executeUpdate("UPDATE db.restaurant SET Activated = 0 WHERE Restaurant_ID = " + id);
+                return 0;
             }
             else {
                 st.executeUpdate("UPDATE db.restaurant SET Activated = 1 WHERE Restaurant_ID = " + id);
+                return 1;
             }
         }
-    }
 
-    // Force deactivation to require specific name, don't want to deactivate the wrong restaurant
-    public void deactivateRestaurant(int id) throws SQLException, Exception {
-        String fetch = "SELECT Activated FROM db.restaurant WHERE Restaurant_ID = " + id;
-
-        ResultSet rs = st.executeQuery(fetch);
-
-        if (rs.next()) {
-            if (Integer.parseInt(rs.getString("Activated")) == 0) {
-                throw new Exception("Restaurant Already Deactivated!");
-            }
-            else {
-                st.executeUpdate("UPDATE db.restaurant SET Activated = 0 WHERE Restaurant_ID = " + id);
-            }
-        }
+        return -1;
     }
 
     public ArrayList<RCategory> seeAllRCategories() throws SQLException, Exception {
@@ -162,8 +156,15 @@ public class ResDBManager {
         return getRCategories(fetch);
     }
 
-    public ArrayList<RCategory> findRCategories(String name) throws SQLException, Exception {
+    public ArrayList<RCategory> findRCategory(String name) throws SQLException, Exception {
         String fetch = "SELECT * FROM db.rcategory WHERE RCategory_Name LIKE '%" + name + "%'";
+
+        return getRCategories(fetch);
+    }
+
+    // For Update Forms to retrieve up-to-date information for that particular category
+    public ArrayList<RCategory> findRCategory(int id) throws SQLException, Exception {
+        String fetch = "SELECT * FROM db.rcategory WHERE RCategory_ID = " + id;
 
         return getRCategories(fetch);
     }
@@ -190,7 +191,7 @@ public class ResDBManager {
     private ArrayList<Restaurant> getCategoryRestaurants(int id) throws SQLException, Exception {
         String fetch = "SELECT R.Restaurant_ID, R.Restaurant_Name " +
                 "FROM db.restaurant_rcategory RR INNER JOIN db.restaurant R " +
-                "INNER JOIN db.rcategory RC WHERE RCategory_ID = " + id + " AND " +
+                "INNER JOIN db.rcategory RC WHERE RC.RCategory_ID = " + id + " AND " +
                 "RR.Restaurant_ID = R.Restaurant_ID AND RR.RCategory_ID = RC.RCategory_ID";
 
         ResultSet rs = st.executeQuery(fetch);

@@ -23,7 +23,7 @@ public class DeleteRestaurantServlet extends HttpServlet {
         try {
             manager.deleteRestaurant(resID);
             session.setAttribute("rDeleteSuccess", "Successfully Deleted Restaurant!");
-            request.getRequestDispatcher("manageRes.jsp").include(request, response);
+            request.getRequestDispatcher("all-restaurant").include(request, response);
         } catch (Exception e) {
             Logger.getLogger(DeleteCatServlet.class.getName()).log(Level.SEVERE, null, e);
             session.setAttribute("rDeleteError", "Unable To Delete Restaurant!");

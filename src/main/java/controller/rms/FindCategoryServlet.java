@@ -22,12 +22,20 @@ public class FindCategoryServlet extends HttpServlet {
         ResDBManager manager = (ResDBManager) session.getAttribute("ResDBManager");
 
         String catName = request.getParameter("name");
+        String catID = request.getParameter("id");
+
+        ArrayList<RCategory> rcategories;
 
         try {
-            ArrayList<RCategory> rcategories = manager.findRCategories(catName);
-            // Update rcategories to update the list view
-            session.setAttribute("rcategories", rcategories);
-            request.getRequestDispatcher("manageCat.jsp").include(request, response);
+            if (catName.equals("")) {
+                rcategories = manager.findRCategory(catID);
+                session.setAttribute("rcategories", rcategories);
+                request.getRequestDispatcher("modifyCat.jsp").include(request, response);
+            } else {
+                rcategories = manager.findRCategory(catName);
+                session.setAttribute("rcategories", rcategories);
+                request.getRequestDispatcher("manageCat.jsp").include(request, response);
+            }
         } catch (Exception e) {
             Logger.getLogger(GetAllCategoryServlet.class.getName()).log(Level.SEVERE, null, e);
             request.getRequestDispatcher("manageCat.jsp").include(request, response);

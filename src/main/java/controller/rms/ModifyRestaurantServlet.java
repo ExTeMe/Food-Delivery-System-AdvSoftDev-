@@ -95,9 +95,6 @@ public class ModifyRestaurantServlet extends HttpServlet {
             request.getRequestDispatcher("modifyRes.jsp").include(request, response);
         }
 
-        // Modify URL name here
-        String url = "modifyRes.jsp";
-
         // If ID is empty means we want to create a new record
         // ID is a hidden field which will have an ID if we are modifying an existing record
         if (resID.equals("")) {
@@ -107,7 +104,7 @@ public class ModifyRestaurantServlet extends HttpServlet {
                         (Integer.parseInt(activation) == 1), Long.parseLong(abn),
                         acctName, Integer.parseInt(bsb), Integer.parseInt(acctNum)));
                 session.setAttribute("rModifySuccess", "Successfully Added Restaurant!");
-                request.getRequestDispatcher(url).include(request, response);
+                request.getRequestDispatcher("modifyRes.jsp").include(request, response);
             } catch (Exception e) {
                 Logger.getLogger(ModifyCategoryServlet.class.getName()).log(Level.SEVERE, null, e);
                 request.getRequestDispatcher("modifyRes.jsp").include(request, response);
@@ -120,9 +117,8 @@ public class ModifyRestaurantServlet extends HttpServlet {
                         Integer.parseInt(postcode), state, suburb, country,
                         (Integer.parseInt(activation) == 1), Long.parseLong(abn),
                         acctName, Integer.parseInt(bsb), Integer.parseInt(acctNum)));
-                url = url + "?res=" + resID;
                 session.setAttribute("rModifySuccess", "Successfully Edited Restaurant!");
-                request.getRequestDispatcher(url).include(request, response);
+                request.getRequestDispatcher("find-res?id=" + resID).include(request, response);
             } catch (Exception e) {
                 Logger.getLogger(ModifyCategoryServlet.class.getName()).log(Level.SEVERE, null, e);
                 request.getRequestDispatcher("modifyRes.jsp").include(request, response);
