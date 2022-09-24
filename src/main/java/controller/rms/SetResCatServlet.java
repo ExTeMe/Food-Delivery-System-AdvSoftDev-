@@ -19,25 +19,25 @@ package controller.rms;
       protected void doGet(HttpServletRequest request, HttpServletResponse response)
               throws ServletException, IOException {
 
-           HttpSession session = request.getSession();
-
-           Restaurant res = (Restaurant) session.getAttribute("restaurant");
-           RCategories categories = (RCategories) session.getAttribute("categories");
-
-           // resID is useless here, since we aren't even interacting with the DBs
-           int resID = Integer.parseInt(request.getParameter("resID"));
-           int cat = Integer.parseInt(request.getParameter("cat"));
-
-           if (res.getRestaurantID() == resID) {
-               for (RCategory category : categories.getCategories()) {
-                   if (category.getRCat_ID() == cat) {
-                       res.setCategory(category);
-                       break;
-                   }
-               }
-           }
-
-           request.getRequestDispatcher("index.jsp").include(request, response);
+//           HttpSession session = request.getSession();
+//
+//           Restaurant res = (Restaurant) session.getAttribute("restaurant");
+//           RCategories categories = (RCategories) session.getAttribute("categories");
+//
+//           // resID is useless here, since we aren't even interacting with the DBs
+//           int resID = Integer.parseInt(request.getParameter("resID"));
+//           int cat = Integer.parseInt(request.getParameter("cat"));
+//
+//           if (res.getRestaurantID() == resID) {
+//               for (RCategory category : categories.getCategories()) {
+//                   if (category.getRCat_ID() == cat) {
+//                       res.setCategory(category);
+//                       break;
+//                   }
+//               }
+//           }
+//
+//           request.getRequestDispatcher("index.jsp").include(request, response);
 
       }
 

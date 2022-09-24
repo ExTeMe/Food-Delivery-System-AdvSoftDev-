@@ -1,15 +1,20 @@
 package dao;
 
+import controller.ConnServlet;
 import model.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ResDBManager {
 
     private Statement st;
+    private Statement st2;
 
-    public ResDBManager(Connection conn) throws SQLException {
+    public ResDBManager(Connection conn, Connection conn2) throws SQLException {
         st = conn.createStatement();
+        st2 = conn2.createStatement();
     }
 
     public ArrayList<Restaurant> findRestaurant(String name) throws SQLException, Exception {
@@ -33,16 +38,14 @@ public class ResDBManager {
     }
 
     private ArrayList<Restaurant> getRestaurants(String fetch) throws SQLException, Exception {
+
         ResultSet rs = st.executeQuery(fetch);
 
         ArrayList<Restaurant> resList = new ArrayList<>();
 
         while (rs.next()) {
+
             int resID = Integer.parseInt(rs.getString("Restaurant_ID"));
-
-            // Search for the categories below that restaurant
-            ArrayList<RCategory> categories = getRestaurantCategories(resID);
-
             String resName = rs.getString("Restaurant_Name");
             String imageRef = rs.getString("Image_Reference");
             int streetNo = Integer.parseInt(rs.getString("Street_Number"));
@@ -56,6 +59,10 @@ public class ResDBManager {
             String accountName = rs.getString("Account_Name");
             int bsb = Integer.parseInt(rs.getString("BSB"));
             int accountNumber = Integer.parseInt(rs.getString("Account_Number"));
+
+            // Search for the categories below that restaurant
+            ArrayList<RCategory> categories = getRestaurantCategories(resID);
+
             resList.add(new Restaurant(resID, imageRef, resName, categories, streetNo, streetName,
                     postcode, state, suburb, country, activated, abn, accountName, bsb, accountNumber));
         }
@@ -70,9 +77,8 @@ public class ResDBManager {
                 "INNER JOIN db.rcategory RC WHERE R.Restaurant_ID = " + id + " AND " +
                 "RR.Restaurant_ID = R.Restaurant_ID AND RR.RCategory_ID = RC.RCategory_ID";
 
-        // Not using LIKE %% because this function is only used for searching categories under a specific restaurant
-
-        ResultSet rs = st.executeQuery(fetch);
+        // using st2 made from a 2nd db connection to allow concurrent querying to avoid closing ResultSet
+        ResultSet rs = st2.executeQuery(fetch);
 
         ArrayList<RCategory> catList = new ArrayList<>();
 
@@ -176,11 +182,10 @@ public class ResDBManager {
 
         while (rs.next()) {
             int catID = Integer.parseInt(rs.getString("RCategory_ID"));
-
-            ArrayList<Restaurant> restaurants = getCategoryRestaurants(catID);
-
             String rCatName = rs.getString("RCategory_Name");
             String desc = rs.getString("RCategory_Description");
+
+            ArrayList<Restaurant> restaurants = getCategoryRestaurants(catID);
 
             catList.add(new RCategory(catID, rCatName, desc, restaurants));
         }
@@ -194,7 +199,7 @@ public class ResDBManager {
                 "INNER JOIN db.rcategory RC WHERE RC.RCategory_ID = " + id + " AND " +
                 "RR.Restaurant_ID = R.Restaurant_ID AND RR.RCategory_ID = RC.RCategory_ID";
 
-        ResultSet rs = st.executeQuery(fetch);
+        ResultSet rs = st2.executeQuery(fetch);
 
         ArrayList<Restaurant> resList = new ArrayList<>();
 

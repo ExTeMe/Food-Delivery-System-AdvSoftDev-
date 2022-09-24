@@ -22,6 +22,7 @@ public class FindRestaurantServlet extends HttpServlet {
 
         String resName = request.getParameter("name");
         String resID = request.getParameter("id");
+        String view = request.getParameter("view");
 
         ArrayList<Restaurant> restaurants;
 
@@ -34,11 +35,13 @@ public class FindRestaurantServlet extends HttpServlet {
             else {
                 restaurants = manager.findRestaurant(resName);
                 session.setAttribute("restaurants", restaurants);
-                request.getRequestDispatcher("manageRes.jsp").include(request, response);
+                if (view.equals("user")) { request.getRequestDispatcher("index.jsp").include(request, response); }
+                else { request.getRequestDispatcher("manageRes.jsp").include(request, response); }
             }
         } catch (Exception e) {
             Logger.getLogger(GetAllCategoryServlet.class.getName()).log(Level.SEVERE, null, e);
-            request.getRequestDispatcher("manageRes.jsp").include(request, response);
+            if (view.equals("user")) { request.getRequestDispatcher("index.jsp").include(request, response); }
+            else { request.getRequestDispatcher("manageRes.jsp").include(request, response); }
         }
 
     }

@@ -3,7 +3,7 @@
 
     <display-name>Food Delivery System</display-name>
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>ConnServlet</welcome-file>
     </welcome-file-list>
 
     <session-config>
