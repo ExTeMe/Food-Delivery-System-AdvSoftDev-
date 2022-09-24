@@ -10,6 +10,7 @@
 <%@page import="model.*" %>
 <%@page import="java.util.ArrayList"%>
 <%@page import="controller.*" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,40 +24,45 @@
 
 <body class="overflow-hidden bg-light">
 
+<%
+    String cDeleteSuccess = (String) session.getAttribute("cDeleteSuccess");
+    String cDeleteError = (String) session.getAttribute("cDeleteError");
+%>
+
     <div class="container-fluid text-center">
 
         <div class="me-3">
             <a href="modifyCat.jsp" class="float-start btn btn-light text-dark ms-2"> Add </a>
-            <a href="index.jsp" class="float-end btn btn-light text-dark ms-2"> Exit </a>
+            <% if (cDeleteSuccess != null) { %> <div class="mt-3 alert alert-success"><%=cDeleteSuccess%></div> <% }
+            else if (cDeleteError != null) { %> <div class="mt-3 alert alert-danger"><%=cDeleteError%></div> <% } %>
+            <a href="index" class="float-end btn btn-light text-dark ms-2"> Exit </a>
         </div>
 
         <h1 class="h1 text-light mt-3 ms-5">Manage Category</h1>
 
-        <% RCategories rcategories = (RCategories) session.getAttribute("categories");
-           ArrayList<RCategory> listOfCategories = rcategories.getCategories();
-        %>
+        <% ArrayList<RCategory> rcategories = (ArrayList<RCategory>) session.getAttribute("rcategories"); %>
 
         <table class="table table-light mt-4">
-            <tr>
-                <th class="text-dark text-center ">Name</th>
-                <th class="text-dark text-center ">Description</th>
-                <th class="text-dark text-center ">Options</th>
-            </tr>
-
-            <% for (RCategory category : listOfCategories) { %>
-                <tr class="catrow">
-                    <td class="text-dark text-center "><%=category.getrCatName()%></td>
-                    <td class="text-dark text-center "><%=category.getrCatDescription()%></td>
-                    <td class="text-dark text-center">
-                        <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="modifyCat.jsp?cat=<%=category.getRCat_ID()%>">Edit</a>
-                        <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="delete-cat?cat=<%=category.getRCat_ID()%>">Delete</a>
-                    </td>
+            <thead>
+                <tr>
+                    <th class="text-dark text-center ">Name</th>
+                    <th class="text-dark text-center ">Description</th>
+                    <th class="text-dark text-center ">Options</th>
                 </tr>
-            <% } %>
+            </thead>
+            <tbody>
+                <c:forEach items="${rcategories}" var="rcategory">
+                    <tr class="catrow">
+                        <td class="text-dark text-center ">${rcategory.rCatName}</td>
+                        <td class="text-dark text-center ">${rcategory.rCatDescription}</td>
+                        <td class="text-dark text-center">
+                            <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="modifyCat.jsp?cat=${rcategory.rCatID}">Edit</a>
+                            <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="delete-cat?cat=${rcategory.rCatID}">Delete</a>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
         </table>
-
-
     </div>
-
 </body>
 </html>

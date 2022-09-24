@@ -41,6 +41,7 @@
                     <% } else { %>
                         <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="all-category">Manage Category</a>
                         <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="all-restaurant">Manage Restaurant</a>
+                        <%-- this button placement needs to be placed in individual restaurants page --%>
                         <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="empManagement.jsp">Emp Management</a>
                     <% } %>
                     <%--Temporary - AppStaff login is not made yet--%>

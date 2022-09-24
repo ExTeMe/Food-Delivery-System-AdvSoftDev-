@@ -19,7 +19,6 @@ public class GetAllRestaurantServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        String view = request.getParameter("view");
         ResDBManager manager = (ResDBManager) session.getAttribute("ResDBManager");
 
         // set restaurants for session only, manageRes will use this attribute to retrieve all active res

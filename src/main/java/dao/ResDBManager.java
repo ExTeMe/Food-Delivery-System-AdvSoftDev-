@@ -1,11 +1,8 @@
 package dao;
 
-import controller.ConnServlet;
 import model.*;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ResDBManager {
 
@@ -223,7 +220,7 @@ public class ResDBManager {
     public void updateCategory(RCategory category) throws SQLException, Exception {
         String fetch = "UPDATE db.rcategory SET RCategory_Name = '" + category.getrCatName() + "', " +
                 "RCategory_Description = '" + category.getrCatDescription() + "' WHERE RCategory_ID = "
-                + category.getRCat_ID();
+                + category.getrCatID();
 
         st.executeUpdate(fetch);
     }

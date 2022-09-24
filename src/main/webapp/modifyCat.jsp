@@ -39,7 +39,7 @@
                 RCategory rcategory = null;
                 if (cat != null) {
                     for (RCategory category : categories.getCategories()) {
-                        if (category.getRCat_ID() == Integer.parseInt(cat)) rcategory = category;
+                        if (category.getrCatID() == Integer.parseInt(cat)) rcategory = category;
                     }
                 }
             %>
@@ -63,7 +63,7 @@
             </div>
 
             <input type="hidden" name="id"
-                   value="<%= (rcategory != null) ? rcategory.getRCat_ID(): "" %>">
+                   value="<%= (rcategory != null) ? rcategory.getrCatID(): "" %>">
 
             <div class="form-group mb-5">
                 <span>
