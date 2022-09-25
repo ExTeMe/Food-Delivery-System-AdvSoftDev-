@@ -24,19 +24,19 @@
 </head>
 <body>
 <%
-    String success = (String) session.getAttribute("rModifySuccess"); session.setAttribute("rModifySuccess", "");
-    Restaurant restaurant = (Restaurant) session.getAttribute("restaurant"); session.setAttribute("restaurant", null);
-    String strNameError = (String) session.getAttribute("rStrNameError"); session.setAttribute("rStrNameError", "");
-    String postCodeError = (String) session.getAttribute("rPostCodeError"); session.setAttribute("rPostCodeError", "");
-    String stateError = (String) session.getAttribute("rStateError"); session.setAttribute("rStateError", "");
-    String suburbError = (String) session.getAttribute("rSuburbError"); session.setAttribute("rSuburbError", "");
-    String countryError = (String) session.getAttribute("rCountryError"); session.setAttribute("rCountryError", "");
-    String ABNError = (String) session.getAttribute("rABNError"); session.setAttribute("rABNError", "");
-    String acctNumError = (String) session.getAttribute("rAcctNumError"); session.setAttribute("rAcctNumError", "");
-    String acctNameError = (String) session.getAttribute("rAcctNameError"); session.setAttribute("rAcctNameError", "");
-    String BSBError = (String) session.getAttribute("rBSBError"); session.setAttribute("rBSBError", "");
-    String strNumError = (String) session.getAttribute("rStrNumError"); session.setAttribute("rStrNumError", "");
-    String resNameError = (String) session.getAttribute("rResNameError"); session.setAttribute("rResNameError", "");
+    String success = (String) session.getAttribute("rModifySuccess");
+    Restaurant restaurant = (Restaurant) session.getAttribute("restaurant");
+    String strNameError = (String) session.getAttribute("rStrNameError");
+    String postCodeError = (String) session.getAttribute("rPostCodeError");
+    String stateError = (String) session.getAttribute("rStateError");
+    String suburbError = (String) session.getAttribute("rSuburbError");
+    String countryError = (String) session.getAttribute("rCountryError");
+    String ABNError = (String) session.getAttribute("rABNError");
+    String acctNumError = (String) session.getAttribute("rAcctNumError");
+    String acctNameError = (String) session.getAttribute("rAcctNameError");
+    String BSBError = (String) session.getAttribute("rBSBError");
+    String strNumError = (String) session.getAttribute("rStrNumError");
+    String resNameError = (String) session.getAttribute("rResNameError");
 %>
 
 <div class="container">

@@ -19,6 +19,7 @@ public class GetAllCategoryServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         ResDBManager manager = (ResDBManager) session.getAttribute("ResDBManager");
+        clear(session);
 
         // set rcategories for session only, manageCat will use this attribute to retrieve all active rcats
         try {
@@ -30,6 +31,13 @@ public class GetAllCategoryServlet extends HttpServlet {
             request.getRequestDispatcher("manageCat.jsp").include(request, response);
         }
 
+    }
+
+    private void clear(HttpSession session) {
+        session.setAttribute("catNameError", "");
+        session.setAttribute("cModifySuccess", "");
+        session.setAttribute("catDescError", "");
+        session.setAttribute("rcategory", null);
     }
 
 }

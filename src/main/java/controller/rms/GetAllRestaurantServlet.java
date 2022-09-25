@@ -20,6 +20,7 @@ public class GetAllRestaurantServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         ResDBManager manager = (ResDBManager) session.getAttribute("ResDBManager");
+        clear(session);
 
         // set restaurants for session only, manageRes will use this attribute to retrieve all active res
         try {
@@ -32,6 +33,23 @@ public class GetAllRestaurantServlet extends HttpServlet {
         }
 
     }
+
+    private void clear(HttpSession session) {
+        session.setAttribute("rStrNameError", "");
+        session.setAttribute("rModifySuccess", "");
+        session.setAttribute("rPostCodeError", "");
+        session.setAttribute("rStateError", "");
+        session.setAttribute("rSuburbError", "");
+        session.setAttribute("rCountryError", "");
+        session.setAttribute("rABNError", "");
+        session.setAttribute("rAcctNumError", "");
+        session.setAttribute("rAcctNameError", "");
+        session.setAttribute("rBSBError", "");
+        session.setAttribute("rStrNumError", "");
+        session.setAttribute("rResNameError", "");
+        session.setAttribute("restaurant", null);
+    }
+
 }
 
 

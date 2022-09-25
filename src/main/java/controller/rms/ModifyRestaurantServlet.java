@@ -126,6 +126,7 @@ public class ModifyRestaurantServlet extends HttpServlet {
                         (Integer.parseInt(activation) == 1), Long.parseLong(abn),
                         acctName, Integer.parseInt(bsb), Integer.parseInt(acctNum)));
                 session.setAttribute("rModifySuccess", "Successfully Edited Restaurant!");
+                session.setAttribute("restaurant", restaurant);
                 request.getRequestDispatcher("modifyRes.jsp?edit=true").include(request, response);
             } catch (Exception e) {
                 Logger.getLogger(ModifyCategoryServlet.class.getName()).log(Level.SEVERE, null, e);

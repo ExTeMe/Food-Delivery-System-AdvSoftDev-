@@ -31,7 +31,7 @@
 
 <div class="container-fluid text-center">
 
-    <div class="me-3">
+    <div class="mt-3 me-3">
         <a href="modifyRes.jsp" class="float-start btn btn-light text-dark ms-2"> Add </a>
         <% if (rDeleteSuccess != null && !rDeleteSuccess.equals("")) { %>
             <div class="d-inline-flex alert alert-success"><%=rDeleteSuccess%></div>

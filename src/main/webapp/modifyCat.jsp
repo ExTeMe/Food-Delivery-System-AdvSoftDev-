@@ -24,10 +24,10 @@
 </head>
 <body>
     <%
-        String success = (String) session.getAttribute("cModifySuccess"); session.setAttribute("cModifySuccess", "");
-        String nameError = (String) session.getAttribute("catNameError"); session.setAttribute("catNameError", "");
-        String descError = (String) session.getAttribute("catDescError"); session.setAttribute("catDescError", "");
-        RCategory rcategory = (RCategory) session.getAttribute("rcategory"); session.setAttribute("rcategory", null);
+        String success = (String) session.getAttribute("cModifySuccess");
+        String nameError = (String) session.getAttribute("catNameError");
+        String descError = (String) session.getAttribute("catDescError");
+        RCategory rcategory = (RCategory) session.getAttribute("rcategory");
     %>
 
     <div class="container">
