@@ -25,16 +25,20 @@
 <body class="overflow-hidden bg-light">
 
 <%
-    String rDeleteSuccess = (String) session.getAttribute("rDeleteSuccess");
-    String rDeleteError = (String) session.getAttribute("rDeleteError");
+    String rDeleteSuccess = (String) session.getAttribute("rDeleteSuccess"); session.setAttribute("rDeleteSuccess", "");
+    String rDeleteError = (String) session.getAttribute("rDeleteError"); session.setAttribute("rDeleteError", "");
 %>
 
 <div class="container-fluid text-center">
 
     <div class="me-3">
         <a href="modifyRes.jsp" class="float-start btn btn-light text-dark ms-2"> Add </a>
-        <% if (rDeleteSuccess != null) { %> <div class="mt-3 alert alert-success"><%=rDeleteSuccess%></div> <% }
-           else if (rDeleteError != null) { %> <div class="mt-3 alert alert-danger"><%=rDeleteError%></div> <% } %>
+        <% if (rDeleteSuccess != null && !rDeleteSuccess.equals("")) { %>
+            <div class="d-inline-flex alert alert-success"><%=rDeleteSuccess%></div>
+        <% }
+        else if (rDeleteError != null && !rDeleteError.equals("")) { %>
+            <div class="d-inline-flex alert alert-danger"><%=rDeleteError%></div>
+        <% } %>
         <a href="index" class="float-end btn btn-light text-dark ms-2"> Exit </a>
     </div>
 
@@ -66,7 +70,7 @@
                     </c:otherwise>
                     </c:choose></td>
                 <td class="text-dark text-center">
-                    <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="modifyRes.jsp?res=${restaurant.restaurantID}">Edit</a>
+                    <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="find-res?id=${restaurant.restaurantID}">Edit</a>
                     <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="delete-res?res=${restaurant.restaurantID}">Delete</a>
                 </td>
             </tr>

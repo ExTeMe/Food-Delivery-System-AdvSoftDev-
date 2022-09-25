@@ -21,10 +21,10 @@ public class ResDBManager {
     }
 
     // For Update Forms to retrieve up-to-date information for that particular restaurant
-    public ArrayList<Restaurant> findRestaurant(int id) throws SQLException, Exception {
-        String fetch = "SELECT * FROM db.restaurant WHERE Restaurant_Name = " + id;
+    public Restaurant findRestaurant(int id) throws SQLException, Exception {
+        String fetch = "SELECT * FROM db.restaurant WHERE Restaurant_ID = " + id;
         // Return list of restaurants matching a certain name pattern
-        return getRestaurants(fetch);
+        return getRestaurants(fetch).get(0);
     }
 
     // If name is empty, this method will be called by the controller.
@@ -118,7 +118,7 @@ public class ResDBManager {
 
     // Manual way of updating restaurants, for R1, AppStaff will manually update them
     // Also acts as an alternative way to update restaurants
-    public void updateRestaurant(Restaurant restaurant) throws SQLException, Exception {
+    public Restaurant updateRestaurant(Restaurant restaurant) throws SQLException, Exception {
         String fetch = "UPDATE db.restaurant SET Restaurant_Name = '" + restaurant.getRestaurantName()
                 + "', Image_Reference = '" + restaurant.getImageReference()
                 + "', Street_Number = " + restaurant.getStreetNum()
@@ -132,6 +132,8 @@ public class ResDBManager {
                 + " WHERE Restaurant_ID = " + restaurant.getRestaurantID();
 
         st.executeUpdate(fetch);
+
+        return findRestaurant(restaurant.getRestaurantID());
     }
 
     public int restaurantActivation(int id) throws SQLException, Exception {
@@ -166,10 +168,10 @@ public class ResDBManager {
     }
 
     // For Update Forms to retrieve up-to-date information for that particular category
-    public ArrayList<RCategory> findRCategory(int id) throws SQLException, Exception {
+    public RCategory findRCategory(int id) throws SQLException, Exception {
         String fetch = "SELECT * FROM db.rcategory WHERE RCategory_ID = " + id;
 
-        return getRCategories(fetch);
+        return getRCategories(fetch).get(0);
     }
 
     private ArrayList<RCategory> getRCategories(String fetch) throws SQLException, Exception {
@@ -212,17 +214,19 @@ public class ResDBManager {
     // Have controller pass a RCategory object so that the parameter is clean
     public void createCategory(RCategory category) throws SQLException, Exception {
         String fetch = "INSERT INTO db.rcategory VALUES (DEFAULT, '" + category.getrCatName() + "', '"
-                + category.getrCatDescription() + "'";
+                + category.getrCatDescription() + "')";
 
         st.executeUpdate(fetch);
     }
 
-    public void updateCategory(RCategory category) throws SQLException, Exception {
+    public RCategory updateCategory(RCategory category) throws SQLException, Exception {
         String fetch = "UPDATE db.rcategory SET RCategory_Name = '" + category.getrCatName() + "', " +
                 "RCategory_Description = '" + category.getrCatDescription() + "' WHERE RCategory_ID = "
                 + category.getrCatID();
 
         st.executeUpdate(fetch);
+
+        return findRCategory(category.getrCatID());
     }
 
     // Delete by ID, we get the ID from the RCat object which was instantiated by the DB.

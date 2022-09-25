@@ -25,16 +25,20 @@
 <body class="overflow-hidden bg-light">
 
 <%
-    String cDeleteSuccess = (String) session.getAttribute("cDeleteSuccess");
-    String cDeleteError = (String) session.getAttribute("cDeleteError");
+    String cDeleteSuccess = (String) session.getAttribute("cDeleteSuccess"); session.setAttribute("cDeleteSuccess", "");
+    String cDeleteError = (String) session.getAttribute("cDeleteError"); session.setAttribute("cDeleteError", "");
 %>
 
     <div class="container-fluid text-center">
 
-        <div class="me-3">
+        <div class="mt-3 me-3">
             <a href="modifyCat.jsp" class="float-start btn btn-light text-dark ms-2"> Add </a>
-            <% if (cDeleteSuccess != null) { %> <div class="mt-3 alert alert-success"><%=cDeleteSuccess%></div> <% }
-            else if (cDeleteError != null) { %> <div class="mt-3 alert alert-danger"><%=cDeleteError%></div> <% } %>
+            <% if (cDeleteSuccess != null && !cDeleteSuccess.equals("")) { %>
+                <div class="d-inline-flex alert alert-success"><%=cDeleteSuccess%></div>
+            <% }
+            else if (cDeleteError != null && !cDeleteError.equals("")) { %>
+                <div class="d-inline-flex alert alert-danger"><%=cDeleteError%></div>
+            <% } %>
             <a href="index" class="float-end btn btn-light text-dark ms-2"> Exit </a>
         </div>
 
@@ -56,7 +60,7 @@
                         <td class="text-dark text-center ">${rcategory.rCatName}</td>
                         <td class="text-dark text-center ">${rcategory.rCatDescription}</td>
                         <td class="text-dark text-center">
-                            <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="modifyCat.jsp?cat=${rcategory.rCatID}">Edit</a>
+                            <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="find-cat?id=${rcategory.rCatID}">Edit</a>
                             <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="delete-cat?cat=${rcategory.rCatID}">Delete</a>
                         </td>
                     </tr>

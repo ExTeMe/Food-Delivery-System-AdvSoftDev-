@@ -32,12 +32,18 @@ public class ModifyCategoryServlet extends HttpServlet {
         boolean hasError = false;
 
         if (!validator.validateName(catName)) {
-            session.setAttribute("catName_Error", "Incorrect Name Format - Name must start with a capital letter");
+            session.setAttribute("catNameError", "Incorrect Name Format - Name must start with a capital letter");
+            hasError = true;
+        }
+        if (!validator.validateDesc(catDesc)) {
+            session.setAttribute("catDescError", "1-100 Characters only! No special characters!");
             hasError = true;
         }
 
         if (hasError) {
-            request.getRequestDispatcher("modifyCat.jsp").include(request, response);
+            if (!catID.equals("")) { request.getRequestDispatcher("modifyCat.jsp?edit=true").include(request, response); }
+            else { request.getRequestDispatcher("modifyCat.jsp").include(request, response); }
+            return;
         }
 
         // If ID is empty means we want to create a new record
@@ -45,7 +51,7 @@ public class ModifyCategoryServlet extends HttpServlet {
         if (catID.equals("")) {
             try {
                 manager.createCategory(new RCategory(catName, catDesc));
-                session.setAttribute("ModifySuccess", "Successfully Added Category!");
+                session.setAttribute("cModifySuccess", "Successfully Added Category!");
                 request.getRequestDispatcher("modifyCat.jsp").include(request, response);
             } catch (Exception e) {
                 Logger.getLogger(ModifyCategoryServlet.class.getName()).log(Level.SEVERE, null, e);
@@ -54,19 +60,21 @@ public class ModifyCategoryServlet extends HttpServlet {
         }
         else {
             try {
-                manager.updateCategory(new RCategory(Integer.parseInt(catID), catName, catDesc));
-                session.setAttribute("ModifySuccess", "Successfully Edited Category!");
-                request.getRequestDispatcher("find-cat?id=" + catID).include(request, response);
+                RCategory rcategory = manager.updateCategory(new RCategory(Integer.parseInt(catID), catName, catDesc));
+                session.setAttribute("rcategory", rcategory);
+                session.setAttribute("cModifySuccess", "Successfully Edited Category!");
+                request.getRequestDispatcher("modifyCat.jsp?edit=true").include(request, response);
             } catch (Exception e) {
                 Logger.getLogger(ModifyCategoryServlet.class.getName()).log(Level.SEVERE, null, e);
-                request.getRequestDispatcher("modifyCat.jsp").include(request, response);
+                request.getRequestDispatcher("all-category").include(request, response);
             }
         }
     }
 
     private void clear(HttpSession session) {
-        session.setAttribute("catName_Error", "");
-        session.setAttribute("ModifySuccess", "");
+        session.setAttribute("catNameError", "");
+        session.setAttribute("cModifySuccess", "");
+        session.setAttribute("catDescError", "");
     }
 
 }

@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 @WebServlet(name = "controller/rms/FindCategoryServlet", value = "/find-cat")
 public class FindCategoryServlet extends HttpServlet {
 
+    // Post for form searches
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -22,24 +23,41 @@ public class FindCategoryServlet extends HttpServlet {
         ResDBManager manager = (ResDBManager) session.getAttribute("ResDBManager");
 
         String catName = request.getParameter("name");
-        String catID = request.getParameter("id");
 
+        // For searchbar to search category
         ArrayList<RCategory> rcategories;
 
         try {
-            if (catName.equals("")) {
-                rcategories = manager.findRCategory(catID);
-                session.setAttribute("rcategories", rcategories);
-                request.getRequestDispatcher("modifyCat.jsp").include(request, response);
-            } else {
-                rcategories = manager.findRCategory(catName);
-                session.setAttribute("rcategories", rcategories);
-                request.getRequestDispatcher("manageCat.jsp").include(request, response);
-            }
+            rcategories = manager.findRCategory(catName);
+            session.setAttribute("rcategories", rcategories);
+            request.getRequestDispatcher("manageCat.jsp").include(request, response);
         } catch (Exception e) {
             Logger.getLogger(GetAllCategoryServlet.class.getName()).log(Level.SEVERE, null, e);
             request.getRequestDispatcher("manageCat.jsp").include(request, response);
         }
     }
+
+    // for retrieval using href
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        ResDBManager manager = (ResDBManager) session.getAttribute("ResDBManager");
+        String catID = request.getParameter("id");
+
+        // For Edit Category, since we are guaranteed to only get one category
+        RCategory rcategory;
+
+        try {
+            rcategory = manager.findRCategory(Integer.parseInt(catID));
+            session.setAttribute("rcategory", rcategory);
+            request.getRequestDispatcher("modifyCat.jsp?edit=true").include(request, response);
+        } catch (Exception e) {
+            Logger.getLogger(GetAllCategoryServlet.class.getName()).log(Level.SEVERE, null, e);
+            request.getRequestDispatcher("all-category").include(request, response);
+        }
+
+    }
+
 
 }

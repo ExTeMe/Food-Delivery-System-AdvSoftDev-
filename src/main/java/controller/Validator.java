@@ -34,6 +34,12 @@ public class Validator implements Serializable {
     // 4 digits
     private String postcodePattern = "^[0-9]{4}$";
 
+    // 100 Characters only - Doesn't include escape character
+    private String descPattern = "^[\\s0-9A-Za-z$-\\/:-?{-~!\"^_`\\[\\]@#|]{1,100}$";
+
+    // 30 Characters only - No escape character
+    private String resNamePattern = "^[\\s0-9A-Za-z$-\\/:-?{-~!\"^_`\\[\\]@#|]{1,30}$";
+
     // Name:
     // Name must start with Capital letters
     // Each word in the name must be accompanied by a space before it except for first word
@@ -70,5 +76,9 @@ public class Validator implements Serializable {
     public boolean validatePostCode(String postcode) { return validate(postcodePattern, postcode); }
 
     public boolean validateStrNum(String strNum) { return validate(strNum, strNum); }
+
+    public boolean validateDesc(String desc) { return validate(descPattern, desc); }
+
+    public boolean validateResName(String resName) { return validate(resNamePattern, resName); }
 
 }
