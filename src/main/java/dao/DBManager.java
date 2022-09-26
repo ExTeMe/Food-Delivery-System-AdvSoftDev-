@@ -19,13 +19,24 @@ public class DBManager {
         System.out.println(fetch);
     }
 
-    public void addCustomer(String firstName, String lastName, String password, String email, String phoneNumber, String dob, String streetNumber, String streetName, String postcode, String state, String suburb, String country, boolean activated, String cardNumber, String cardExpiration, int cardPin, String cardName) throws SQLException {
-        String fetch = "INSERT INTO db.tables.Customer " + "VALUES (" + firstName + ", '" + lastName + "', '" + password + "', '" + email + "', '" + phoneNumber + "', '" + dob + "', '" + streetNumber + "', '" + streetName + "', '" + postcode + "', '" + state + "', '" + suburb + "', '" + country + "', '" + activated + "', '" + cardNumber + "', '" + cardExpiration + "', '" + cardPin + "', '" + cardName + "')";
+    public void addCustomer(String firstName, String lastName, String password, String email, String phoneNumber,
+            String dob, String streetNumber, String streetName, String postcode, String state, String suburb,
+            String country, boolean activated, String cardNumber, String cardExpiration, int cardPin, String cardName)
+            throws SQLException {
+        String fetch = "INSERT INTO db.tables.Customer " + "VALUES (" + firstName + ", '" + lastName + "', '" + password
+                + "', '" + email + "', '" + phoneNumber + "', '" + dob + "', '" + streetNumber + "', '" + streetName
+                + "', '" + postcode + "', '" + state + "', '" + suburb + "', '" + country + "', '" + activated + "', '"
+                + cardNumber + "', '" + cardExpiration + "', '" + cardPin + "', '" + cardName + "')";
         System.out.println(fetch);
     }
 
-    public void addStaff(String firstName, String lastName, String password, String email, String phoneNumber, String dob, String streetNumber, String streetName, String postcode, String state, String suburb, String country, boolean activated, int privilege, String position) throws SQLException {
-        String fetch = "INSERT INTO db.tables.Staff " + "VALUES (" + firstName + ", '" + lastName + "', '" + password + "', '" + email + "', '" + phoneNumber + "', '" + dob + "', '" + streetNumber + "', '" + streetName + "', '" + postcode + "', '" + state + "', '" + suburb + "', '" + country + "', '" + activated + "', '" + privilege + "', '" + position + "')";
+    public void addStaff(String firstName, String lastName, String password, String email, String phoneNumber,
+            String dob, String streetNumber, String streetName, String postcode, String state, String suburb,
+            String country, boolean activated, int privilege, String position) throws SQLException {
+        String fetch = "INSERT INTO db.tables.Staff " + "VALUES (" + firstName + ", '" + lastName + "', '" + password
+                + "', '" + email + "', '" + phoneNumber + "', '" + dob + "', '" + streetNumber + "', '" + streetName
+                + "', '" + postcode + "', '" + state + "', '" + suburb + "', '" + country + "', '" + activated + "', '"
+                + privilege + "', '" + position + "')";
         System.out.println(fetch);
     }
 
@@ -34,6 +45,29 @@ public class DBManager {
     }
 
     public Staff findStaff(String email, String password) {
+        return null;
+    }
+
+    // Order
+    public Order getOrder(int orderID) {
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM DB.ORDER WHERE ORDER_ID = " + orderID);
+            while (rs.next()) {
+                Order order = new Order(
+                        rs.getInt("ORDER_ID"),
+                        rs.getInt("CUSTOMER_ID"),
+                        rs.getString("ORDER_TYPE"),
+                        rs.getInt("COUPON_ID"),
+                        rs.getString("STATUS"),
+                        rs.getInt("FOOD_RATING"),
+                        rs.getString("FOOD_INSTRUCTIONS"),
+                        rs.getString("FOOD_FEEDBACK"));
+                return order;
+            }
+        } catch (Exception e) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println("Exception is: " + e);
+        }
         return null;
     }
 
@@ -79,9 +113,9 @@ public class DBManager {
         }
     }
 
-    public Delivery getDelivery(Order order) {
+    public Delivery getDelivery(int orderID) {
         try {
-            ResultSet rs = st.executeQuery("SELECT * FROM DELIVERY WHERE ORDER_ID = " + order.getOrderID());
+            ResultSet rs = st.executeQuery("SELECT * FROM DELIVERY WHERE ORDER_ID = " + orderID);
             while (rs.next()) {
                 Delivery delivery = new Delivery(
                         rs.getInt("DELIVERY_ID"),

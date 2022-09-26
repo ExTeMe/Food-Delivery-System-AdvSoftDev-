@@ -11,21 +11,21 @@
     </head>
     <body>
         <header>
+            <%
+                // for testing
+                session.setAttribute("user", new User(989898, "Minh Quan", "Tran"));
+
+                User user = (User) session.getAttribute("user");
+            %>
+
             <div class="header-content">
                 <div class="header-start">
-                    <a class="header-button" href="index.jsp"><h3>Home</h3></a>
+                    <a class="header-button" href="index.jsp">Home</a>
                 </div>
-
-                <%
-                    // for testing
-                    session.setAttribute("user", new User(989898, "Minh Quan", "Tran"));
-
-                    User user = (User) session.getAttribute("user");
-                %>
 
                 <div class="header-end">
                     <div class="user-info header-button">
-                        <h4>Hello, <%= user.getFname()%></h4>
+                        <span>Hello, <%= user.getFname()%></span>
                         <div class="user-menu">
                             <a class="header-button" href="edituser.jsp">Edit Account</a>
                             <a class="header-button" href="ViewOrdersController">My Orders</a>

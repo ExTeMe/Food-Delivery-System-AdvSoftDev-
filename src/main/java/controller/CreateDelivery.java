@@ -1,15 +1,17 @@
 package controller;
 
 import java.io.IOException;
+
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
 import model.Order;
 import model.Delivery;
-import dao.DBManager;
 import dao.*;
 import java.sql.Connection;
 
@@ -39,15 +41,16 @@ public class CreateDelivery extends HttpServlet {
 
             Delivery delivery = new Delivery(order.getOrderID(), street, suburb, state, postal, fee, instructions);
 
-            if (manager.getDelivery(order) != null) {
+            if (manager.getDelivery(order.getOrderID()) != null) {
                 manager.updateDelivery(delivery);
             } else {
                 manager.createDelivery(delivery);
             }
 
         }
-
-        request.getRequestDispatcher("deliveryStatus.jsp").include(request, response);
+        String path = "/get-delivery?orderID=" + order.getOrderID();
+        RequestDispatcher rd = getServletContext().getRequestDispatcher(path);
+        rd.forward(request, response);
     }
 
     private void test(HttpServletRequest request, HttpServletResponse response) {
@@ -64,7 +67,7 @@ public class CreateDelivery extends HttpServlet {
             manager = new DBManager(conn);
             session.setAttribute("manager", manager);
 
-            Order order = new Order(101010, 202020);
+            Order order = new Order(101010, 202020, "Delivering");
             session.setAttribute("order", order);
         } catch (Exception e) {
             System.out.println("Exception is: " + e);
