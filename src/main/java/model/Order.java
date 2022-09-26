@@ -23,9 +23,10 @@ public class Order {
     }
 
     // for testing
-    public Order(int orderID, int customerID) {
+    public Order(int orderID, int customerID, String status) {
         this.orderID = orderID;
         this.customerID = customerID;
+        this.status = status;
     }
 
     public int getOrderID() {
