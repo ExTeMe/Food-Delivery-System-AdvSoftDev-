@@ -127,4 +127,18 @@ public class DBManager {
         }
         return null;
     }
+
+    // AppStaff Login - Benz
+    public AppStaff appStaffLogin(String email, String pass) throws SQLException, Exception {
+        ResultSet rs = st.executeQuery("SELECT * FROM db.user U INNER JOIN db.appstaff A WHERE U.UserID = A.UserID AND " +
+                "Email = '" + email + "', Password= '" + pass + "'");
+
+        if (rs.next()) {
+            String userID = rs.getString("U.UserID");
+            String asID = rs.getString("A.A_Staff_ID");
+            return new AppStaff(Integer.parseInt(userID), Integer.parseInt(asID));
+        } else {
+            return null;
+        }
+    }
 }
