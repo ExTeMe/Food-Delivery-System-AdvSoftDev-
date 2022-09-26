@@ -12,10 +12,10 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@WebServlet(name = "AppStaffServlet", value = "/appstaff-login")
+@WebServlet(name = "controller/AppStaffServlet", value = "/appstaff-login")
 public class AppStaffLoginServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
         Validator validator = new Validator();
@@ -44,6 +44,7 @@ public class AppStaffLoginServlet extends HttpServlet {
             AppStaff appStaff = manager.appStaffLogin(email, pass);
             if (appStaff == null) { session.setAttribute("credentialsError", "Incorrect Credentials"); }
             else { session.setAttribute("appStaff", appStaff); }
+            // Not redirecting page to index, need to debug this
             request.getRequestDispatcher("index").include(request, response);
         } catch (Exception e) {
             Logger.getLogger(ModifyCategoryServlet.class.getName()).log(Level.SEVERE, null, e);

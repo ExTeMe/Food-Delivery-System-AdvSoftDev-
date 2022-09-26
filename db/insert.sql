@@ -2,7 +2,7 @@ USE db;
 
 # USER ROWS
 INSERT INTO USER VALUES
-    (DEFAULT, 'Benz', 'Chua', 'Ro0T!', 'benzchua31@gmail.com', 256367826, '2003-05-11', 11,
+    (DEFAULT, 'Benz', 'Chua', 'Ro0T!Ro0T!', 'benzchua31@gmail.com', 256367826, '2003-05-11', 11,
     'Kentucky', 2689, 'NSE', 'Bonword', 'Austrelie', TRUE);
 
 # APPSTAFF ROWS

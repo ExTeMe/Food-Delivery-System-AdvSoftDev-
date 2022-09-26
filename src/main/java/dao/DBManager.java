@@ -131,7 +131,7 @@ public class DBManager {
     // AppStaff Login - Benz
     public AppStaff appStaffLogin(String email, String pass) throws SQLException, Exception {
         ResultSet rs = st.executeQuery("SELECT * FROM db.user U INNER JOIN db.appstaff A WHERE U.UserID = A.UserID AND " +
-                "Email = '" + email + "', Password= '" + pass + "'");
+                "Email ='" + email + "' AND Password='" + pass + "'");
 
         if (rs.next()) {
             String userID = rs.getString("U.UserID");
