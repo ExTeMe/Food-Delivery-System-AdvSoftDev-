@@ -33,7 +33,7 @@ public class FindRestaurantServlet extends HttpServlet {
             if (view.equals("user")) { request.getRequestDispatcher("index.jsp").include(request, response); }
             else { request.getRequestDispatcher("manageRes.jsp").include(request, response); }
         } catch (Exception e) {
-            Logger.getLogger(GetAllCategoryServlet.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(FindRestaurantServlet.class.getName()).log(Level.SEVERE, null, e);
             if (view.equals("user")) { request.getRequestDispatcher("index").include(request, response); }
             else { request.getRequestDispatcher("all-restaurant").include(request, response); }
         }
@@ -56,7 +56,7 @@ public class FindRestaurantServlet extends HttpServlet {
             session.setAttribute("restaurant", restaurant);
             request.getRequestDispatcher("modifyRes.jsp?edit=true").include(request, response);
         } catch (Exception e) {
-            Logger.getLogger(GetAllCategoryServlet.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(FindRestaurantServlet.class.getName()).log(Level.SEVERE, null, e);
             request.getRequestDispatcher("all-restaurant").include(request, response);
         }
     }

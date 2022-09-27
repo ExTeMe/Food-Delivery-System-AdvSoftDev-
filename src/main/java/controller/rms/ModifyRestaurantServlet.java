@@ -114,7 +114,7 @@ public class ModifyRestaurantServlet extends HttpServlet {
                 session.setAttribute("rModifySuccess", "Successfully Added Restaurant!");
                 request.getRequestDispatcher("modifyRes.jsp").include(request, response);
             } catch (Exception e) {
-                Logger.getLogger(ModifyCategoryServlet.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(ModifyRestaurantServlet.class.getName()).log(Level.SEVERE, null, e);
                 request.getRequestDispatcher("modifyRes.jsp").include(request, response);
             }
         }
@@ -129,7 +129,7 @@ public class ModifyRestaurantServlet extends HttpServlet {
                 session.setAttribute("restaurant", restaurant);
                 request.getRequestDispatcher("modifyRes.jsp?edit=true").include(request, response);
             } catch (Exception e) {
-                Logger.getLogger(ModifyCategoryServlet.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(ModifyRestaurantServlet.class.getName()).log(Level.SEVERE, null, e);
                 request.getRequestDispatcher("all-restaurant").include(request, response);
             }
         }

@@ -32,7 +32,7 @@ package controller.rms;
                 manager.setRestaurantCategory(Integer.parseInt(resID), Integer.parseInt(catID));
                 request.getRequestDispatcher("").include(request, response);
             } catch (Exception e) {
-                Logger.getLogger(ModifyCategoryServlet.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(SetResCatServlet.class.getName()).log(Level.SEVERE, null, e);
                 request.getRequestDispatcher("").include(request, response);
             }
 

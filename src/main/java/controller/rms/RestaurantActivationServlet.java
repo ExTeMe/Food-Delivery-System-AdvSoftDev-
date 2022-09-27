@@ -26,7 +26,7 @@ public class RestaurantActivationServlet extends HttpServlet {
             else if (result == 0) session.setAttribute("activateSuccess", "Successfully Deactivated Restaurant!");
             request.getRequestDispatcher("index").include(request, response);
         } catch (Exception e) {
-            Logger.getLogger(DeleteCatServlet.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(RestaurantActivationServlet.class.getName()).log(Level.SEVERE, null, e);
             session.setAttribute("activationError", "Unable To De/Activate Restaurant!");
             request.getRequestDispatcher("index.jsp").include(request, response);
         }

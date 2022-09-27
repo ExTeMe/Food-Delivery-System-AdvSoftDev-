@@ -46,7 +46,7 @@ public class AppStaffLoginServlet extends HttpServlet {
             else { session.setAttribute("appStaff", appStaff); }
             request.getRequestDispatcher("index").include(request, response);
         } catch (Exception e) {
-            Logger.getLogger(ModifyCategoryServlet.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(AppStaffLoginServlet.class.getName()).log(Level.SEVERE, null, e);
             request.getRequestDispatcher("appStaffLogin.jsp").include(request, response);
         }
 

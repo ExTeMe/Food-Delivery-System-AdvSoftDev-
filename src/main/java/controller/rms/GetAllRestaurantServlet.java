@@ -28,7 +28,7 @@ public class GetAllRestaurantServlet extends HttpServlet {
             session.setAttribute("restaurants", restaurants);
             request.getRequestDispatcher("manageRes.jsp").include(request, response);
         } catch (Exception e) {
-            Logger.getLogger(GetAllCategoryServlet.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(GetAllRestaurantServlet.class.getName()).log(Level.SEVERE, null, e);
             request.getRequestDispatcher("manageRes.jsp").include(request, response);
         }
 

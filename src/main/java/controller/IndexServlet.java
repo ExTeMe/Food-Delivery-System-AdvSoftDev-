@@ -32,7 +32,7 @@ public class IndexServlet extends HttpServlet {
             session.setAttribute("restaurants", restaurants);
             request.getRequestDispatcher("index.jsp").include(request, response);
         } catch (Exception e) {
-            Logger.getLogger(GetAllCategoryServlet.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(IndexServlet.class.getName()).log(Level.SEVERE, null, e);
             request.getRequestDispatcher("index.jsp").include(request, response);
         }
     }
