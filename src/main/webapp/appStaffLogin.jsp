@@ -23,6 +23,7 @@
     String emailErr = (String) session.getAttribute("emailErr"); session.setAttribute("emailErr", "");
     String passwordErr = (String) session.getAttribute("passwordErr"); session.setAttribute("passwordErr", "");
     String credentialsErr = (String) session.getAttribute("credentialsErr"); session.setAttribute("credentialsErr", "");
+    session.setAttribute("appStaff", null); // anytime we enter this page, it will automatically log us out
 %>
 
 <%-- benzchua31@gmail.com ro0T!Ro0T! --%>

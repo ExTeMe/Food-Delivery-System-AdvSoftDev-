@@ -15,6 +15,9 @@
         <title>Main Menu</title>
     </head>
 
+    <%-- If login as AppStaff, then AppStaff won't be null --%>
+    <% AppStaff as = (AppStaff) session.getAttribute("appStaff"); %>
+
     <%-- Used to check if the appstaff has entered manageMode or not --%>
     <% Boolean manageMode = false;
        if (session.getAttribute("manageMode") == null) {
@@ -43,11 +46,12 @@
                         <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="all-restaurant">Manage Restaurant</a>
                         <%-- this button placement needs to be placed in individual restaurants page --%>
                         <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="empManagement.jsp">Emp Management</a>
-                    <% } %>
-                    <%--Temporary - AppStaff login is not made yet--%>
+                    <% }
+                    if (as != null) { %>
                         <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="manage-mode">
                             <%= (manageMode) ? "Exit Mode" : "Manage Mode"%>
                         </a>
+                    <% } %>
                 </div>
                 <form action="find-res" method="post" class="searchf d-flex me-5" role="search">
                     <input class="searchbar form-control me-1" type="search" placeholder="Search" aria-label="Search">

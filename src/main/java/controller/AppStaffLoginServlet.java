@@ -44,7 +44,6 @@ public class AppStaffLoginServlet extends HttpServlet {
             AppStaff appStaff = manager.appStaffLogin(email, pass);
             if (appStaff == null) { session.setAttribute("credentialsError", "Incorrect Credentials"); }
             else { session.setAttribute("appStaff", appStaff); }
-            // Not redirecting page to index, need to debug this
             request.getRequestDispatcher("index").include(request, response);
         } catch (Exception e) {
             Logger.getLogger(ModifyCategoryServlet.class.getName()).log(Level.SEVERE, null, e);
@@ -57,5 +56,6 @@ public class AppStaffLoginServlet extends HttpServlet {
         session.setAttribute("passwordError", "");
         session.setAttribute("emailError", "");
         session.setAttribute("credentialsError", "");
+        session.setAttribute("appStaff", null);
     }
 }
