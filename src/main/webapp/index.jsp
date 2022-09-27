@@ -4,6 +4,7 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="model.*" %>
 <%@ page import="java.util.ArrayList" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -65,20 +66,42 @@
         <section class="container text-center">
             <div class="res row align-items-center justify-content-center">
                 <%-- Ignore the unchecked cast, restaurants will only ever be ArrayList<Restaurants> or null --%>
-                <% ArrayList<Restaurant> restaurants = (ArrayList<Restaurant>) session.getAttribute("restaurants");
-                for (Restaurant res : restaurants) { %>
-                    <div class="col-lg-4 mt-5">
-                        <div class="bs">
-                            <img src="images/<%=res.getImageReference()%>" alt=<%=res.getImageReference()%>>
-                            <div class="flex-column">
-                                <a><%=res.getRestaurantName()%></a>
+                <% ArrayList<Restaurant> restaurants = (ArrayList<Restaurant>) session.getAttribute("restaurants"); %>
+                <c:forEach items="${restaurants}" var="restaurant">
+                    <c:if test="${(appStaff != null) || (appStaff == null && restaurant.activate == true)}">
+                        <div class="col-lg-4 mt-5">
+                            <div class="bs">
+                                <img src="images/${restaurant.imageReference}" alt=${restaurant.imageReference}>
+                                <div class="flex-column">
+                                    <a>${restaurant.restaurantName}</a>
+                                </div>
+                                <% if (manageMode) { %>
+                                    <div class="flex-column">
+                                        <form class="mt-3" id="form${restaurant.restaurantID}"
+                                              action="activate-res" method="post">
+                                            <input id="switch" type="checkbox"
+                                                   <c:choose>
+                                                   <c:when test="${restaurant.activate == true}"> checked
+                                                   </c:when> <c:otherwise> unchecked </c:otherwise> </c:choose>>
+                                            <label class="d-inline-flex" for="switch" onclick="submitForm(${restaurant.restaurantID})"></label>
+                                            <%-- Button is not spammable designed, not sure how to, need more research time --%>
+                                            <input type="hidden" name="res" value="${restaurant.restaurantID}">
+                                        </form>
+                                    </div>
+                                <% } %>
                             </div>
                         </div>
-                    </div>
-                <% } %>
+                    </c:if>
+                </c:forEach>
             </div>
         </section>
-
     </body>
+
+    <script>
+        function submitForm(resID) {
+            const form = document.getElementById("form" + resID);
+            form.submit();
+        }
+    </script>
 
 </html>

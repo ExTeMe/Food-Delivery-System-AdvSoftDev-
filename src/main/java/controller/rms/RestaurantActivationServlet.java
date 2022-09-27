@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@WebServlet(name = "controller/rms/RestaurantActivationServlet", value = "/RestaurantActivationServlet")
+@WebServlet(name = "controller/rms/RestaurantActivationServlet", value = "/activate-res")
 public class RestaurantActivationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -18,16 +18,17 @@ public class RestaurantActivationServlet extends HttpServlet {
         ResDBManager manager = (ResDBManager) session.getAttribute("ResDBManager");
 
         int resID = Integer.parseInt(request.getParameter("res"));
+        Logger.getLogger(DeleteCatServlet.class.getName()).log(Level.SEVERE, resID + "");
 
         try {
             int result = manager.restaurantActivation(resID);
             if (result == 1) session.setAttribute("activateSuccess", "Successfully Activated Restaurant!");
             else if (result == 0) session.setAttribute("activateSuccess", "Successfully Deactivated Restaurant!");
-            request.getRequestDispatcher("find-res?id=" + resID).include(request, response);
+            request.getRequestDispatcher("index").include(request, response);
         } catch (Exception e) {
             Logger.getLogger(DeleteCatServlet.class.getName()).log(Level.SEVERE, null, e);
             session.setAttribute("activationError", "Unable To De/Activate Restaurant!");
-            request.getRequestDispatcher("modifyRes.jsp").include(request, response);
+            request.getRequestDispatcher("index.jsp").include(request, response);
         }
 
     }
