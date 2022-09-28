@@ -25,16 +25,18 @@ public class FindRestaurantServlet extends HttpServlet {
         String resName = request.getParameter("name");
         String view = request.getParameter("view");
 
+        session.setAttribute("input", resName);
+
         ArrayList<Restaurant> restaurants;
 
         try {
             restaurants = manager.findRestaurant(resName);
             session.setAttribute("restaurants", restaurants);
-            if (view.equals("user")) { request.getRequestDispatcher("index.jsp").include(request, response); }
+            if (view.equals("menu")) { request.getRequestDispatcher("index.jsp").include(request, response); }
             else { request.getRequestDispatcher("manageRes.jsp").include(request, response); }
         } catch (Exception e) {
             Logger.getLogger(FindRestaurantServlet.class.getName()).log(Level.SEVERE, null, e);
-            if (view.equals("user")) { request.getRequestDispatcher("index").include(request, response); }
+            if (view.equals("menu")) { request.getRequestDispatcher("index").include(request, response); }
             else { request.getRequestDispatcher("all-restaurant").include(request, response); }
         }
 

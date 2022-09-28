@@ -13,11 +13,14 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="css/index.css">
+
         <title>Main Menu</title>
     </head>
 
     <%-- If login as AppStaff, then AppStaff won't be null --%>
     <% AppStaff as = (AppStaff) session.getAttribute("appStaff"); %>
+
+    <% String input = (session.getAttribute("input") != null) ? (String) session.getAttribute("input") : ""; %>
 
     <%-- Used to check if the appstaff has entered manageMode or not --%>
     <% Boolean manageMode = false;
@@ -54,10 +57,11 @@
                         </a>
                     <% } %>
                 </div>
-                <form action="find-res" method="post" class="searchf d-flex me-5" role="search">
-                    <input class="searchbar form-control me-1" type="search" placeholder="Search" aria-label="Search">
-                    <button class="search btn btn-outline-success" type="submit">Search</button>
-                    <input type="hidden" name="view" value="user">
+                <form id="searchForm" action="find-res" method="post" class="searchf d-flex me-5" role="search">
+                    <input id="search" name="name" class="searchbar form-control me-1"
+                           type="search" placeholder="Search" aria-label="Search"
+                           value="<%=input%>">
+                    <input type="hidden" name="view" value="menu">
                 </form>
             </div>
         </nav>
@@ -83,7 +87,7 @@
                                                    <c:choose>
                                                    <c:when test="${restaurant.activate == true}"> checked
                                                    </c:when> <c:otherwise> unchecked </c:otherwise> </c:choose>>
-                                            <label class="d-inline-flex" for="switch" onclick="submitForm(${restaurant.restaurantID})"></label>
+                                            <label class="d-inline-flex switches" for="switch" onclick="submitForm(${restaurant.restaurantID})"></label>
                                             <%-- Button is not spammable designed, not sure how to, need more research time --%>
                                             <input type="hidden" name="res" value="${restaurant.restaurantID}">
                                         </form>
@@ -95,13 +99,41 @@
                 </c:forEach>
             </div>
         </section>
+        <script>
+
+            function submitForm(resID) {
+                const form = document.getElementById("form" + resID);
+                form.submit();
+            }
+
+            // DO NOT DELETE BELOW
+            // const search = document.querySelector("#search");
+            // const searchForm = document.getElementById("searchForm");
+            // setInputFocus();
+            //
+            // search.addEventListener("input", updateRestaurants);
+            // search.addEventListener("focus", updateFocus);
+            // search.addEventListener("blur", updateBlur);
+            //
+            // function updateRestaurants(e) {
+            //     searchForm.submit();
+            // }
+            //
+            // function setInputFocus() {
+            //     if (localStorage.getItem("focus") === "1") {
+            //         document.getElementById("search").setSelectionRange(-1, -1);
+            //         document.getElementById("search").focus();
+            //     }
+            // }
+            //
+            // function updateFocus(e) {
+            //     localStorage.setItem("focus", "1");
+            // }
+            //
+            // function updateBlur(e) {
+            //     localStorage.setItem("focus", "0");
+            // }
+
+        </script>
     </body>
-
-    <script>
-        function submitForm(resID) {
-            const form = document.getElementById("form" + resID);
-            form.submit();
-        }
-    </script>
-
 </html>
