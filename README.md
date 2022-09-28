@@ -7,7 +7,7 @@ Minh:
 Delivery system & Review system 
 
 Benz:  
-Restaurant Category Management system & Restaurant Management system
+Restaurant Category Management system & Restaurant Management system & Request System & App Staff Access System
 
 Hao:  
 Coupon Management system & Store Employee Management system
