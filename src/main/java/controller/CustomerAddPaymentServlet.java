@@ -15,28 +15,15 @@ import dao.DBConnector;
 import dao.DBManager;
 import model.Customer;
 
-@WebServlet(name = "CustomerRegisterServlet", value = "/CustomerRegisterServlet")
+@WebServlet(name = "CustomerAddPaymentServlet", value = "/CustomerAddPaymentServlet")
 
-public class CustomerRegisterServlet extends HttpServlet{
+public class CustomerAddPaymentServlet extends HttpServlet{
 
     @Override   
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         HttpSession session = request.getSession();
-
-        String email = request.getParameter("email");
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String password = request.getParameter("password");
-        String phone = request.getParameter("phone");
-        String dob = request.getParameter("dob"); 
-
-        String streetNumber = request.getParameter("streetNumber");
-        String streetName = request.getParameter("streetName");
-        String postcode = request.getParameter("postcode");
-        String state = request.getParameter("state");
-        String suburb = request.getParameter("suburb");
-        String country = request.getParameter("country");
+        Customer customer = (Customer) session.getAttribute("customer");
 
         String cardNumber = request.getParameter("cardNumber");
         String cardExpiration = request.getParameter("cardExpiration");
@@ -73,12 +60,9 @@ public class CustomerRegisterServlet extends HttpServlet{
         manager = (DBManager) session.getAttribute("manager");
 
         try {
-            System.out.println("Trying to add Customer");
-            manager.addUser(firstName, lastName, password, email, phone, dob, streetNumber, streetName, postcode, state, suburb, country, true);
-            System.out.println("Customer entered Successful");
-            session.setAttribute("email", email);
-            session.setAttribute("customer", manager.findCustomer(email, password));
-            request.getRequestDispatcher("customerAddPayment.jsp").include(request, response);
+            System.out.println("Trying to add Payment details ");
+            manager.addPaymentDetails(customer.getEmail(), cardNumber, cardExpiration, cardPin, cardName);
+        //    request.getRequestDispatcher("customerAddPayment.jsp").include(request, response);
         }
         catch (NullPointerException ex) {
             ex.printStackTrace();

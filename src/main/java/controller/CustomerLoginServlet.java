@@ -48,8 +48,9 @@ public class CustomerLoginServlet extends HttpServlet{
 
         try {
             System.out.println("Trying to add Customer");
-            if (manager.findCustomer(email, password)) {
+            if (manager.findCustomer(email, password) != null) {
                 System.out.println("Customer Found");
+                customer = manager.findCustomer(email, password);
                 request.getRequestDispatcher("main.jsp").include(request, response);
             }
             else {
