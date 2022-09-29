@@ -33,6 +33,7 @@
 
         <div class="mt-3 me-3">
             <a href="modifyCat.jsp" class="float-start btn btn-light text-dark ms-2"> Add </a>
+            <a href="all-rescat?ref=cat" class="float-start btn btn-light text-dark ms-2"> Assign Category </a>
             <% if (cDeleteSuccess != null && !cDeleteSuccess.equals("")) { %>
                 <div class="d-inline-flex alert alert-success"><%=cDeleteSuccess%></div>
             <% }

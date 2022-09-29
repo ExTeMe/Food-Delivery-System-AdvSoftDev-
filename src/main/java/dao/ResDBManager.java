@@ -239,12 +239,17 @@ public class ResDBManager {
     }
 
     public void setRestaurantCategory(int restaurantID, int categoryID) throws SQLException, Exception {
-        st.executeUpdate("INSERT INTO db.restaurant_rcategory VALUES (" + categoryID + ", " + restaurantID + ")");
-    }
+        ResultSet rs = st.executeQuery("SELECT * FROM db.restaurant_rcategory WHERE Restaurant_ID = " + restaurantID
+                        + " AND RCategory_ID = " + categoryID);
 
-    public void deleteRestaurantCategory(int restaurantID, int categoryID) throws SQLException, Exception {
-        st.executeUpdate("DELETE FROM db.restaurant_rcategory WHERE RCategory_ID = " + categoryID
-                + " AND Restaurant_ID = " + restaurantID);
+        if (rs.next()) {
+            st.executeUpdate("DELETE FROM db.restaurant_rcategory WHERE RCategory_ID = " + categoryID
+                    + " AND Restaurant_ID = " + restaurantID);
+        }
+        else {
+            st.executeUpdate("INSERT INTO db.restaurant_rcategory VALUES (" + categoryID + ", " + restaurantID + ")");
+        }
+
     }
 
 }

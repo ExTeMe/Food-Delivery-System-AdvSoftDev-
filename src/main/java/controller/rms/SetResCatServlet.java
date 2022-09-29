@@ -30,10 +30,10 @@ package controller.rms;
 
             try {
                 manager.setRestaurantCategory(Integer.parseInt(resID), Integer.parseInt(catID));
-                request.getRequestDispatcher("").include(request, response);
+                request.getRequestDispatcher("all-rescat").include(request, response);
             } catch (Exception e) {
                 Logger.getLogger(SetResCatServlet.class.getName()).log(Level.SEVERE, null, e);
-                request.getRequestDispatcher("").include(request, response);
+                request.getRequestDispatcher("all-rescat").include(request, response);
             }
 
       }
