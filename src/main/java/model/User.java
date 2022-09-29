@@ -9,20 +9,19 @@ public class User {
     private String lname;
     private String pass;
     private String email;
-    private int phoneNo;
-    private LocalDate dob;
-    private int streetNo;
+    private String phoneNo;
+    private String dob;
+    private String streetNo;
     private String streetName;
-    private int postcode;
+    private String postcode;
     private String state;
     private String suburb;
     private String country;
     private Boolean activated;
 
-    public User(int userID, String fname, String lname, String pass,
-                String email, int phoneNo, LocalDate dob, int streetNo, String streetName,
-                int postcode, String state, String suburb, String country, Boolean activated) {
-        this.UserID = userID;
+
+    public User(int UserID, String fname, String lname, String pass, String email, String phoneNo, String dob, String streetNo, String streetName, String postcode, String state, String suburb, String country, Boolean activated) {
+        this.UserID = UserID;
         this.fname = fname;
         this.lname = lname;
         this.pass = pass;
@@ -39,11 +38,12 @@ public class User {
     }
 
     public int getUserID() {
-        return UserID;
+        return this.UserID;
     }
 
+
     public String getFname() {
-        return fname;
+        return this.fname;
     }
 
     public void setFname(String fname) {
@@ -51,7 +51,7 @@ public class User {
     }
 
     public String getLname() {
-        return lname;
+        return this.lname;
     }
 
     public void setLname(String lname) {
@@ -59,7 +59,7 @@ public class User {
     }
 
     public String getPass() {
-        return pass;
+        return this.pass;
     }
 
     public void setPass(String pass) {
@@ -67,55 +67,55 @@ public class User {
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public int getPhoneNo() {
-        return phoneNo;
+    public String getPhoneNo() {
+        return this.phoneNo;
     }
 
-    public void setPhoneNo(int phoneNo) {
+    public void setPhoneNo(String phoneNo) {
         this.phoneNo = phoneNo;
     }
 
-    public LocalDate getDob() {
-        return dob;
+    public String getDob() {
+        return this.dob;
     }
 
-    public void setDob(LocalDate dob) {
+    public void setDob(String dob) {
         this.dob = dob;
     }
 
-    public int getStreetNo() {
-        return streetNo;
+    public String getStreetNo() {
+        return this.streetNo;
     }
 
-    public void setStreetNo(int streetNo) {
+    public void setStreetNo(String streetNo) {
         this.streetNo = streetNo;
     }
 
     public String getStreetName() {
-        return streetName;
+        return this.streetName;
     }
 
     public void setStreetName(String streetName) {
         this.streetName = streetName;
     }
 
-    public int getPostcode() {
-        return postcode;
+    public String getPostcode() {
+        return this.postcode;
     }
 
-    public void setPostcode(int postcode) {
+    public void setPostcode(String postcode) {
         this.postcode = postcode;
     }
 
     public String getState() {
-        return state;
+        return this.state;
     }
 
     public void setState(String state) {
@@ -123,7 +123,7 @@ public class User {
     }
 
     public String getSuburb() {
-        return suburb;
+        return this.suburb;
     }
 
     public void setSuburb(String suburb) {
@@ -131,18 +131,23 @@ public class User {
     }
 
     public String getCountry() {
-        return country;
+        return this.country;
     }
 
     public void setCountry(String country) {
         this.country = country;
     }
 
+    public Boolean isActivated() {
+        return this.activated;
+    }
+
     public Boolean getActivated() {
-        return activated;
+        return this.activated;
     }
 
     public void setActivated(Boolean activated) {
         this.activated = activated;
     }
+    
 }

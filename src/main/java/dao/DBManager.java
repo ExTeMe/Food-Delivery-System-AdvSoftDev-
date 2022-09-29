@@ -1,12 +1,14 @@
 package dao;
 
 import java.sql.*;
+import java.time.LocalDate;
 
 import com.mysql.cj.protocol.Resultset;
 import com.mysql.cj.x.protobuf.MysqlxPrepare.Prepare;
 
 import model.Customer;
 import model.Staff;
+import model.User;
 
 
 public class DBManager {
@@ -116,8 +118,53 @@ public class DBManager {
 
     }
 
-    public Staff findStaff(String email, String password) {
+    public User findUser(String email, String password) throws SQLException{
+        String fetch = "select * from db.user where email='" + email + "' and Password= '" + password + "'";
+        ResultSet rs = st.executeQuery(fetch);
+   
+        while (rs.next()) {
+            String custEmail = rs.getString(5);
+            String custPassword = rs.getString(4);
+            if (custEmail.equals(email) && custPassword.equals(password)) {
+                System.out.println("Customer Found!!");
+                int userID = rs.getInt(1);
+                String firstName = rs.getString(2);
+                String lastName = rs.getString(3);
+                custPassword = rs.getString(4);
+                custEmail = rs.getString(5);
+                String phone = rs.getString(6);
+                
+                String dateOfBirth = rs.getString(7);
+                String streetNumber = rs.getString(8);
+                String streetName = rs.getString(9);
+                String postcode = rs.getString(10);
+                String state = rs.getString(11);
+                String suburb = rs.getString(12);
+                String country = rs.getString(13);
+                boolean activated = rs.getBoolean(13);
+                
+                return new User(userID, firstName, lastName, custPassword, custEmail, phone, dateOfBirth, streetNumber, streetName, postcode, state, suburb, country, activated);
+                
+            }
+        }
+
         return null;
+    }
+
+    public void addStaffDetails(String email, int restaurantID, int privilege, String position) throws SQLException{
+        fetch = "SELECT * FROM `User` WHERE Email='"+ email + "';";
+        ResultSet rs = st.executeQuery(fetch);
+        rs.next();
+        int userID = rs.getInt(1);
+
+        fetch = "insert into db.staff(userID, restaurant_ID, privilege, position) values(?, ?, ?, ?)";
+        PreparedStatement ps = conn.prepareStatement(fetch);
+        ps.setInt(1, userID);
+        ps.setInt(2, restaurantID);
+        ps.setInt(3, privilege);
+        ps.setString(4, position);
+
+        ps.executeUpdate();
     }
 
 }

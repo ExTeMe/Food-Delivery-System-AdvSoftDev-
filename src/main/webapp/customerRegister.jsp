@@ -58,23 +58,6 @@
                     <td><label>Country</label>
                     <td><input type="text" name="country" required="true"></td>
                 </tr>
-                <tr>
-                    <td><label for="cardNumber">Card Number</label>
-                    <td><input type="text" name="cardNumber" required="true"></td>
-                </tr>  
-                <tr>
-                    <td><label>Card Expiration</label>
-                    <td><input type="date" name="cardExpiration" required="true"></td>
-                </tr> 
-                <tr>
-                    <td><label>Card Pin</label>
-                    <td><input type="text" name="cardPin" required="true"></td>
-                </tr> 
-                <tr>
-                    <td><label>Card Name</label>
-                    <td><input type="text" name="cardName" required="true"></td>
-                </tr> 
-
             </table> 
             <div class="center">
                 <input type ="submit" value="Sign Up">
