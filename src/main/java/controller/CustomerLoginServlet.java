@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import dao.DBConnector;
 import dao.DBManager;
 import model.Customer;
+import model.User;
 
 @WebServlet(name = "CustomerLoginServlet", value = "/CustomerLoginServlet")
 
@@ -23,7 +24,6 @@ public class CustomerLoginServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         HttpSession session = request.getSession();
-        Customer customer = null;
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -50,7 +50,8 @@ public class CustomerLoginServlet extends HttpServlet{
             System.out.println("Trying to add Customer");
             if (manager.findCustomer(email, password) != null) {
                 System.out.println("Customer Found");
-                customer = manager.findCustomer(email, password);
+                Customer customer = manager.findCustomer(email, password);
+                session.setAttribute("Customer", customer);              
                 request.getRequestDispatcher("main.jsp").include(request, response);
             }
             else {
@@ -66,6 +67,7 @@ public class CustomerLoginServlet extends HttpServlet{
         }
         catch (SQLException ex) {
             System.out.println("sql exception");
+            ex.printStackTrace();
         }
     }
 

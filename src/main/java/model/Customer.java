@@ -1,25 +1,33 @@
 package model;
 
+import java.time.LocalDate;
+
 public class Customer {
+
+    private int userID;
     private String firstName;
     private String lastName;
     private String email;
-    private String phone;
+    private int phone;
     private String password;
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
 
-    private String streetNumber;
+    private int streetNumber;
     private String streetName;
-    private String postcode;
+    private int postcode;
     private String state;
+    private String suburb;
     private String country;
+    private boolean activated;
 
+    private int customerID;
     private String cardNumber;
-    private String cardExpiration;
+    private LocalDate cardExpiration;
     private int cardPin;
     private String cardName;
 
-    public Customer(String firstName, String lastName, String email, String phone, String password, String dateOfBirth, String streetNumber, String streetName, String postcode, String state, String country, String cardNumber, String cardExpiration, int cardPin, String cardName) {
+    public Customer(int userID, String firstName, String lastName, String password, String email, int phone, LocalDate dateOfBirth, int streetNumber, String streetName, int postcode, String state, String suburb, String country, boolean activated, int customerID, String cardNumber, LocalDate cardExpiration, int cardPin, String cardName) {
+        this.userID = userID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -31,7 +39,9 @@ public class Customer {
         this.streetName = streetName;
         this.postcode = postcode;
         this.state = state;
+        this.suburb = suburb;
         this.country = country;
+        this.activated = activated;
 
         this.cardNumber = cardNumber;
         this.cardExpiration = cardExpiration;
@@ -39,21 +49,21 @@ public class Customer {
         this.cardName = cardName;
     }
 
-    public Customer(String firstName, String lastName, String email, String phone, String password, String dateOfBirth, String streetNumber, String streetName, String postcode, String state, String country) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phone = phone;
-        this.password = password; 
-        this.dateOfBirth = dateOfBirth;
-
-        this.streetNumber = streetNumber;
-        this.streetName = streetName;
-        this.postcode = postcode;
-        this.state = state;
-        this.country = country;
+    public int getUserID() {
+        return this.userID;
     }
 
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public int getCustomerID() {
+        return this.customerID;
+    }
+
+    public void setCustomerID(int customerID) {
+        this.customerID = customerID;
+    }
 
     public String getFirstName() {
         return this.firstName;
@@ -79,11 +89,11 @@ public class Customer {
         this.email = email;
     }
 
-    public String getPhone() {
+    public int getPhone() {
         return this.phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(int phone) {
         this.phone = phone;
     }
 
@@ -95,19 +105,19 @@ public class Customer {
         this.password = password;
     }
 
-    public String getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return this.dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getStreetNumber() {
+    public int getStreetNumber() {
         return this.streetNumber;
     }
 
-    public void setStreetNumber(String streetNumber) {
+    public void setStreetNumber(int streetNumber) {
         this.streetNumber = streetNumber;
     }
 
@@ -119,11 +129,11 @@ public class Customer {
         this.streetName = streetName;
     }
 
-    public String getPostcode() {
+    public int getPostcode() {
         return this.postcode;
     }
 
-    public void setPostcode(String postcode) {
+    public void setPostcode(int postcode) {
         this.postcode = postcode;
     }
 
@@ -132,6 +142,14 @@ public class Customer {
     }
 
     public void setState(String state) {
+        this.state = state;
+    }
+    
+    public String getSuburb() {
+        return this.suburb;
+    }
+
+    public void setSuburb(String state) {
         this.state = state;
     }
 
@@ -143,6 +161,14 @@ public class Customer {
         this.country = country;
     }
 
+    public boolean getActivated() {
+        return this.activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
+    }
+
     public String getCardNumber() {
         return this.cardNumber;
     }
@@ -151,11 +177,11 @@ public class Customer {
         this.cardNumber = cardNumber;
     }
 
-    public String getCardExpiration() {
+    public LocalDate getCardExpiration() {
         return this.cardExpiration;
     }
 
-    public void setCardExpiration(String cardExpiration) {
+    public void setCardExpiration(LocalDate cardExpiration) {
         this.cardExpiration = cardExpiration;
     }
 

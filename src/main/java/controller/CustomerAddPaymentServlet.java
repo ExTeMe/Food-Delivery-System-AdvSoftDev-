@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import dao.DBConnector;
 import dao.DBManager;
 import model.Customer;
+import model.User;
 
 @WebServlet(name = "CustomerAddPaymentServlet", value = "/CustomerAddPaymentServlet")
 
@@ -23,7 +24,7 @@ public class CustomerAddPaymentServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         HttpSession session = request.getSession();
-        Customer customer = (Customer) session.getAttribute("customer");
+        User user = (User) session.getAttribute("User");
 
         String cardNumber = request.getParameter("cardNumber");
         String cardExpiration = request.getParameter("cardExpiration");
@@ -61,8 +62,10 @@ public class CustomerAddPaymentServlet extends HttpServlet{
 
         try {
             System.out.println("Trying to add Payment details ");
-            manager.addPaymentDetails(customer.getEmail(), cardNumber, cardExpiration, cardPin, cardName);
-        //    request.getRequestDispatcher("customerAddPayment.jsp").include(request, response);
+            manager.addPaymentDetails(user.getUserID(), cardNumber, cardExpiration, cardPin, cardName);
+            Customer customer = manager.findCustomer(user.getUserID());
+            session.setAttribute("Customer", customer);
+            request.getRequestDispatcher("main.jsp").include(request, response);
         }
         catch (NullPointerException ex) {
             ex.printStackTrace();
