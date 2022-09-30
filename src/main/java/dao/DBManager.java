@@ -18,8 +18,6 @@ import model.User;
 
 public class DBManager {
     
-=======
->>>>>>> Stashed changes
     private Statement st;
     private PreparedStatement ps;
     private String fetch;
@@ -30,14 +28,14 @@ public class DBManager {
 //        ps = conn.prepareStatement(); 
         this.conn = conn;
     }
-
+/* 
     public void testAdder(String firstName, String lastName) {
         fetch = "INSERT INTO db.tables.Customer " + "VALUES (" + firstName + ", '" + lastName + "')";
         System.out.println(fetch);
         ps.executeUpdate();
 
     }
-
+*/
     public void addUser(String firstName, String lastName, String password, String email, int phoneNumber, String dob, int streetNumber, String streetName, int postcode, String state, String suburb, String country, boolean activated) throws SQLException {
        // fetch = "INSERT INTO db.user " + "VALUES (" + 000123 + ",'" + firstName + "', '" + lastName + "', '" + password + "', '" + email + "', '" + phoneNumber + "', '" + dob + "', '" + streetNumber + "', '" + streetName + "', '" + postcode + "', '" + state + "', '" + suburb + "', '" + country + "', " + 1 + ")";
        // System.out.println("made it to addUser in dbmanager");
@@ -201,8 +199,10 @@ public class DBManager {
                         rs.getString("FOOD_FEEDBACK"));
                 return order;
             }
+        } catch (Exception e) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println("Exception is: " + e);
         }
-        System.out.println("DBMANAGER USER NOT FOUND FROM FINDUSER METHOD");
         return null;
     }
 
@@ -225,7 +225,7 @@ public class DBManager {
         ps.executeUpdate();
 
     }
-
+/* 
     public User findUser(String email, String password) throws SQLException{
         String fetch = "select * from db.user where email='" + email + "' and Password= '" + password + "'";
         ResultSet rs = st.executeQuery(fetch);
@@ -260,7 +260,7 @@ public class DBManager {
 
         return null;
     }
-
+/* 
     public void addStaffDetails(String email, int restaurantID, int privilege, String position) throws SQLException{
         fetch = "SELECT * FROM `User` WHERE Email='"+ email + "';";
         ResultSet rs = st.executeQuery(fetch);
@@ -276,7 +276,7 @@ public class DBManager {
 
         ps.executeUpdate();
     }
-
+*/
     public void updateCustomer(int userID, String firstName, String lastName, String password, String email, String phone, String dateOfBirth, String streetNumber, String streetName, String postcode, String state, String suburb, String country, boolean activated, int customerID, String cardNumber, String cardExpiration, int cardPin, String cardName) throws SQLException {
         
         fetch = "UPDATE db.user SET first_name = ?, last_name = ?, password = ?, email = ?, phoneNo = ?, dob = ?, street_number = ?, street_name = ?, postcode = ?, state = ?, suburb = ?, country = ?, activated = ? WHERE userID = ?";

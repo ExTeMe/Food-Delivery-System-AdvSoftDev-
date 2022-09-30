@@ -21,16 +21,20 @@ public class StaffRegisterServlet extends HttpServlet{
         
         HttpSession session = request.getSession();
 
+        int phone = 0;
+        int streetNumber = 0;
+        int postcode = 0;
+
         String email = request.getParameter("email");
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String password = request.getParameter("password");
-        String phone = request.getParameter("phone");
+        String Sphone = request.getParameter("phone");
         String dob = request.getParameter("dob"); 
 
-        String streetNumber = request.getParameter("streetNumber");
+        String SstreetNumber = request.getParameter("streetNumber");
         String streetName = request.getParameter("streetName");
-        String postcode = request.getParameter("postcode");
+        String Spostcode = request.getParameter("postcode");
         String state = request.getParameter("state");
         String suburb = request.getParameter("suburb");
         String country = request.getParameter("country");
@@ -38,6 +42,15 @@ public class StaffRegisterServlet extends HttpServlet{
         DBConnector db;
         DBManager manager;
         Connection conn;
+
+        try{
+            phone = Integer.parseInt(Sphone);
+            streetNumber = Integer.parseInt(SstreetNumber);
+            postcode = Integer.parseInt(Spostcode);
+        }
+        catch (NumberFormatException ex){
+            ex.printStackTrace();
+        }
     
         try {
             db = new DBConnector();
