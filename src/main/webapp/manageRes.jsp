@@ -33,6 +33,7 @@
 
     <div class="mt-3 me-3">
         <a href="modifyRes.jsp" class="float-start btn btn-light text-dark ms-2"> Add </a>
+        <a href="all-rescat?ref=res" class="float-start btn btn-light text-dark ms-2"> Assign Category </a>
         <% if (rDeleteSuccess != null && !rDeleteSuccess.equals("")) { %>
             <div class="d-inline-flex alert alert-success"><%=rDeleteSuccess%></div>
         <% }
