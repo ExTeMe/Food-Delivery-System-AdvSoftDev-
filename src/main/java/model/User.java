@@ -9,19 +9,20 @@ public class User {
     private String lname;
     private String pass;
     private String email;
-    private String phoneNo;
-    private String dob;
-    private String streetNo;
+    private int phoneNo;
+    private LocalDate dob;
+    private int streetNo;
     private String streetName;
-    private String postcode;
+    private int postcode;
     private String state;
     private String suburb;
     private String country;
     private Boolean activated;
 
-
-    public User(int UserID, String fname, String lname, String pass, String email, String phoneNo, String dob, String streetNo, String streetName, String postcode, String state, String suburb, String country, Boolean activated) {
-        this.UserID = UserID;
+    public User(int userID, String fname, String lname, String pass,
+            String email, int phoneNo, LocalDate dob, int streetNo, String streetName,
+            int postcode, String state, String suburb, String country, Boolean activated) {
+        this.UserID = userID;
         this.fname = fname;
         this.lname = lname;
         this.pass = pass;
@@ -37,13 +38,19 @@ public class User {
         this.activated = activated;
     }
 
-    public int getUserID() {
-        return this.UserID;
+    // for testing
+    public User(int userID, String fname, String lname) {
+        UserID = userID;
+        this.fname = fname;
+        this.lname = lname;
     }
 
+    public int getUserID() {
+        return UserID;
+    }
 
     public String getFname() {
-        return this.fname;
+        return fname;
     }
 
     public void setFname(String fname) {
@@ -51,7 +58,7 @@ public class User {
     }
 
     public String getLname() {
-        return this.lname;
+        return lname;
     }
 
     public void setLname(String lname) {
@@ -59,7 +66,7 @@ public class User {
     }
 
     public String getPass() {
-        return this.pass;
+        return pass;
     }
 
     public void setPass(String pass) {
@@ -67,55 +74,55 @@ public class User {
     }
 
     public String getEmail() {
-        return this.email;
+        return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getPhoneNo() {
-        return this.phoneNo;
+    public int getPhoneNo() {
+        return phoneNo;
     }
 
-    public void setPhoneNo(String phoneNo) {
+    public void setPhoneNo(int phoneNo) {
         this.phoneNo = phoneNo;
     }
 
-    public String getDob() {
-        return this.dob;
+    public LocalDate getDob() {
+        return dob;
     }
 
-    public void setDob(String dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 
-    public String getStreetNo() {
-        return this.streetNo;
+    public int getStreetNo() {
+        return streetNo;
     }
 
-    public void setStreetNo(String streetNo) {
+    public void setStreetNo(int streetNo) {
         this.streetNo = streetNo;
     }
 
     public String getStreetName() {
-        return this.streetName;
+        return streetName;
     }
 
     public void setStreetName(String streetName) {
         this.streetName = streetName;
     }
 
-    public String getPostcode() {
-        return this.postcode;
+    public int getPostcode() {
+        return postcode;
     }
 
-    public void setPostcode(String postcode) {
+    public void setPostcode(int postcode) {
         this.postcode = postcode;
     }
 
     public String getState() {
-        return this.state;
+        return state;
     }
 
     public void setState(String state) {
@@ -123,7 +130,7 @@ public class User {
     }
 
     public String getSuburb() {
-        return this.suburb;
+        return suburb;
     }
 
     public void setSuburb(String suburb) {
@@ -131,23 +138,18 @@ public class User {
     }
 
     public String getCountry() {
-        return this.country;
+        return country;
     }
 
     public void setCountry(String country) {
         this.country = country;
     }
 
-    public Boolean isActivated() {
-        return this.activated;
-    }
-
     public Boolean getActivated() {
-        return this.activated;
+        return activated;
     }
 
     public void setActivated(Boolean activated) {
         this.activated = activated;
     }
-    
 }

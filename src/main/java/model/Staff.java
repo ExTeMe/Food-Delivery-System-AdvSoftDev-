@@ -9,11 +9,11 @@ public class Staff extends User {
     private String lname;
     private String pass;
     private String email;
-    private String phoneNo;
-    private String dob;
-    private String streetNo;
+    private int phoneNo;
+    private LocalDate dob;
+    private int streetNo;
     private String streetName;
-    private String postcode;
+    private int postcode;
     private String state;
     private String suburb;
     private String country;
@@ -24,7 +24,7 @@ public class Staff extends User {
     private int privilege;
     private String position;
 
-    public Staff(int userID, String fname, String lname, String pass, String email, String phoneNo, String dob, String streetNo, String streetName, String postcode, String state, String suburb, String country, Boolean activated, int staffID, int restaurantID, int privilege, String position) {
+    public Staff(int userID, String fname, String lname, String pass, String email, int phoneNo, LocalDate dob, int streetNo, String streetName, int postcode, String state, String suburb, String country, Boolean activated, int staffID, int restaurantID, int privilege, String position) {
         super(userID, fname, lname, pass, email, phoneNo, dob, streetNo, streetName, postcode, state, suburb, country, activated);
         this.staffID = staffID;
         this.restaurantID = restaurantID;
@@ -119,27 +119,27 @@ public class Staff extends User {
         this.email = email;
     }
 
-    public String getPhoneNo() {
+    public int getPhoneNo() {
         return this.phoneNo;
     }
 
-    public void setPhoneNo(String phoneNo) {
+    public void setPhoneNo(int phoneNo) {
         this.phoneNo = phoneNo;
     }
 
-    public String getDob() {
+    public LocalDate getDob() {
         return this.dob;
     }
 
-    public void setDob(String dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 
-    public String getStreetNo() {
+    public int getStreetNo() {
         return this.streetNo;
     }
 
-    public void setStreetNo(String streetNo) {
+    public void setStreetNo(int streetNo) {
         this.streetNo = streetNo;
     }
 
@@ -151,11 +151,11 @@ public class Staff extends User {
         this.streetName = streetName;
     }
 
-    public String getPostcode() {
+    public int getPostcode() {
         return this.postcode;
     }
 
-    public void setPostcode(String postcode) {
+    public void setPostcode(int postcode) {
         this.postcode = postcode;
     }
 

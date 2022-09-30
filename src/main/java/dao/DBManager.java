@@ -77,6 +77,7 @@ public class DBManager {
                 String phone = rs.getString(6);
                 
                 String dateOfBirth = rs.getString(7);
+                LocalDate localDate = LocalDate.parse(dateOfBirth);
                 String streetNumber = rs.getString(8);
                 String streetName = rs.getString(9);
                 String postcode = rs.getString(10);
@@ -132,18 +133,20 @@ public class DBManager {
                 String lastName = rs.getString(3);
                 custPassword = rs.getString(4);
                 custEmail = rs.getString(5);
-                String phone = rs.getString(6);
+                int phone = rs.getInt(6);
                 
                 String dateOfBirth = rs.getString(7);
-                String streetNumber = rs.getString(8);
+                LocalDate localDate = LocalDate.parse(dateOfBirth);
+                
+                int streetNumber = rs.getInt(8);
                 String streetName = rs.getString(9);
-                String postcode = rs.getString(10);
+                int postcode = rs.getInt(10);
                 String state = rs.getString(11);
                 String suburb = rs.getString(12);
                 String country = rs.getString(13);
                 boolean activated = rs.getBoolean(13);
                 
-                return new User(userID, firstName, lastName, custPassword, custEmail, phone, dateOfBirth, streetNumber, streetName, postcode, state, suburb, country, activated);
+                return new User(userID, firstName, lastName, custPassword, custEmail, phone, localDate, streetNumber, streetName, postcode, state, suburb, country, activated);
                 
             }
         }
