@@ -27,13 +27,14 @@ package controller.rms;
 
             String resID = request.getParameter("res");
             String catID = request.getParameter("cat");
+            String ref = request.getParameter("ref");
 
             try {
                 manager.setRestaurantCategory(Integer.parseInt(resID), Integer.parseInt(catID));
-                request.getRequestDispatcher("all-rescat").include(request, response);
+                request.getRequestDispatcher("all-rescat?ref=" + ref).include(request, response);
             } catch (Exception e) {
                 Logger.getLogger(SetResCatServlet.class.getName()).log(Level.SEVERE, null, e);
-                request.getRequestDispatcher("all-rescat").include(request, response);
+                request.getRequestDispatcher("all-rescat?ref=" + ref).include(request, response);
             }
 
       }

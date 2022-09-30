@@ -55,10 +55,11 @@
                 <tr class="catrow">
                     <td class="text-dark text-center "><%=res.getRestaurantName()%></td>
                     <td class="text-dark text-center">
-                        <select class="selectpicker" multiple data-live-search="true">
+                        <select class="selectpicker" multiple data-live-search="true"
+                                <%-- onchange="updateResCat(<%=res.getRestaurantID()%>, <%=value%>)" --%>>
                             <%-- print all selected categories first --%>
                             <% for (RCategory selected : res.getCategories()) { %>
-                                <option selected><%=selected.getrCatName()%></option>
+                                <option value="<%=res.getRestaurantID()%> <%=selected.getrCatID()%>" selected><%=selected.getrCatName()%></option>
                             <% } %>
                             <%-- print all remaining categories --%>
                             <% for (RCategory all : rcategories) { %>
@@ -70,17 +71,38 @@
                                     } %>
                                 <% } %>
                                 <% if (!match) { %>
-                                <option><%=all.getrCatName()%></option>
+                                <option value="<%=res.getRestaurantID()%> <%=all.getrCatID()%>"><%=all.getrCatName()%></option>
                                 <% } %>
                             <% } %>
                         </select>
+                        <form class="mt-3" id="selectForm" action="update-rescat" method="post">
+                            <input type="hidden" name="res" id="hidRes">
+                            <input type="hidden" name="cat" id="hidCat">
+                            <input type="hidden" name="ref" value="<%=ref%>">
+                        </form>
                     </td>
                 </tr>
             <% } %>
             </tbody>
         </table>
     </div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js" integrity="sha512-FHZVRMUW9FsXobt+ONiix6Z0tIkxvQfxtCSirkKc5Sb4TKHmqq1dZa8DphF0XqKb3ldLu/wgMa8mT6uXiLlRlw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+
+    $(".selectpicker").on("changed.bs.select", function(e, clickedIndex) {
+        const params = $(this).find('option').eq(clickedIndex).val();
+        updateResCat(params);
+    });
+
+    function updateResCat(params) {
+        const output = params.split(" ");
+        document.getElementById("hidRes").value = output[0];
+        document.getElementById("hidCat").value = output[1];
+        const form = document.getElementById("selectForm");
+        form.submit();
+    }
+</script>
 </body>
 </html>
