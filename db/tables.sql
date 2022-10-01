@@ -43,6 +43,14 @@ CREATE TABLE Restaurant
     PRIMARY KEY (Restaurant_ID)
 );
 
+DROP TABLE IF EXISTS PrivilegeLists;
+CREATE TABLE PrivilegeLists
+(
+    Privilege INT NOT NULL,
+    Actions VARCHAR(100) NOT NULL,
+    PRIMARY KEY (Privilege, Actions)
+);
+
 DROP TABLE IF EXISTS Staff;
 CREATE TABLE Staff
 (
@@ -51,9 +59,10 @@ CREATE TABLE Staff
     Restaurant_ID INT UNSIGNED NOT NULL,
     Privilege INT NOT NULL DEFAULT 0,
     Position VARCHAR(10),
-    PRIMARY KEY  (Staff_ID),
+    PRIMARY KEY (Staff_ID),
     FOREIGN KEY (UserID) REFERENCES `User`(UserID),
-    FOREIGN KEY (Restaurant_ID) REFERENCES Restaurant(Restaurant_ID)
+    FOREIGN KEY (Restaurant_ID) REFERENCES Restaurant(Restaurant_ID),
+    FOREIGN KEY (Privilege) REFERENCES PrivilegeLists(Privilege)
 );
 
 DROP TABLE IF EXISTS AppStaff;
