@@ -356,4 +356,128 @@ public class DBManager {
 
     } 
 
+    public Staff findStaff(String Semail, String Spassword) throws SQLException {
+
+        String fetch = "select * from db.user where email='" + Semail + "' and Password= '" + Spassword + "'";
+        ResultSet rs = st.executeQuery(fetch);
+   
+        rs.next();
+        String email = rs.getString(5);
+        String password = rs.getString(4);
+
+        if (email.equals(Semail) && password.equals(Spassword)) {
+            System.out.println("Customer Found!!");
+            int userID = rs.getInt(1);
+            String firstName = rs.getString(2);
+            String lastName = rs.getString(3);
+            password = rs.getString(4);
+            email = rs.getString(5);
+            int phone = rs.getInt(6);
+            
+            String dateOfBirth = rs.getString(7);
+            LocalDate localDate = LocalDate.parse(dateOfBirth);
+            int streetNumber = rs.getInt(8);
+            String streetName = rs.getString(9);
+            int postcode = rs.getInt(10);
+            String state = rs.getString(11);
+            String suburb = rs.getString(12);
+            String country = rs.getString(13);
+            boolean activated = rs.getBoolean(14);
+            
+            fetch = "select * from db.staff where userID=" + userID;
+            System.out.println(fetch);
+            rs = st.executeQuery(fetch);
+            rs.next();
+
+            int staffID = rs.getInt(1);
+            int restaurantID = rs.getInt(3);
+            int privilege = rs.getInt(4);
+            String position = rs.getString(5);
+            return new Staff(userID, firstName, lastName, password, email, phone, localDate, streetNumber, streetName, postcode, state, suburb, country, activated, staffID, restaurantID, privilege, position);
+            
+        }
+
+        else {
+           System.out.println("DBMANAGER STAFF NOT FOUND FROM FINDUSER METHOD");
+            return null; 
+        }
+        
+        
+    }
+
+    public void updateStaff(int userID, String firstName, String lastName, String password, String email, int phone, String dateOfBirth, int streetNumber, String streetName, int postcode, String state, String suburb, String country, boolean activated, int staffID, int restauranID, int privilege, String position) throws SQLException {
+        
+        fetch = "UPDATE db.user SET first_name = ?, last_name = ?, password = ?, email = ?, phoneNo = ?, dob = ?, street_number = ?, street_name = ?, postcode = ?, state = ?, suburb = ?, country = ?, activated = ? WHERE userID = ?";
+        PreparedStatement ps = conn.prepareStatement(fetch);
+        ps.setString(1, firstName);
+        ps.setString(2, lastName);
+        ps.setString(3, password);
+        ps.setString(4, email);
+        ps.setInt(5, phone);
+        ps.setString(6, dateOfBirth);
+        ps.setInt(7, streetNumber);
+        ps.setString(8, streetName);
+        ps.setInt(9, postcode);
+        ps.setString(10, state);
+        ps.setString(11, suburb);
+        ps.setString(12, country);
+        ps.setInt(13, 1);
+        ps.setInt(14, userID);
+
+        System.out.println(fetch);
+        ps.executeUpdate();
+        System.out.println(ps);
+
+        fetch = "UPDATE db.staff SET restaurant_id = ?, privilege = ?, position = ? WHERE userID = ?";
+        ps = conn.prepareStatement(fetch);
+        ps.setInt(1, restauranID);
+        ps.setInt(2, privilege);
+        ps.setString(3, position);
+        ps.setInt(4, userID);
+
+        System.out.println(ps);
+        ps.executeUpdate();
+
+        /*
+         * UPDATE Customers
+         * SET ContactName = 'Alfred Schmidt', City= 'Frankfurt'
+         * WHERE CustomerID = 1;
+         */
+    }
+
+    public Staff findStaff(int SuserID) throws SQLException {
+
+        String fetch = "select * from db.user where UserID=" + SuserID;
+        ResultSet rs = st.executeQuery(fetch);
+   
+        rs.next();
+        String email = rs.getString(5);
+        String password = rs.getString(4);
+        int userID = rs.getInt(1);
+        String firstName = rs.getString(2);
+        String lastName = rs.getString(3);
+        password = rs.getString(4);
+        email = rs.getString(5);
+        int phone = rs.getInt(6);
+        
+        String dateOfBirth = rs.getString(7);
+        LocalDate localDate = LocalDate.parse(dateOfBirth);
+        int streetNumber = rs.getInt(8);
+        String streetName = rs.getString(9);
+        int postcode = rs.getInt(10);
+        String state = rs.getString(11);
+        String suburb = rs.getString(12);
+        String country = rs.getString(13);
+        boolean activated = rs.getBoolean(14);
+        
+        fetch = "select * from db.staff where userID=" + userID;
+        rs = st.executeQuery(fetch);
+        rs.next();
+        int staffID = rs.getInt(1);
+        int restaurantID = rs.getInt(3);
+        int privilege = rs.getInt(4);
+        String position = rs.getString(5);
+        return new Staff(userID, firstName, lastName, password, email, phone, localDate, streetNumber, streetName, postcode, state, suburb, country, activated, staffID, restaurantID, privilege, position);
+    }
+
 }

@@ -11,32 +11,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import dao.DBConnector;
 import dao.DBManager;
-import model.Customer;
-import model.User;
+import model.Staff;
 
-@WebServlet(name = "CustomerAddPaymentServlet", value = "/CustomerAddPaymentServlet")
 
-public class CustomerAddPaymentServlet extends HttpServlet{
+@WebServlet(name = "StaffLoginServlet", value = "/StaffLoginServlet")
+
+public class StaffLoginServlet extends HttpServlet{
 
     @Override   
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("User");
 
-        String cardNumber = request.getParameter("cardNumber");
-        String cardExpiration = request.getParameter("cardExpiration");
-        // change cardPin to int
-        int cardPin = 0;
-        String cardPinTemp = request.getParameter("cardPin");
-        String cardName = request.getParameter("cardName");
-
-        try{
-            cardPin = Integer.parseInt(cardPinTemp);
-        }
-        catch (NumberFormatException ex){
-            ex.printStackTrace();
-        }
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
         
         DBConnector db;
         DBManager manager;
@@ -51,19 +39,23 @@ public class CustomerAddPaymentServlet extends HttpServlet{
             session.setAttribute("manager", manager);
     
         } catch (Exception e) {
-            System.out.println("MANAGER FAILED SOMEHOW");
             System.out.println("Exception is: " + e);
-            e.printStackTrace();
         }
 
         manager = (DBManager) session.getAttribute("manager");
 
         try {
-            System.out.println("Trying to add Payment details ");
-            manager.addPaymentDetails(user.getUserID(), cardNumber, cardExpiration, cardPin, cardName);
-            Customer customer = manager.findCustomer(user.getUserID());
-            session.setAttribute("Customer", customer);
-            request.getRequestDispatcher("main.jsp").include(request, response);
+            if (manager.findUser(email, password) != null) {
+                Staff staff = manager.findStaff(email, password);
+                session.setAttribute("Staff", staff);  
+                System.out.println(staff.getFname() + " is the first name from session staff")            ;
+                request.getRequestDispatcher("staffMain.jsp").include(request, response);
+            }
+            else {
+                System.out.println("Customer Not Found");
+                request.getRequestDispatcher("staffLogin.jsp").include(request, response);
+            }
+              
         }
         catch (NullPointerException ex) {
             ex.printStackTrace();

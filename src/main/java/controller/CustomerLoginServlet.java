@@ -1,8 +1,6 @@
 package controller;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -14,7 +12,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import dao.DBConnector;
 import dao.DBManager;
 import model.Customer;
-import model.User;
 
 @WebServlet(name = "CustomerLoginServlet", value = "/CustomerLoginServlet")
 

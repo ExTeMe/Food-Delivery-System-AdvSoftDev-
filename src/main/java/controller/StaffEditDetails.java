@@ -11,45 +11,49 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import dao.DBConnector;
 import dao.DBManager;
+import model.Staff;
 
-@WebServlet(name = "CustomerRegisterServlet", value = "/CustomerRegisterServlet")
+@WebServlet(name = "StaffEditDetails", value = "/StaffEditDetails")
 
-public class CustomerRegisterServlet extends HttpServlet{
+public class StaffEditDetails extends HttpServlet{
 
     @Override   
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        HttpSession session = request.getSession();
 
-        int phone = 0;
+        int phoneNumber = 0;
         int streetNumber = 0;
         int postcode = 0;
+        int restaurantID = 0;
+        int privilege = 0;
+        
+        HttpSession session = request.getSession();
 
         String email = request.getParameter("email");
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String password = request.getParameter("password");
-        String Cphone = request.getParameter("phone");
+        String phoneTemp = request.getParameter("phone");
         String dob = request.getParameter("dob"); 
 
-        String CstreetNumber = request.getParameter("streetNumber");
+        String streetNumberTemp = request.getParameter("streetNumber");
         String streetName = request.getParameter("streetName");
-        String Cpostcode = request.getParameter("postcode");
+        String postcodeTemp = request.getParameter("postcode");
         String state = request.getParameter("state");
         String suburb = request.getParameter("suburb");
         String country = request.getParameter("country");
-/* 
-        String cardNumber = request.getParameter("cardNumber");
-        String cardExpiration = request.getParameter("cardExpiration");
-        // change cardPin to int
-        int cardPin = 0;
-        String cardPinTemp = request.getParameter("cardPin");
-        String cardName = request.getParameter("cardName");
-*/
+
+        String restaurantIDTemp = request.getParameter("restaurantID");
+        String PrivilegeTemp = request.getParameter("privilege");
+        String position = request.getParameter("position");
+
+ //       LocalDate cardExpiration = LocalDate.parse(cardExpirationTemp);
+
         try{
-            phone = Integer.parseInt(Cphone);
-            streetNumber = Integer.parseInt(CstreetNumber);
-            postcode = Integer.parseInt(Cpostcode);
+            phoneNumber = Integer.parseInt(phoneTemp);
+            streetNumber = Integer.parseInt(streetNumberTemp);
+            postcode = Integer.parseInt(postcodeTemp);
+            restaurantID = Integer.parseInt(restaurantIDTemp);
+            privilege = Integer.parseInt(PrivilegeTemp);
         }
         catch (NumberFormatException ex){
             ex.printStackTrace();
@@ -77,10 +81,11 @@ public class CustomerRegisterServlet extends HttpServlet{
 
         try {
             System.out.println("Trying to add Customer");
-            manager.addUser(firstName, lastName, password, email, phone, dob, streetNumber, streetName, postcode, state, suburb, country, true);
-            System.out.println("User entered Successful");
-            session.setAttribute("User", manager.findUser(email, password));
-            request.getRequestDispatcher("customerAddPayment.jsp").include(request, response);
+            Staff staff = (Staff) session.getAttribute("Staff");
+            manager.updateStaff(staff.getUserID(), firstName, lastName, password, email, phoneNumber, dob, streetNumber, streetName, postcode, state, suburb, country, true, staff.getStaffID(), restaurantID, privilege, position);
+            staff = manager.findStaff(staff.getUserID());
+            session.setAttribute("Staff", staff);
+            request.getRequestDispatcher("staffMain.jsp").include(request, response);
         }
         catch (NullPointerException ex) {
             ex.printStackTrace();

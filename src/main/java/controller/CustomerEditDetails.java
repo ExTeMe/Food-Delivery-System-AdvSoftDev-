@@ -1,10 +1,7 @@
 package controller;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -47,7 +44,7 @@ public class CustomerEditDetails extends HttpServlet{
         String cardPinTemp = request.getParameter("cardPin");
         String cardName = request.getParameter("cardName");
 
-        LocalDate cardExpiration = LocalDate.parse(cardExpirationTemp);
+//        LocalDate cardExpiration = LocalDate.parse(cardExpirationTemp);
 
         try{
             cardNumber = Integer.parseInt(cardNumberTemp);
