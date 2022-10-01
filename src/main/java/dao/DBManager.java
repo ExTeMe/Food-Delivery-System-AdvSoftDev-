@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -175,4 +176,66 @@ public class DBManager {
             return null;
         }
     }
+
+    public ArrayList<Restaurant> fectRestaraunt() throws SQLException {
+        String fetch = "SELECT * FROM RESTAURANT";
+        ResultSet rs = st.executeQuery(fetch);
+        ArrayList<Restaurant> temp = new ArrayList();
+
+        // public Restaurant(int restaurantID, String imageReference, String restaurantName,
+        // ArrayList<RCategory> categories, int streetNum, String streetName,
+        // int postcode, String state, String suburb, String country,
+        // Boolean activate, long abn, String accountName,
+        // int bsb, int accountNum)
+
+        while (rs.next()) {
+
+            // public Restaurant(String imageReference, String restaurantName,
+            //           int streetNum, String streetName, int postcode, String state,
+            //           String suburb, String country, Boolean activate, long abn, String accountName,
+            //           int bsb, int accountNum) 
+            
+            temp.add(new Restaurant(
+                rs.getString("Image_Reference"),
+                rs.getString("Restaraunt_Name"),
+                rs.getInt("Street_Number"),
+                rs.getString("Street_Name"),
+                rs.getInt("Postcode"),
+                rs.getString("State"),
+                rs.getString("Suburb"),
+                rs.getString("Country"),
+                rs.getBoolean("Activated"),
+                rs.getInt("ABN"),
+                rs.getString("Account_Name"),
+                rs.getInt("BSB"),
+                rs.getInt("Account_Number")
+                ));
+        }
+        return temp;
+    }
+
+    public ArrayList<MenuItem> fectMenuItem() throws SQLException {
+        String fetch = "SELECT * FROM MENU_ITEM";
+        ResultSet rs = st.executeQuery(fetch);
+        ArrayList<MenuItem> temp = new ArrayList();
+        
+        while (rs.next()) {
+
+            temp.add(new MenuItem(
+                rs.getInt("Restaurant_ID"),
+                rs.getString("Item_Type"),
+                rs.getInt("Servings"),
+                rs.getFloat("Price"),
+                rs.getInt("Calories"),
+                rs.getString("Image"),
+                rs.getString("Description"),
+                rs.getString("Ingredients"),
+                rs.getString("Allergy"),
+                rs.getInt("Stock")
+                ));
+    }   
+        return temp;
+
+    }
+
 }
