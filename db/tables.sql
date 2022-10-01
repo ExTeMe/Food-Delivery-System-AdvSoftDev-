@@ -46,11 +46,10 @@ CREATE TABLE Restaurant
 DROP TABLE IF EXISTS PrivilegeLists;
 CREATE TABLE PrivilegeLists
 (
-    P_ID INT PRIMARY KEY AUTO_INCREMENT,
     Privilege INT NOT NULL,
-    Actions VARCHAR(100) NOT NULL
+    Actions VARCHAR(100) NOT NULL,
+    PRIMARY KEY (Privilege, Actions)
 );
-CREATE INDEX privilege_index on PrivilegeLists(Privilege);
 
 DROP TABLE IF EXISTS Staff;
 CREATE TABLE Staff
