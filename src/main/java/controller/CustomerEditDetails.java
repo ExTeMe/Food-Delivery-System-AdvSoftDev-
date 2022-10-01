@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,6 +22,9 @@ public class CustomerEditDetails extends HttpServlet{
 
     @Override   
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        int cardNumber = 0;
+        int cardPin = 0;
         
         HttpSession session = request.getSession();
 
@@ -38,14 +42,15 @@ public class CustomerEditDetails extends HttpServlet{
         String suburb = request.getParameter("suburb");
         String country = request.getParameter("country");
 
-        String cardNumber = request.getParameter("cardNumber");
-        String cardExpiration = request.getParameter("cardExpiration");
-        // change cardPin to int
-        int cardPin = 0;
+        String cardNumberTemp = request.getParameter("cardNumber");
+        String cardExpirationTemp = request.getParameter("cardExpiration");
         String cardPinTemp = request.getParameter("cardPin");
         String cardName = request.getParameter("cardName");
 
+        LocalDate cardExpiration = LocalDate.parse(cardExpirationTemp);
+
         try{
+            cardNumber = Integer.parseInt(cardNumberTemp);
             cardPin = Integer.parseInt(cardPinTemp);
         }
         catch (NumberFormatException ex){
@@ -75,7 +80,7 @@ public class CustomerEditDetails extends HttpServlet{
         try {
             System.out.println("Trying to add Customer");
             Customer customer = (Customer) session.getAttribute("Customer");
-            manager.updateCustomer(customer.getUserID(), firstName, lastName, password, email, phone, dob, streetNumber, streetName, postcode, state, suburb, country, true, customer.getCustomerID(), cardNumber, cardExpiration, cardPin, cardName);
+            manager.updateCustomer(customer.getUserID(), firstName, lastName, password, email, phone, dob, streetNumber, streetName, postcode, state, suburb, country, true, customer.getCustomerID(), cardNumber, cardExpirationTemp, cardPin, cardName);
             customer = manager.findCustomer(customer.getUserID());
             session.setAttribute("Customer", customer);
             request.getRequestDispatcher("main.jsp").include(request, response);

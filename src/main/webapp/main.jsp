@@ -27,6 +27,8 @@
        else {
            manageMode = (Boolean) session.getAttribute("manageMode");
        } %>
+    
+    <% Customer customer = (Customer) session.getAttribute("Customer"); %>
 
     <body class="overflow-hidden bg-light">
 
@@ -37,7 +39,7 @@
                 <div class="float-end me-2">
                     <%-- If not in manage mode, show the register/login etc... buttons, else only show category related buttons --%>
                     <% if (!manageMode) { %>
-                        <label>LOGGED IN AS: "${customer.getEmail()}"</label>>
+                        <label>LOGGED IN AS: <%=customer.getEmail()%></label>
                         <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="./customerEditDetails.jsp">Edit Details</a>
                         <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="./staffRegister.jsp">Logout</a>
                     <% } else { %>

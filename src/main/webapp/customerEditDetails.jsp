@@ -86,6 +86,6 @@
                 <input type ="submit" value="Update Details">
             </div>    
         </form>
-        <a href="./index.jsp">Go to Index Page</a>
+        <a href="./main.jsp">Back to Main Page</a>
     </body>
 </html>

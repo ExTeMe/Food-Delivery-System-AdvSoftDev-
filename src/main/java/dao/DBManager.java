@@ -277,7 +277,7 @@ public class DBManager {
         ps.executeUpdate();
     }
 */
-    public void updateCustomer(int userID, String firstName, String lastName, String password, String email, String phone, String dateOfBirth, String streetNumber, String streetName, String postcode, String state, String suburb, String country, boolean activated, int customerID, String cardNumber, String cardExpiration, int cardPin, String cardName) throws SQLException {
+    public void updateCustomer(int userID, String firstName, String lastName, String password, String email, String phone, String dateOfBirth, String streetNumber, String streetName, String postcode, String state, String suburb, String country, boolean activated, int customerID, int cardNumber, String cardExpiration, int cardPin, String cardName) throws SQLException {
         
         fetch = "UPDATE db.user SET first_name = ?, last_name = ?, password = ?, email = ?, phoneNo = ?, dob = ?, street_number = ?, street_name = ?, postcode = ?, state = ?, suburb = ?, country = ?, activated = ? WHERE userID = ?";
         PreparedStatement ps = conn.prepareStatement(fetch);
@@ -299,6 +299,19 @@ public class DBManager {
         System.out.println(fetch);
         ps.executeUpdate();
         System.out.println(ps);
+
+        fetch = "UPDATE db.customer SET card_number = ?, card_expiration = ?, card_pin = ?, card_name = ? WHERE user_id = ?";
+        ps = conn.prepareStatement(fetch);
+        ps.setInt(1, cardNumber);
+        ps.setString(2, cardExpiration);
+        ps.setInt(3, cardPin);
+        ps.setString(4, cardName);
+        ps.setInt(5, userID);
+
+        System.out.println(ps);
+        ps.executeUpdate();
+        
+
         /*
          * UPDATE Customers
          * SET ContactName = 'Alfred Schmidt', City= 'Frankfurt'
