@@ -9,7 +9,6 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
  * SqlSessionUtil for mybatis
  * @author Hao Zeng
  * @version 1.0
- * @since  1.1
  */
 public class SqlSessionUtil {
     private static SqlSessionFactory sqlSessionFactory;
@@ -34,8 +33,7 @@ public class SqlSessionUtil {
         }
     }
 
-    public static SqlSession openSqlSession()
-    {
+    public static SqlSession openSqlSession() {
         SqlSession sqlSession = threadLocal.get();
         if (sqlSession == null)
         {
@@ -45,8 +43,7 @@ public class SqlSessionUtil {
         return sqlSession;
     }
 
-    public static void close(SqlSession sqlSession)
-    {
+    public static void close(SqlSession sqlSession) {
         if (sqlSession != null)
         {
             sqlSession.close();

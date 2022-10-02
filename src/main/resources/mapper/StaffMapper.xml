@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Aliasing is not permitted for the namespace.
+     The fully qualified interface name must be written-->
+<mapper namespace="mapper.StaffMapper">
+    <!-- Specify the correspondence between field names of database tables and property names of Java classes.
+         type: class name of Javabean.-->
+    <resultMap id="staffMap" type="Staff">
+        <!-- If there is a primary key, configure an ID tag.
+             As it can improve the efficiency of Mybatis.
+             This is not compulsory.-->
+        <!-- property value: name of the attribute of the bean class.-->
+        <!-- column value: name of the field in database table.-->
+        <id property="staffID" column="Staff_ID"/>
+        <result property="restaurantID" column="Restaurant_ID"/>
+        <result property="privilege" column="Privilege"/>
+        <result property="position" column="Position"/>
+        <!-- A staff object is associated with a user object. -->
+        <association property="user"
+                     select="mapper.UserMapper.selectById"
+                     column="UserID"/>
+    </resultMap>
+
+    <select id="selectById" resultMap="staffMap">
+        select * from staff where Staff_ID = #{staffID}
+    </select>
+    
+    <select id="selectStaffByPrivilegeRange" resultMap="staffMap">
+        select * from staff where Privilege between ${privilege1} and ${privilege2}
+    </select>
+</mapper>
