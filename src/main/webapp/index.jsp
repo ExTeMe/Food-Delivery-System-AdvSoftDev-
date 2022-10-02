@@ -41,7 +41,7 @@
                         <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="./staffRegister.jsp">Staff Register</a>
                     <% } else { %>
                         <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="manageCat.jsp">Manage Category</a>
-                        <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="empManagement.jsp">Emp Management</a>
+                        <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/empManage/showEmp">Emp Management</a>
                     <% } %>
                     <%--Temporary Authentication. Main authentication will come from user login. To demonstrate what a normal customer and appstaff can see.--%>
                     <% if (u.getUserID() == 0) { %>
