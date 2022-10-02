@@ -67,11 +67,11 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${staffs}" var="staff">
+            <c:forEach items="${StoreEmps}" var="staff">
                 <tr>
-                    <td>${staff.fname} ${staff.lname}</td>
-                    <td>${staff.phoneNo}</td>
-                    <td>${staff.email}</td>
+                    <td>${staff.user.fname} ${staff.user.lname}</td>
+                    <td>${staff.user.phoneNo}</td>
+                    <td>${staff.user.email}</td>
                     <td>${staff.privilege}</td>
                     <td>${staff.position}</td>
                     <td>
