@@ -10,7 +10,7 @@ Benz:
 Admin system & Restaurant Management system
 
 Hao:  
-Coupon Management system & Store Employee Management system
+Coupon Management system & Restaurant Employee Management system
 
 Jeremy:          
 Menu Management system & Menu Access system
