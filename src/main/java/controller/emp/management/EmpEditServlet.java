@@ -1,4 +1,4 @@
-package controller;
+package controller.emp.management;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -7,7 +7,7 @@ import model.*;
 
 import java.io.IOException;
 import java.util.*;
-
+/*
 @WebServlet("/EmpEdit")
 public class EmpEditServlet extends HttpServlet{
     @Override
@@ -27,3 +27,4 @@ public class EmpEditServlet extends HttpServlet{
         request.getRequestDispatcher("/empManagement.jsp").forward(request, response);
     }
 }
+*/
