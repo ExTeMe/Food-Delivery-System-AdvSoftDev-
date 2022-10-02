@@ -47,7 +47,7 @@ DROP TABLE IF EXISTS PrivilegeLists;
 CREATE TABLE PrivilegeLists
 (
     Privilege INT NOT NULL,
-    Actions VARCHAR(100) NOT NULL,
+    Actions VARCHAR(255) NOT NULL,
     PRIMARY KEY (Privilege, Actions)
 );
 
@@ -58,7 +58,7 @@ CREATE TABLE Staff
     UserID INT UNSIGNED NOT NULL,
     Restaurant_ID INT UNSIGNED NOT NULL,
     Privilege INT NOT NULL DEFAULT 0,
-    Position VARCHAR(10),
+    Position VARCHAR(100),
     PRIMARY KEY (Staff_ID),
     FOREIGN KEY (UserID) REFERENCES `User`(UserID),
     FOREIGN KEY (Restaurant_ID) REFERENCES Restaurant(Restaurant_ID),
@@ -138,14 +138,14 @@ DROP TABLE IF EXISTS Coupon;
 CREATE TABLE Coupon
 (
     Coupon_ID INT PRIMARY KEY AUTO_INCREMENT,
-    Coupon_Name VARCHAR(20) NOT NULL,
+    Coupon_Name VARCHAR(255) NOT NULL,
     Coupon_Scope INT NOT NULL,
     Coupon_Type INT NOT NULL,
     Coupon_Min_Money INT,
     Created_Date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     Coupon_Value DOUBLE NOT NULL,
     Coupon_Description VARCHAR(255) NOT NULL,
-    Coupon_Image VARCHAR(200) NOT NULL
+    Coupon_Image VARCHAR(255) NOT NULL
 );
 
 DROP TABLE IF EXISTS Coupon_Item;
@@ -162,8 +162,8 @@ DROP TABLE IF EXISTS Distribution_Rule;
 CREATE TABLE Distribution_Rule
 (
     D_Rule_ID INT PRIMARY KEY AUTO_INCREMENT,
-    Rule_Description VARCHAR(100) NOT NULL,
-    Additional_Conditions VARCHAR(100)
+    Rule_Description VARCHAR(255) NOT NULL,
+    Additional_Conditions VARCHAR(255)
 );
 
 DROP TABLE IF EXISTS Coupon_Batch;
@@ -260,10 +260,20 @@ CREATE TABLE Delivery
     FOREIGN KEY (Order_ID) REFERENCES db.Order(Order_ID),
     FOREIGN KEY (Driver_ID) REFERENCES Driver(Driver_ID)
 );
+
+DROP TABLE IF EXISTS Order_Item;
+CREATE TABLE Order_Item
+(
+    Order_ID INT NOT NULL,
+    Item_ID INT NOT NULL,
+    Quantity INT,
+    Comment VARCHAR(100),
+    FOREIGN KEY (Order_ID) REFERENCES db.Order(Order_ID),
+    FOREIGN KEY (Item_ID) REFERENCES Menu_Item(Item_ID)
+);
 /*
 --For testing
 INSERT INTO USER VALUES(989898, "MINH QUAN", "TRAN", "ABC", "ASLDA", 12131, NULL, 131, "141", 1341, "SAD", "RLQK", "ASDKLJ", 1);
 INSERT INTO CUSTOMER VALUES(202020, 989898, NULL, NULL, NULL, NULL);
 INSERT INTO DB.ORDER VALUES(101010, 202020, "Delivery", NULL, "Delivered", NULL, NULL, NULL, NULL);
-INSERT INTO DRIVER VALUES(454545, 989898, "AXY562", "Black Toyota", NULL, "CommBank", 117268, 45128935);
-*/
+INSERT INTO DRIVER VALUES(454545, 989898, "AXY562", "Black Toyota", NULL, "CommBank", 117268, 45128935);*/
