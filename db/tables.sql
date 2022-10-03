@@ -204,7 +204,7 @@ CREATE TABLE Driver
 (
     Driver_ID INT NOT NULL AUTO_INCREMENT,
     User_ID INT NOT NULL,
-    Plate_ID INT NOT NULL,
+    Number_Plate VARCHAR(10) NOT NULL UNIQUE,
     Vehicle_Description VARCHAR(20) NOT NULL,
     Rating FLOAT,
     D_Account_Name VARCHAR(20) NOT NULL,
@@ -219,21 +219,40 @@ CREATE TABLE db.Order
 (
     Order_ID INT NOT NULL AUTO_INCREMENT,
     Customer_ID INT NOT NULL,
-    Driver_ID INT,
     Order_Type VARCHAR(10) NOT NULL,
-    Delivery_Fee FLOAT,
     Coupon_ID INT,
     Status VARCHAR(10) NOT NULL,
     Food_Rating INT,
     Driver_Rating INT,
     Food_Instructions VARCHAR(100),
-    Driver_Instructions VARCHAR(100),
     Food_Feedback VARCHAR(100),
-    Driver_Feedback VARCHAR(100),
-    Driver_Tip FLOAT,
     PRIMARY KEY (Order_ID),
     FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID),
-    FOREIGN KEY (Driver_ID) REFERENCES Driver(Driver_ID),
     FOREIGN KEY (Coupon_ID) REFERENCES Coupon(Coupon_ID)
 );
 
+DROP TABLE IF EXISTS Delivery;
+CREATE TABLE Delivery
+(
+    Delivery_ID INT NOT NULL AUTO_INCREMENT,
+    Order_ID INT NOT NULL UNIQUE,
+    Driver_ID INT,
+    Delivery_Street VARCHAR(100),
+    Delivery_Suburb VARCHAR(15),
+    Delivery_State CHAR(3),
+    Delivery_Postal VARCHAR(10),
+    Delivery_Fee FLOAT,
+    Driver_Rating INT,
+    Driver_Instructions VARCHAR(100),
+    Driver_Feedback VARCHAR(100),
+    Driver_Tip FLOAT,
+    PRIMARY KEY (Delivery_ID),
+    FOREIGN KEY (Order_ID) REFERENCES db.Order(Order_ID),
+    FOREIGN KEY (Driver_ID) REFERENCES Driver(Driver_ID)
+);
+
+--For testing
+INSERT INTO USER VALUES(989898, "MINH QUAN", "TRAN", "ABC", "ASLDA", 12131, NULL, 131, "141", 1341, "SAD", "RLQK", "ASDKLJ", 1);
+INSERT INTO CUSTOMER VALUES(202020, 989898, NULL, NULL, NULL, NULL);
+INSERT INTO DB.ORDER VALUES(101010, 202020, "Delivery", NULL, "Delivered", NULL, NULL, NULL, NULL);
+INSERT INTO DRIVER VALUES(454545, 989898, "AXY562", "Black Toyota", NULL, "CommBank", 117268, 45128935);

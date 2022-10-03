@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import dao.DBConnector;
 import dao.DBManager;
 import model.User;
+import model.Staff;
 
 @WebServlet(name = "StaffAddDetailsServlet", value = "/StaffAddDetailsServlet")
 
@@ -21,7 +22,7 @@ public class StaffAddDetailsServlet extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("staff");
+        User user = (User) session.getAttribute("Staff");
 
         String restaurantID = request.getParameter("restaurantID");
         String privilege = request.getParameter("privilege");
@@ -62,7 +63,9 @@ public class StaffAddDetailsServlet extends HttpServlet{
 
             System.out.println("Trying to add staff details");
             manager.addStaffDetails(user.getEmail(), restaurantIDTemp, privilegeTemp, position);
-            request.getRequestDispatcher("index.jsp").include(request, response);
+            Staff staff = manager.findStaff(user.getUserID());
+            session.setAttribute("Staff", staff);
+            request.getRequestDispatcher("staffMain.jsp").include(request, response);
         }
         catch (NullPointerException ex) {
             ex.printStackTrace();

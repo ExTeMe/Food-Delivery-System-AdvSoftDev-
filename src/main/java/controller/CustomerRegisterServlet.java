@@ -38,14 +38,9 @@ public class CustomerRegisterServlet extends HttpServlet{
         String state = request.getParameter("state");
         String suburb = request.getParameter("suburb");
         String country = request.getParameter("country");
-/* 
-        String cardNumber = request.getParameter("cardNumber");
-        String cardExpiration = request.getParameter("cardExpiration");
-        // change cardPin to int
-        int cardPin = 0;
-        String cardPinTemp = request.getParameter("cardPin");
-        String cardName = request.getParameter("cardName");
-*/
+
+        boolean numberException = false;
+
         try{
             phone = Integer.parseInt(Cphone);
             streetNumber = Integer.parseInt(CstreetNumber);
@@ -53,6 +48,9 @@ public class CustomerRegisterServlet extends HttpServlet{
         }
         catch (NumberFormatException ex){
             ex.printStackTrace();
+            request.setAttribute("Error", "Phone, Street Number and Postcode must be integers");
+            request.getRequestDispatcher("customerRegister.jsp").include(request, response);
+            numberException = true;
         }
         
         DBConnector db;
@@ -74,21 +72,26 @@ public class CustomerRegisterServlet extends HttpServlet{
         }
 
         manager = (DBManager) session.getAttribute("manager");
-
-        try {
-            System.out.println("Trying to add Customer");
-            manager.addUser(firstName, lastName, password, email, phone, dob, streetNumber, streetName, postcode, state, suburb, country, true);
-            System.out.println("User entered Successful");
-            session.setAttribute("User", manager.findUser(email, password));
-            request.getRequestDispatcher("customerAddPayment.jsp").include(request, response);
-        }
-        catch (NullPointerException ex) {
-            ex.printStackTrace();
-            System.out.println("nullptr exception");
-        }
-        catch (SQLException ex) {
-            System.out.println("sql exception");
-            ex.printStackTrace();
+        if (!numberException) {
+            try {
+                System.out.println("Trying to add Customer");
+                manager.addUser(firstName, lastName, password, email, phone, dob, streetNumber, streetName, postcode, state, suburb, country, true);
+                System.out.println("User entered Successful");
+                session.setAttribute("User", manager.findUser(email, password));
+                request.getRequestDispatcher("customerAddPayment.jsp").include(request, response);
+            }
+            catch (NullPointerException ex) {
+                ex.printStackTrace();
+                System.out.println("nullptr exception");
+                request.setAttribute("Error", "Null Pointer Exception. Please Try Again");
+                request.getRequestDispatcher("customerRegister.jsp").include(request, response);
+            }
+            catch (SQLException ex) {
+                System.out.println("sql exception");
+                request.setAttribute("Error", "Email already in use");
+                request.getRequestDispatcher("customerRegister.jsp").include(request, response);
+                ex.printStackTrace();
+            }
         }
     }
 

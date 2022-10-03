@@ -17,7 +17,7 @@ import model.User;
 
 
 public class DBManager {
-    
+
     private Statement st;
     private PreparedStatement ps;
     private String fetch;
@@ -71,8 +71,12 @@ public class DBManager {
 
         String fetch = "select * from db.user where email='" + Cemail + "' and Password= '" + Cpassword + "'";
         ResultSet rs = st.executeQuery(fetch);
-   
-        rs.next();
+        
+        if (!rs.next()) {
+            return null;
+        }
+
+        //rs.next();
         String email = rs.getString(5);
         String password = rs.getString(4);
 
@@ -117,13 +121,13 @@ public class DBManager {
         
     }
 
-    public void addPaymentDetails(int userID, String cardNumber, String cardExpiration, int cardPin, String cardName) throws SQLException {
+    public void addPaymentDetails(int userID, int cardNumber, String cardExpiration, int cardPin, String cardName) throws SQLException {
         // find the user and get their user id 
 
         fetch = "insert into db.customer(user_id, card_number, card_expiration, card_pin, card_name) values(?, ?, ?, ?, ?)";
         PreparedStatement ps = conn.prepareStatement(fetch);
         ps.setInt(1, userID);
-        ps.setString(2, cardNumber);
+        ps.setInt(2, cardNumber);
         ps.setString(3, cardExpiration);
         ps.setInt(4, cardPin);
         ps.setString(5, cardName);
@@ -181,29 +185,6 @@ public class DBManager {
         ps.setString(4, position);
 
         ps.executeUpdate();
-    }
-
-    // Order
-    public Order getOrder(int orderID) {
-        try {
-            ResultSet rs = st.executeQuery("SELECT * FROM DB.ORDER WHERE ORDER_ID = " + orderID);
-            while (rs.next()) {
-                Order order = new Order(
-                        rs.getInt("ORDER_ID"),
-                        rs.getInt("CUSTOMER_ID"),
-                        rs.getString("ORDER_TYPE"),
-                        rs.getInt("COUPON_ID"),
-                        rs.getString("STATUS"),
-                        rs.getInt("FOOD_RATING"),
-                        rs.getString("FOOD_INSTRUCTIONS"),
-                        rs.getString("FOOD_FEEDBACK"));
-                return order;
-            }
-        } catch (Exception e) {
-            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
-            System.out.println("Exception is: " + e);
-        }
-        return null;
     }
 
     public void addPaymentDetails(String email, String cardNumber, String cardExpiration, int cardPin, String cardName) throws SQLException {
@@ -277,7 +258,7 @@ public class DBManager {
         ps.executeUpdate();
     }
 */
-    public void updateCustomer(int userID, String firstName, String lastName, String password, String email, String phone, String dateOfBirth, String streetNumber, String streetName, String postcode, String state, String suburb, String country, boolean activated, int customerID, int cardNumber, String cardExpiration, int cardPin, String cardName) throws SQLException {
+    public void updateCustomer(int userID, String firstName, String lastName, String password, String email, String phone, String dateOfBirth, int streetNumber, String streetName, int postcode, String state, String suburb, String country, boolean activated, int customerID, int cardNumber, String cardExpiration, int cardPin, String cardName) throws SQLException {
         
         fetch = "UPDATE db.user SET first_name = ?, last_name = ?, password = ?, email = ?, phoneNo = ?, dob = ?, street_number = ?, street_name = ?, postcode = ?, state = ?, suburb = ?, country = ?, activated = ? WHERE userID = ?";
         PreparedStatement ps = conn.prepareStatement(fetch);
@@ -287,9 +268,9 @@ public class DBManager {
         ps.setString(4, email);
         ps.setString(5, phone);
         ps.setString(6, dateOfBirth);
-        ps.setString(7, streetNumber);
+        ps.setInt(7, streetNumber);
         ps.setString(8, streetName);
-        ps.setString(9, postcode);
+        ps.setInt(9, postcode);
         ps.setString(10, state);
         ps.setString(11, suburb);
         ps.setString(12, country);
@@ -361,7 +342,10 @@ public class DBManager {
         String fetch = "select * from db.user where email='" + Semail + "' and Password= '" + Spassword + "'";
         ResultSet rs = st.executeQuery(fetch);
    
-        rs.next();
+        if (!rs.next()) {
+            return null;
+        }
+     //   rs.next();
         String email = rs.getString(5);
         String password = rs.getString(4);
 
@@ -387,7 +371,10 @@ public class DBManager {
             fetch = "select * from db.staff where userID=" + userID;
             System.out.println(fetch);
             rs = st.executeQuery(fetch);
-            rs.next();
+            if (!rs.next()) {
+                return null;
+            }
+            //rs.next();
 
             int staffID = rs.getInt(1);
             int restaurantID = rs.getInt(3);
@@ -480,4 +467,117 @@ public class DBManager {
         return new Staff(userID, firstName, lastName, password, email, phone, localDate, streetNumber, streetName, postcode, state, suburb, country, activated, staffID, restaurantID, privilege, position);
     }
 
+    // Order
+    public Order getOrder(int orderID) {
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM DB.ORDER WHERE ORDER_ID = " + orderID);
+            while (rs.next()) {
+                Order order = new Order(
+                        rs.getInt("ORDER_ID"),
+                        rs.getInt("CUSTOMER_ID"),
+                        rs.getString("ORDER_TYPE"),
+                        rs.getInt("COUPON_ID"),
+                        rs.getString("STATUS"),
+                        rs.getInt("FOOD_RATING"),
+                        rs.getString("FOOD_INSTRUCTIONS"),
+                        rs.getString("FOOD_FEEDBACK"));
+                return order;
+            }
+        } catch (Exception e) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println("Exception is: " + e);
+        }
+        return null;
+    }
+
+    // Delivery
+    public void createDelivery(Delivery delivery) {
+        try {
+            st.executeUpdate(
+                    "INSERT INTO DELIVERY(ORDER_ID, DRIVER_ID, DELIVERY_STREET, DELIVERY_SUBURB, DELIVERY_STATE, DELIVERY_POSTAL, DELIVERY_FEE, DRIVER_INSTRUCTIONS) VALUES ("
+                            + delivery.getOrderID() + ", NULL, '"
+                            + delivery.getDeliveryStreet() + "', '" + delivery.getDeliverySuburb() + "', '"
+                            + delivery.getDeliveryState() + "', '" + delivery.getDeliveryPostal() + "', "
+                            + ((double) Math.round(delivery.getDeliveryFee() * 100) / 100) + ", "
+                            + (delivery.getDriverInstructions() == null ? "NULL "
+                                    : ("'" + delivery.getDriverInstructions() + "' "))
+                            + ");");
+        } catch (
+
+        Exception e) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println("Exception is: " + e);
+        }
+    }
+
+    public void updateDelivery(Delivery delivery) {
+        try {
+            st.executeUpdate("UPDATE DELIVERY SET " +
+                    "ORDER_ID = " + delivery.getOrderID() +
+                    ", DRIVER_ID = " + delivery.getDriverID() +
+                    ", DELIVERY_STREET = '" + delivery.getDeliveryStreet() +
+                    "', DELIVERY_SUBURB = '" + delivery.getDeliverySuburb() +
+                    "', DELIVERY_STATE = '" + delivery.getDeliveryState() +
+                    "', DELIVERY_POSTAL = '" + delivery.getDeliveryPostal() +
+                    "', DELIVERY_FEE = " + ((double) Math.round(delivery.getDeliveryFee() * 100) / 100) +
+                    ", DRIVER_RATING = " + delivery.getDriverRating() +
+                    ", DRIVER_INSTRUCTIONS = '" + delivery.getDriverInstructions() +
+                    "', DRIVER_TIP = " + delivery.getDriverTip() +
+                    " WHERE DELIVERY_ID = " + delivery.getDeliveryID());
+        } catch (
+
+        Exception e) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println("Exception is: " + e);
+        }
+    }
+
+    public Delivery getDelivery(int orderID) {
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM DELIVERY WHERE ORDER_ID = " + orderID);
+            while (rs.next()) {
+                Delivery delivery = new Delivery(
+                        rs.getInt("DELIVERY_ID"),
+                        rs.getInt("ORDER_ID"),
+                        rs.getInt("DRIVER_ID"),
+                        rs.getString("DELIVERY_STREET"),
+                        rs.getString("DELIVERY_SUBURB"),
+                        rs.getString("DELIVERY_STATE"),
+                        rs.getString("DELIVERY_POSTAL"),
+                        rs.getFloat("DELIVERY_FEE"),
+                        rs.getInt("DRIVER_RATING"),
+                        rs.getString("DRIVER_INSTRUCTIONS"),
+                        rs.getString("DRIVER_FEEDBACK"),
+                        rs.getFloat("DRIVER_TIP"));
+                return delivery;
+            }
+        } catch (Exception e) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println("Exception is: " + e);
+        }
+        return null;
+    }
+
+    // Driver
+    public DeliveryDriver getDriver(User user) {
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM DRIVER WHERE USER_ID = " + user.getUserID());
+            while (rs.next()) {
+                DeliveryDriver driver = new DeliveryDriver(
+                        rs.getInt("DRIVER_ID"),
+                        rs.getInt("USER_ID"),
+                        rs.getString("NUMBER_PLATE"),
+                        rs.getString("VEHICLE_DESCRIPTION"),
+                        rs.getFloat("RATING"),
+                        rs.getString("D_ACCOUNT_NAME"),
+                        rs.getInt("D_BSB"),
+                        rs.getInt("D_ACCOUNT_NUMBER"));
+                return driver;
+            }
+        } catch (Exception e) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println("Exception is: " + e);
+        }
+        return null;
+    }
 }

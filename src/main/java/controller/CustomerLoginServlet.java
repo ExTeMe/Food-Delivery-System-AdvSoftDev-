@@ -44,7 +44,6 @@ public class CustomerLoginServlet extends HttpServlet{
         manager = (DBManager) session.getAttribute("manager");
 
         try {
-            System.out.println("Trying to add Customer");
             if (manager.findCustomer(email, password) != null) {
                 System.out.println("Customer Found");
                 Customer customer = manager.findCustomer(email, password);
@@ -53,6 +52,7 @@ public class CustomerLoginServlet extends HttpServlet{
             }
             else {
                 System.out.println("Customer Not Found");
+                request.setAttribute("Fail", "Email or Password Incorrect");
                 request.getRequestDispatcher("customerLogin.jsp").include(request, response);
             }
             
@@ -61,10 +61,14 @@ public class CustomerLoginServlet extends HttpServlet{
         catch (NullPointerException ex) {
             ex.printStackTrace();
             System.out.println("nullptr exception");
+            request.setAttribute("Fail", "Null Pointer Exception, Please Try Again");
+            request.getRequestDispatcher("customerLogin.jsp").include(request, response);
         }
         catch (SQLException ex) {
             System.out.println("sql exception");
             ex.printStackTrace();
+            request.setAttribute("Fail", "SQL Exception. Customer Not Found");
+            request.getRequestDispatcher("customerLogin.jsp").include(request, response);
         }
     }
 

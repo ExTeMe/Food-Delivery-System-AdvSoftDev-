@@ -47,14 +47,6 @@ public class Staff extends User {
         this.activated = activated;
     }
 
-    public int getUserID() {
-        return this.UserID;
-    }
-
-    public void setUserID(int UserID) {
-        this.UserID = UserID;
-    }
-
     public int getStaffID() {
         return this.staffID;
     }
@@ -85,6 +77,10 @@ public class Staff extends User {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public int getUserID() {
+        return this.UserID;
     }
 
     public String getFname() {

@@ -73,7 +73,7 @@ public class StaffRegisterServlet extends HttpServlet{
             manager.addUser(firstName, lastName, password, email, phone, dob, streetNumber, streetName, postcode, state, suburb, country, true);
             System.out.println("staff entered Successful");
             session.setAttribute("email", email);
-            session.setAttribute("staff", manager.findUser(email, password));
+            session.setAttribute("Staff", manager.findUser(email, password));
             request.getRequestDispatcher("staffAddDetails.jsp").include(request, response);
         }
         catch (NullPointerException ex) {

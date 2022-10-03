@@ -6,6 +6,12 @@
         <title>Edit Details Page</title>
         <link rel="stylesheet" href="css/basic.css">
     </head>
+        <%
+            String error = "";
+            if (null != request.getAttribute("Error")) {
+                error = (String) request.getAttribute("Error");
+            }
+        %>
     <body>
         <h1>Edit Details</h1>
         <%            
@@ -14,6 +20,7 @@
         <br/>
         <form action="CustomerEditDetails" method="post">
             <table id="registerTable">
+                <tr><label><%=error%></label></tr>
                 <tr>
                     <td><label for="firstName">First Name:</label></td>
                     <td><input type="text" name="firstName" required="true" value=<%=customer.getFirstName()%>></td>
@@ -70,7 +77,7 @@
                 </tr>
                 <tr>
                     <td><label>Card Expiration</label>
-                    <td><input type="text" name="cardExpiration" required="true" value=<%=customer.getCardExpiration()%>></td>
+                    <td><input type="date" name="cardExpiration" required="true" value=<%=customer.getCardExpiration()%>></td>
                 </tr>
                 <tr>
                     <td><label>Card Pin</label>

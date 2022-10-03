@@ -5,11 +5,18 @@
         <title>Add Payment Details</title>
         <link rel="stylesheet" href="css/basic.css">
     </head>
+        <%
+            String error = "";
+            if (null != request.getAttribute("Error")) {
+                error = (String) request.getAttribute("Error");
+            }
+        %>
     <body>
         <h1>Add Payment Details</h1>
         <br/>
         <form action="CustomerAddPaymentServlet" method="post">
             <table id="registerTable">
+                <tr><label><%=error%></label></tr>
                 <tr>
                     <td><label>Card Number:</label></td>
                     <td><input type="text" name="cardNumber" required="true"></td>

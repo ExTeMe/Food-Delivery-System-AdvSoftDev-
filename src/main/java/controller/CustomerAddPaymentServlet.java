@@ -24,18 +24,25 @@ public class CustomerAddPaymentServlet extends HttpServlet{
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("User");
 
-        String cardNumber = request.getParameter("cardNumber");
+        String cardNumberTemp = request.getParameter("cardNumber");
         String cardExpiration = request.getParameter("cardExpiration");
+        int cardNumber = 0;
         // change cardPin to int
         int cardPin = 0;
         String cardPinTemp = request.getParameter("cardPin");
         String cardName = request.getParameter("cardName");
 
+        boolean numberException = false;
+
         try{
             cardPin = Integer.parseInt(cardPinTemp);
+            cardNumber = Integer.parseInt(cardNumberTemp);
         }
         catch (NumberFormatException ex){
             ex.printStackTrace();
+            request.setAttribute("Error", "Card Number and Card Pin must be Integers");
+            request.getRequestDispatcher("customerAddPayment.jsp").include(request, response);
+            numberException = true;
         }
         
         DBConnector db;
@@ -57,21 +64,26 @@ public class CustomerAddPaymentServlet extends HttpServlet{
         }
 
         manager = (DBManager) session.getAttribute("manager");
-
-        try {
-            System.out.println("Trying to add Payment details ");
-            manager.addPaymentDetails(user.getUserID(), cardNumber, cardExpiration, cardPin, cardName);
-            Customer customer = manager.findCustomer(user.getUserID());
-            session.setAttribute("Customer", customer);
-            request.getRequestDispatcher("main.jsp").include(request, response);
-        }
-        catch (NullPointerException ex) {
-            ex.printStackTrace();
-            System.out.println("nullptr exception");
-        }
-        catch (SQLException ex) {
-            System.out.println("sql exception");
-            ex.printStackTrace();
+        if (!numberException) {
+            try {
+                System.out.println("Trying to add Payment details ");
+                manager.addPaymentDetails(user.getUserID(), cardNumber, cardExpiration, cardPin, cardName);
+                Customer customer = manager.findCustomer(user.getUserID());
+                session.setAttribute("Customer", customer);
+                request.getRequestDispatcher("main.jsp").include(request, response);
+            }
+            catch (NullPointerException ex) {
+                ex.printStackTrace();
+                System.out.println("nullptr exception");
+                request.setAttribute("Error", "Null Pointer Exception Error. Please Try Again");
+                request.getRequestDispatcher("customerAddPayment.jsp").include(request, response);
+            }
+            catch (SQLException ex) {
+                System.out.println("sql exception");
+                ex.printStackTrace();
+                request.setAttribute("Error", "SQL Error. Please Try Again");
+                request.getRequestDispatcher("customerAddPayment.jsp").include(request, response);
+            }
         }
     }
 

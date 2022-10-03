@@ -22,6 +22,8 @@ public class CustomerEditDetails extends HttpServlet{
 
         int cardNumber = 0;
         int cardPin = 0;
+        int streetNumber = 0;
+        int postcode = 0;
         
         HttpSession session = request.getSession();
 
@@ -32,9 +34,9 @@ public class CustomerEditDetails extends HttpServlet{
         String phone = request.getParameter("phone");
         String dob = request.getParameter("dob"); 
 
-        String streetNumber = request.getParameter("streetNumber");
+        String streetNumberTemp = request.getParameter("streetNumber");
         String streetName = request.getParameter("streetName");
-        String postcode = request.getParameter("postcode");
+        String postcodeTemp = request.getParameter("postcode");
         String state = request.getParameter("state");
         String suburb = request.getParameter("suburb");
         String country = request.getParameter("country");
@@ -46,12 +48,19 @@ public class CustomerEditDetails extends HttpServlet{
 
 //        LocalDate cardExpiration = LocalDate.parse(cardExpirationTemp);
 
+        boolean numberException = false;
+
         try{
             cardNumber = Integer.parseInt(cardNumberTemp);
             cardPin = Integer.parseInt(cardPinTemp);
+            postcode = Integer.parseInt(postcodeTemp);
+            streetNumber = Integer.parseInt(streetNumberTemp);
         }
         catch (NumberFormatException ex){
             ex.printStackTrace();
+            request.setAttribute("Error", "Card Number, Card Pin, Street Number, and Postcode must be Integers");
+            request.getRequestDispatcher("customerAddPayment.jsp").include(request, response);
+            numberException = true;
         }
         
         DBConnector db;
@@ -74,21 +83,23 @@ public class CustomerEditDetails extends HttpServlet{
 
         manager = (DBManager) session.getAttribute("manager");
 
-        try {
-            System.out.println("Trying to add Customer");
-            Customer customer = (Customer) session.getAttribute("Customer");
-            manager.updateCustomer(customer.getUserID(), firstName, lastName, password, email, phone, dob, streetNumber, streetName, postcode, state, suburb, country, true, customer.getCustomerID(), cardNumber, cardExpirationTemp, cardPin, cardName);
-            customer = manager.findCustomer(customer.getUserID());
-            session.setAttribute("Customer", customer);
-            request.getRequestDispatcher("main.jsp").include(request, response);
-        }
-        catch (NullPointerException ex) {
-            ex.printStackTrace();
-            System.out.println("nullptr exception");
-        }
-        catch (SQLException ex) {
-            System.out.println("sql exception");
-            ex.printStackTrace();
+        if (!numberException) {
+            try {
+                System.out.println("Trying to add Customer");
+                Customer customer = (Customer) session.getAttribute("Customer");
+                manager.updateCustomer(customer.getUserID(), firstName, lastName, password, email, phone, dob, streetNumber, streetName, postcode, state, suburb, country, true, customer.getCustomerID(), cardNumber, cardExpirationTemp, cardPin, cardName);
+                customer = manager.findCustomer(customer.getUserID());
+                session.setAttribute("Customer", customer);
+                request.getRequestDispatcher("main.jsp").include(request, response);
+            }
+            catch (NullPointerException ex) {
+                ex.printStackTrace();
+                System.out.println("nullptr exception");
+            }
+            catch (SQLException ex) {
+                System.out.println("sql exception");
+                ex.printStackTrace();
+            }
         }
     }
 

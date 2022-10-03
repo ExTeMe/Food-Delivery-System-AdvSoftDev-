@@ -5,11 +5,18 @@
         <title>Welcome to the Register Page</title>
         <link rel="stylesheet" href="css/basic.css">
     </head>
+        <%
+            String error = "";
+            if (null != request.getAttribute("Error")) {
+                error = (String) request.getAttribute("Error");
+            }
+        %>
     <body>
         <h1>Register</h1>
         <br/>
         <form action="CustomerRegisterServlet" method="post">
             <table id="registerTable">
+                <tr><label><%=error%></label></tr>
                 <tr>
                     <td><label for="firstName">First Name:</label></td>
                     <td><input type="text" name="firstName" required="true"></td>

@@ -53,6 +53,7 @@ public class StaffLoginServlet extends HttpServlet{
             }
             else {
                 System.out.println("Customer Not Found");
+                request.setAttribute("Fail", "Email or Password Incorrect");
                 request.getRequestDispatcher("staffLogin.jsp").include(request, response);
             }
               
@@ -60,10 +61,12 @@ public class StaffLoginServlet extends HttpServlet{
         catch (NullPointerException ex) {
             ex.printStackTrace();
             System.out.println("nullptr exception");
+            request.setAttribute("Fail", "Email or Password Incorrect");
         }
         catch (SQLException ex) {
             System.out.println("sql exception");
             ex.printStackTrace();
+            request.setAttribute("Fail", "Email or Password Incorrect");
         }
     }
 
