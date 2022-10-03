@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration debug="true">
+<configuration debug="false">
     <property name="CONSOLE_LOG_PATTERN"
               value="[%yellow(%date{yyyy-MM-dd HH:mm:ss}) %highlight(%-5level)] [%magenta(%thread)] [%green(%logger)] - %msg%n"/>
     <!-- ConsoleOutput -->
