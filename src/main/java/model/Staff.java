@@ -1,6 +1,6 @@
 package model;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class Staff extends User {
     private int staffID;
@@ -8,7 +8,7 @@ public class Staff extends User {
     private int privilege;
     private String position;
 
-    public Staff(int userID, String fname, String lname, String pass, String email, int phoneNo, LocalDate dob,
+    public Staff(int userID, String fname, String lname, String pass, String email, int phoneNo, Date dob,
             int streetNo, String streetName, int postcode, String state, String suburb, String country,
             Boolean activated, int staffID, int restaurantID, int privilege, String position) {
         super(userID, fname, lname, pass, email, phoneNo, dob, streetNo, streetName, postcode, state, suburb, country,

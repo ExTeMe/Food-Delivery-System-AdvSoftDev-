@@ -70,9 +70,19 @@
                         <input type="text" id="street" name="street" required>
                         <label for="suburb">Suburb</label>
                         <input type="text" id="suburb" name="suburb" required>
-                        <label for="state">State</label>
+                        <label for="state">State
+                            <% if (session.getAttribute("stateErr") != null) {%>
+                            <span class="warning-text"><%=session.getAttribute("stateErr")%></span>
+                            <% session.setAttribute("stateErr", null);
+                            } %>
+                        </label>
                         <input type="text" id="state" name="state" required>
-                        <label for="postal">Postal Code</label>
+                        <label for="postal">Postal Code
+                            <% if (session.getAttribute("postalErr") != null) {%>
+                            <span class="warning-text"><%=session.getAttribute("postalErr")%></span>
+                            <% session.setAttribute("postalErr", null);
+                            }%>
+                        </label>
                         <input type="text" id="postal" name="postal" required>
                     </div>
                     <hr />

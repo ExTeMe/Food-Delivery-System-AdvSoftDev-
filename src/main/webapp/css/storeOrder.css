@@ -33,6 +33,10 @@ main {
   height: 3em;
 }
 
+.order-received {
+  background-color: yellow;
+}
+
 .order-cancel,
 .order-done {
   color: white;

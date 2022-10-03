@@ -29,6 +29,9 @@ function updateOrders() {
 
         let orderHeader = document.createElement("div");
         orderHeader.setAttribute("class", "order-header");
+        if (order.status == "Order Received") {
+          orderHeader.classList.add("order-received");
+        }
 
         let orderCancel = document.createElement("button");
         orderCancel.setAttribute("class", "order-cancel");
@@ -41,8 +44,13 @@ function updateOrders() {
 
         let orderDone = document.createElement("button");
         orderDone.setAttribute("class", "order-done");
-        orderDone.setAttribute("onclick", `doneOrder(${order.orderID});`);
-        orderDone.innerHTML = "Done";
+        if (order.status == "Order Received") {
+          orderDone.setAttribute("onclick", `acceptOrder(${order.orderID});`);
+          orderDone.innerHTML = "Accept";
+        } else {
+          orderDone.setAttribute("onclick", `doneOrder(${order.orderID});`);
+          orderDone.innerHTML = "Done";
+        }
 
         orderHeader.append(orderCancel, orderNo, orderDone);
 
@@ -111,10 +119,14 @@ function convertData(data) {
 }
 
 function cancalOrder(orderID) {
+  if (!confirm(`Do you want to cancel order ${orderID}?`)) {
+    return;
+  }
   let data = {
     orderID: orderID,
+    status: "Canceled",
   };
-  fetch("delete-order", {
+  fetch("update-order", {
     method: "GET",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
@@ -136,6 +148,29 @@ function doneOrder(orderID) {
   let data = {
     orderID: orderID,
     status: "Prepared",
+  };
+  fetch("update-order", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      Authorization: getCookie("access_token"),
+    },
+    body: convertData(data),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      alert(data);
+    })
+    .catch((error) => {
+      console.log(error);
+      alert("Something went wrong! Please try again.");
+    });
+}
+
+function acceptOrder(orderID) {
+  let data = {
+    orderID: orderID,
+    status: "Preparing",
   };
   fetch("update-order", {
     method: "POST",

@@ -124,10 +124,10 @@ public class DBManager {
                     " Coupon_ID = " + (order.getCouponID() == 0 ? "NULL" : order.getCouponID()) + "," +
                     " Status = '" + order.getStatus() + "'," +
                     " Food_Rating = " + (order.getFoodRating() == 0 ? "NULL" : order.getFoodRating()) + "," +
-                    " Food_Instructions = '"
-                    + (order.getFoodInstructions() == null ? "NULL" : order.getFoodInstructions()) + "'," +
-                    " Food_Feedback = '" +
-                    (order.getFoodFeedback() == null ? "NULL" : order.getFoodFeedback()) + "'" +
+                    " Food_Instructions = "
+                    + (order.getFoodInstructions() == null ? "NULL" : "'" + order.getFoodInstructions() + "'") + "," +
+                    " Food_Feedback = " +
+                    (order.getFoodFeedback() == null ? "NULL" : "'" + order.getFoodFeedback() + "'") +
                     " WHERE Order_ID = " + order.getOrderID());
 
             return true;
@@ -270,11 +270,26 @@ public class DBManager {
     // Driver
     public DeliveryDriver getDriver(User user) {
         try {
-            ResultSet rs = st.executeQuery("SELECT * FROM DRIVER WHERE USER_ID = " + user.getUserID());
+            ResultSet rs = st.executeQuery("SELECT * " +
+                    "FROM Driver INNER JOIN User ON Driver.User_ID = User.UserID " +
+                    "WHERE Driver.User_ID = " + user.getUserID());
             while (rs.next()) {
                 DeliveryDriver driver = new DeliveryDriver(
-                        rs.getInt("DRIVER_ID"),
-                        rs.getInt("USER_ID"),
+                        rs.getInt("User.UserID"),
+                        rs.getString("User.First_Name"),
+                        rs.getString("User.Last_Name"),
+                        rs.getString("User.Password"),
+                        rs.getString("User.Email"),
+                        rs.getInt("User.PhoneNo"),
+                        rs.getDate("User.DOB"),
+                        rs.getInt("User.Street_Number"),
+                        rs.getString("User.Street_Name"),
+                        rs.getInt("User.Postcode"),
+                        rs.getString("User.State"),
+                        rs.getString("User.Suburb"),
+                        rs.getString("User.Country"),
+                        rs.getBoolean("User.Activated"),
+                        rs.getInt("Driver.Driver_ID"),
                         rs.getString("NUMBER_PLATE"),
                         rs.getString("VEHICLE_DESCRIPTION"),
                         rs.getFloat("RATING"),
