@@ -12,29 +12,19 @@ import utils.Validator;
 
 import java.util.List;
 public class RestaurantEmpServiceTest{
-
-
     @Test
-    public void testInvalidPrivilege()
+    public void testInvalidPrivilegeNumException()
     {
-        String privilege = "-9";
-        Assertions.assertEquals(false, Validator.validatePrivilege(privilege));
+        RestaurantEmpService rempImpl = new RestaurantEmpServiceImpl();
+        String invalidPrivilege = "-2";
+        Assertions.assertThrows(InvalidPrivilegeNumException.class, ()->{
+            rempImpl.updatePrivilegeAndPosition("2", invalidPrivilege, "a");
+        });
     }
 
 //The following tests require a database connection
     /*
     @Test
-    @Disabled
-    public void testInvalidPrivilegeNumException()
-    {
-        RestaurantEmpService rempImpl = new RestaurantEmpServiceImpl();
-        String invalidPrivilege = "-100";
-        Assertions.assertThrows(InvalidPrivilegeNumException.class, ()->{
-            rempImpl.updatePrivilegeAndPosition("2", invalidPrivilege, "a");
-        });
-    }
-    @Test
-    @Disabled
     public void testEmpList()
     {
         SqlSession sqlSession = SqlSessionUtil.openSqlSession();
@@ -45,7 +35,6 @@ public class RestaurantEmpServiceTest{
     }
 
     @Test
-    @Disabled
     public void testUpdatePrivilegeAndPosition() throws Exception
     {
         SqlSession sqlSession = SqlSessionUtil.openSqlSession();
@@ -57,7 +46,6 @@ public class RestaurantEmpServiceTest{
     }
 
     @Test
-    @Disabled
     public void testRemoveEmp()
     {
         SqlSession sqlSession = SqlSessionUtil.openSqlSession();
