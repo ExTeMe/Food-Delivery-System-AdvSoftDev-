@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 public class Validator implements Serializable {
 
     // Email must have @
     private String emailPattern = "([a-zA-Z0-9]+)(([._-])([a-zA-Z0-9]+))*(@)([a-z]+)(.)([a-z]{3})((([.])[a-z]{0,2})*)";
 
-    // 1 Uppercase, 1 Number and 1 Special Character needed, At least 8 characters long
+    // 1 Uppercase, 1 Number and 1 Special Character needed, At least 8 characters
+    // long
     private String passwordPattern = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{8,}";
 
     // 10 Digits Phone Number
@@ -31,6 +31,9 @@ public class Validator implements Serializable {
     // Only numbers, can be empty
     private String strNumPattern = "^[0-9]*";
 
+    // 3 to 5 uppercase letters
+    private String statePattern = "[A-Z]{3,5}";
+
     // 4 digits
     private String postcodePattern = "^[0-9]{4}$";
 
@@ -42,43 +45,75 @@ public class Validator implements Serializable {
 
     // Name:
     // Name must start with Capital letters
-    // Each word in the name must be accompanied by a space before it except for first word
+    // Each word in the name must be accompanied by a space before it except for
+    // first word
     private String namePattern = "^([A-Z]+[a-zA-Z]*)+([ ][A-Z]+[a-zA-Z]*)*$";
 
-    public Validator(){}
+    public Validator() {
+    }
 
-    public boolean validate(String pattern, String input){
+    public boolean validate(String pattern, String input) {
         Pattern regEx = Pattern.compile(pattern);
         Matcher match = regEx.matcher(input);
 
         return match.matches();
     }
 
-    public boolean checkLoginEmpty(String email, String password){ return email.isEmpty() || password.isEmpty(); }
+    public boolean checkLoginEmpty(String email, String password) {
+        return email.isEmpty() || password.isEmpty();
+    }
 
-    public boolean validateEmail(String email){ return validate(emailPattern,email); }
+    public boolean validateEmail(String email) {
+        return validate(emailPattern, email);
+    }
 
     // Used for both First or Last name validation
-    public boolean validateName(String name){ return validate(namePattern, name); }
+    public boolean validateName(String name) {
+        return validate(namePattern, name);
+    }
 
-    public boolean validatePassword(String password){ return validate(passwordPattern, password); }
+    public boolean validatePassword(String password) {
+        return validate(passwordPattern, password);
+    }
 
-    public boolean validatePhone(String phone) { return validate(phonePattern, phone);}
+    public boolean validatePhone(String phone) {
+        return validate(phonePattern, phone);
+    }
 
-    public boolean validateDate(String date) { return validate(datePattern, date); }
+    public boolean validateDate(String date) {
+        return validate(datePattern, date);
+    }
 
-    public boolean validateBSB(String bsb) { return validate(bsbPattern, bsb); }
+    public boolean validateBSB(String bsb) {
+        return validate(bsbPattern, bsb);
+    }
 
-    public boolean validateAcctNum(String acctNum) { return validate(acctNumPattern, acctNum); }
+    public boolean validateAcctNum(String acctNum) {
+        return validate(acctNumPattern, acctNum);
+    }
 
-    public boolean validateABN(String abn) { return validate(abnPattern, abn); }
+    public boolean validateABN(String abn) {
+        return validate(abnPattern, abn);
+    }
 
-    public boolean validatePostCode(String postcode) { return validate(postcodePattern, postcode); }
+    public boolean validateState(String state) {
+        return validate(statePattern, state);
+    }
 
-    public boolean validateStrNum(String strNum) { return validate(strNum, strNum); }
+    public boolean validatePostCode(String postcode) {
+        return validate(postcodePattern, postcode);
+    }
 
-    public boolean validateDesc(String desc) { return validate(descPattern, desc); }
+    public boolean validateStrNum(String strNum) {
+        return validate(strNum, strNum);
+    }
 
-    public boolean validateResName(String resName) { return validate(resNamePattern, resName); }
+    public boolean validateDesc(String desc) {
+        return validate(descPattern, desc);
+    }
+
+    public boolean validateResName(String resName) {
+        return validate(resNamePattern, resName);
+    }
 
 }

@@ -101,6 +101,7 @@ header .header-button {
   border-radius: 8px;
   font-weight: 600;
   letter-spacing: 1px;
+  min-width: fit-content;
 }
 
 header .header-center {
@@ -138,6 +139,10 @@ header .header-center {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.user-info span {
+  white-space: nowrap;
 }
 
 .user-menu {

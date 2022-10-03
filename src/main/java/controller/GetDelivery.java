@@ -83,7 +83,6 @@ public class GetDelivery extends HttpServlet {
 
         try {
             db = new DBConnector();
-            response.setContentType("text/html;charset=UTF-8");
             HttpSession session = request.getSession();
 
             conn = db.openConnection();

@@ -1,6 +1,6 @@
 package model;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class User {
 
@@ -10,7 +10,7 @@ public class User {
     private String pass;
     private String email;
     private int phoneNo;
-    private LocalDate dob;
+    private Date dob;
     private int streetNo;
     private String streetName;
     private int postcode;
@@ -20,7 +20,7 @@ public class User {
     private Boolean activated;
 
     public User(int userID, String fname, String lname, String pass,
-            String email, int phoneNo, LocalDate dob, int streetNo, String streetName,
+            String email, int phoneNo, Date dob, int streetNo, String streetName,
             int postcode, String state, String suburb, String country, Boolean activated) {
         this.UserID = userID;
         this.fname = fname;
@@ -89,11 +89,11 @@ public class User {
         this.phoneNo = phoneNo;
     }
 
-    public LocalDate getDob() {
+    public Date getDob() {
         return dob;
     }
 
-    public void setDob(LocalDate dob) {
+    public void setDob(Date dob) {
         this.dob = dob;
     }
 

@@ -1,4 +1,5 @@
-<%@ page import="java.util.*" import="java.io.*"%>
+<%@page import="java.util.*"%> 
+<%@page import="java.io.*"%>
 <%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -27,7 +28,7 @@
                 <div class="header-end">
                     <div class="user-info header-button">
                         <% if (user != null) { %> 
-                            <h4>Hello, <%= user.getFname()%></h4>
+                            <span>Hello, <%= user.getFname()%></span>
                             <div class="user-menu">
                                 <a class="header-button" href="">View Account Details</a>
                                 <a class="header-button" href="">View Orders</a>
@@ -104,7 +105,7 @@
                 <hr />
                 <div class="actions">
                     <form action="create-delivery" method="post">
-                        <input type="hidden" name="order-to-update" value="orderID" />
+                        <input type="hidden" name="order-to-update" value="<%= orderID %>" />
                         <button type="submit" name="action" class="update-button" value="update">Update</button>
                         <button type="submit" name="action" class="delete-button" value="delete">Delete</button>
                     </form>
