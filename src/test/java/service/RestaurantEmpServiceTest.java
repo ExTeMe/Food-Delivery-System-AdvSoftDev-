@@ -12,7 +12,12 @@ import utils.SqlSessionUtil;
 import java.util.List;
 public class RestaurantEmpServiceTest{
 
+
+
+
+//The following tests require a database connection
     @Test
+    @Disabled
     public void testInvalidPrivilegeNumException()
     {
         RestaurantEmpService rempImpl = new RestaurantEmpServiceImpl();
@@ -21,10 +26,6 @@ public class RestaurantEmpServiceTest{
             rempImpl.updatePrivilegeAndPosition("2", invalidPrivilege, "a");
         });
     }
-
-
-//The following tests require a database connection
-
     @Test
     @Disabled
     public void testEmpList()
