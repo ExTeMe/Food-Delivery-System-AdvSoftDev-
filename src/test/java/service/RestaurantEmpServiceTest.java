@@ -8,14 +8,21 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import service.impl.RestaurantEmpServiceImpl;
 import utils.SqlSessionUtil;
+import utils.Validator;
 
 import java.util.List;
 public class RestaurantEmpServiceTest{
 
 
-
+    @Test
+    public void testInvalidPrivilege()
+    {
+        String privilege = "-9";
+        Assertions.assertEquals(false, Validator.validatePrivilege(privilege));
+    }
 
 //The following tests require a database connection
+    /*
     @Test
     @Disabled
     public void testInvalidPrivilegeNumException()
@@ -60,4 +67,5 @@ public class RestaurantEmpServiceTest{
         Staff staff = rempImpl.getStaff(staffId);
         Assertions.assertEquals(-1, staff.getPrivilege());
     }
+    */
 }
