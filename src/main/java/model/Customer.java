@@ -1,116 +1,82 @@
 package model;
 
+import java.util.Date;
+
 public class Customer {
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phone;
-    private String password;
-    private String dateOfBirth;
-
-    private String address;
-
-    private String cardNumber;
-    private String cardExpiration;
-    private int cardPin;
+    private Integer customerId;
+    private Long cardNumber;
+    private Date cardExpiration;
+    private Integer cardPin;
     private String cardName;
+    private User user;
 
-    public Customer(String firstName, String lastName, String email, String phone, String password, String dateOfBirth, String address, String cardNumber, String cardExpiration, int cardPin, String cardName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phone = phone;
-        this.password = password; 
-        this.dateOfBirth = dateOfBirth;
-        this.address = address;
+    public Customer(){}
+    public Customer(Integer customerId, Long cardNumber, Date cardExpiration, Integer cardPin, String cardName, User user) {
+        this.customerId = customerId;
         this.cardNumber = cardNumber;
         this.cardExpiration = cardExpiration;
         this.cardPin = cardPin;
         this.cardName = cardName;
+        this.user = user;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "customerId=" + customerId +
+                ", cardNumber=" + cardNumber +
+                ", cardExpiration=" + cardExpiration +
+                ", cardPin=" + cardPin +
+                ", cardName='" + cardName + '\'' +
+                ", user=" + user +
+                '}';
     }
 
-    public String getLastName() {
-        return this.lastName;
+    public Integer getCustomerId() {
+        return customerId;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
     }
 
-    public String getEmail() {
-        return this.email;
+    public Long getCardNumber() {
+        return cardNumber;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return this.phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getDateOfBirth() {
-        return this.dateOfBirth;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getAddress() {
-        return this.address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCardNumber() {
-        return this.cardNumber;
-    }
-
-    public void setCardNumber(String cardNumber) {
+    public void setCardNumber(Long cardNumber) {
         this.cardNumber = cardNumber;
     }
 
-    public String getCardExpiration() {
-        return this.cardExpiration;
+    public Date getCardExpiration() {
+        return cardExpiration;
     }
 
-    public void setCardExpiration(String cardExpiration) {
+    public void setCardExpiration(Date cardExpiration) {
         this.cardExpiration = cardExpiration;
     }
 
-    public int getCardPin() {
-        return this.cardPin;
+    public Integer getCardPin() {
+        return cardPin;
     }
 
-    public void setCardPin(int cardPin) {
+    public void setCardPin(Integer cardPin) {
         this.cardPin = cardPin;
     }
 
     public String getCardName() {
-        return this.cardName;
+        return cardName;
     }
 
     public void setCardName(String cardName) {
         this.cardName = cardName;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
