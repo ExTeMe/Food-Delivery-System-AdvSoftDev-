@@ -13,13 +13,10 @@ import java.util.List;
  */
 
 public interface StaffMapper {
-    @Update("update staff set Privilege = #{privilege}, where Staff_ID = #{staffID}")
-    int updatePrivilegeById(@Param("privilege") int privilege, @Param("staffID") int staffID);
 
-    @Update("update staff set Position = #{position}, where Staff_ID = #{staffID}")
-    int updatePositionById(@Param("position") String position, @Param("staffID") int staffID);
+    int updateById(@Param("staffId")Integer staffId, @Param("userId")Integer userId, @Param("restaurantId")Integer restaurantId, @Param("privilege")Integer privilege, @Param("position")String position);
 
-    Staff selectOneByStaffID(int staffID);
+    Staff selectById(int staffID);
 
-    List<Staff> selectStaffByPrivilegeRange(@Param("privilege1")int privilege1, @Param("privilege2")int privilege2);
+    List<Staff> selectStaffByRestaurantIDAndPrivilegeRange(@Param("restaurantId")int restaurantId, @Param("privilege1")int privilege1, @Param("privilege2")int privilege2);
 }

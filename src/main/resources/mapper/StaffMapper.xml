@@ -27,8 +27,20 @@
     <select id="selectById" resultMap="staffMap">
         select * from staff where Staff_ID = #{staffID}
     </select>
-    
-    <select id="selectStaffByPrivilegeRange" resultMap="staffMap">
-        select * from staff where Privilege between ${privilege1} and ${privilege2}
+
+    <select id="selectStaffByRestaurantIDAndPrivilegeRange" resultMap="staffMap">
+        select * from staff where Restaurant_ID = #{restaurantId} and (Privilege between #{privilege1} and #{privilege2})
     </select>
+    
+    <update id="updateById">
+        update staff
+        <set>
+            <if test="staffId != null">Staff_ID = #{staffId},</if>
+            <if test="userId != null">User_ID = #{userId},</if>
+            <if test="restaurantId != null">Restaurant_ID = #{restaurantId},</if>
+            <if test="privilege != null">Privilege = #{privilege},</if>
+            <if test="position != null">Position = #{position}</if>
+        </set>
+        where Staff_ID = #{staffId}
+    </update>
 </mapper>
