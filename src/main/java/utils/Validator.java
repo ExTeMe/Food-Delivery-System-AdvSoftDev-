@@ -2,6 +2,10 @@ package utils;
 
 import java.util.regex.*;
 
+/**
+ * Validation
+ * @version 1.0
+ */
 public class Validator {
     private final static String privilegePattern = "^\\d{1,2}$";
 

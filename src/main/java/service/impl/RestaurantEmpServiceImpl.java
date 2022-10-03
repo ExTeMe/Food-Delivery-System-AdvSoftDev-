@@ -29,6 +29,7 @@ public class RestaurantEmpServiceImpl implements RestaurantEmpService {
             else
             {
                 Integer intPrivilege = Integer.parseInt(privilege);
+                //The store owner's privilege is 10, so only levels below 10 can be set.
                 if (intPrivilege >= 10)
                     throw new InvalidPrivilegeNumException("Invalid privilege");
                 SqlSessionUtil.openSqlSession().getMapper(StaffMapper.class).updateById(Integer.parseInt(staffId), null, null, intPrivilege, position);

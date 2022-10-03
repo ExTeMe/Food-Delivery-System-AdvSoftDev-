@@ -23,7 +23,7 @@ public class RestaurantEmpServiceTest{
     }
 
 //The following tests require a database connection
-    /*
+
     @Test
     public void testEmpList()
     {
@@ -55,5 +55,5 @@ public class RestaurantEmpServiceTest{
         Staff staff = rempImpl.getStaff(staffId);
         Assertions.assertEquals(-1, staff.getPrivilege());
     }
-    */
+
 }

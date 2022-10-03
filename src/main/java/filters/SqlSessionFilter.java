@@ -8,6 +8,8 @@ import java.io.IOException;
 
 /**
  * Filter when the servlet is loaded. Create a SqlSession object and close it at the end
+ * @author Hao Zeng
+ * @version 1.0
  */
 public class SqlSessionFilter implements Filter {
     @Override
