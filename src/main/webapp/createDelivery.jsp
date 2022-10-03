@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="./css/createOrder.css" rel="stylesheet" type="text/css" >
+        <link href="./css/createDelivery.css" rel="stylesheet" type="text/css" >
         <link href="./css/header.css" rel="stylesheet" type="text/css" >
         <title>Place Delivery</title>
     </head>
@@ -25,12 +25,18 @@
 
                 <div class="header-end">
                     <div class="user-info header-button">
-                        <span>Hello, <%= user.getFname()%></span>
-                        <div class="user-menu">
-                            <a class="header-button" href="edituser.jsp">Edit Account</a>
-                            <a class="header-button" href="ViewOrdersController">My Orders</a>
-                            <a class="header-button" href="logout.jsp">Logout</a>
-                        </div>
+                        <% if (user != null) { %> 
+                            <span>Hello, <%= user.getFname()%></span>
+                            <div class="user-menu">
+                                <a class="header-button" href="">View Account Details</a>
+                                <a class="header-button" href="">View Orders</a>
+                                <a class="header-button" href="">Logout</a>
+                            </div>
+                        <% } else { %>
+                            <a href="customerLogin.jsp">Login</a>
+                            <span>&nbsp;/&nbsp;</span>
+                            <a href="customerRegister.jsp">Register</a>
+                        <% } %>
                     </div>
                 </div>
             </div>

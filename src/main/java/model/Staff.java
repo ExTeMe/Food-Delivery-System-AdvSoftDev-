@@ -1,38 +1,41 @@
 package model;
 
-public class Staff {
-    private Integer staffID;
-    private Integer restaurantID;
-    private Integer privilege;
-    private String position;
-    private User user;
+import java.time.LocalDate;
 
-    public Staff(){}
-    public Staff(Integer staffID, Integer restaurantID, Integer privilege, String position, User user){
+public class Staff extends User {
+    private int staffID;
+    private int restaurantID;
+    private int privilege;
+    private String position;
+
+    public Staff(int userID, String fname, String lname, String pass, String email, int phoneNo, LocalDate dob,
+            int streetNo, String streetName, int postcode, String state, String suburb, String country,
+            Boolean activated, int staffID, int restaurantID, int privilege, String position) {
+        super(userID, fname, lname, pass, email, phoneNo, dob, streetNo, streetName, postcode, state, suburb, country,
+                activated);
         this.staffID = staffID;
         this.restaurantID = restaurantID;
         this.privilege = privilege;
         this.position = position;
-        this.user = user;
     }
 
-    public Integer getStaffID() {
+    public int getStaffID() {
         return staffID;
     }
 
-    public Integer getRestaurantID() {
+    public int getRestaurantID() {
         return restaurantID;
     }
 
-    public void setRestaurantID(Integer restaurantID) {
+    public void setRestaurantID(int restaurantID) {
         this.restaurantID = restaurantID;
     }
 
-    public Integer getPrivilege() {
+    public int getPrivilege() {
         return privilege;
     }
 
-    public void setPrivilege(Integer privilege) {
+    public void setPrivilege(int privilege) {
         this.privilege = privilege;
     }
 
@@ -42,20 +45,5 @@ public class Staff {
 
     public void setPosition(String position) {
         this.position = position;
-    }
-
-    public void setUser(User user) { this.user = user; }
-
-    public User getUser() { return user; }
-
-    @Override
-    public String toString() {
-        return "Staff{" +
-                "staffID=" + staffID +
-                ", restaurantID=" + restaurantID +
-                ", privilege=" + privilege +
-                ", position='" + position + '\'' +
-                ", user=" + user +
-                '}';
     }
 }
