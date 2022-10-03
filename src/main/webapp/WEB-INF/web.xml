@@ -6,6 +6,15 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
+    <filter>
+        <filter-name>SqlSessionFilter</filter-name>
+        <filter-class>filters.SqlSessionFilter</filter-class>
+    </filter>
+    <!--Currently filter emp management only -->
+    <filter-mapping>
+        <filter-name>SqlSessionFilter</filter-name>
+        <url-pattern>/empManage/*</url-pattern>
+    </filter-mapping>
     <session-config>
         <session-timeout>
             30
