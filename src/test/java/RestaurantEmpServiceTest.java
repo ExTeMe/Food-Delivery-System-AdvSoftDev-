@@ -8,6 +8,8 @@ import utils.SqlSessionUtil;
 import java.util.List;
 
 public class RestaurantEmpServiceTest{
+
+    /*
     @Test
     public void testgetStaffListByPrivilegeRange()
     {
@@ -17,5 +19,5 @@ public class RestaurantEmpServiceTest{
         System.out.println(staffs);
         SqlSessionUtil.close(sqlSession);
     }
-
+    */
 }
