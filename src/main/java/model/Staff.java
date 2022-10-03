@@ -3,14 +3,14 @@ package model;
 import java.time.LocalDate;
 
 public class Staff {
-    private Integer staffID;
-    private Integer restaurantID;
-    private Integer privilege;
+    private int staffID;
+    private int restaurantID;
+    private int privilege;
     private String position;
     private User user;
 
     public Staff(){}
-    public Staff(Integer staffID, Integer restaurantID, Integer privilege, String position, User user){
+    public Staff(int staffID, int restaurantID, int privilege, String position, User user){
         this.staffID = staffID;
         this.restaurantID = restaurantID;
         this.privilege = privilege;
@@ -18,23 +18,23 @@ public class Staff {
         this.user = user;
     }
 
-    public Integer getStaffID() {
+    public int getStaffID() {
         return staffID;
     }
 
-    public Integer getRestaurantID() {
+    public int getRestaurantID() {
         return restaurantID;
     }
 
-    public void setRestaurantID(Integer restaurantID) {
+    public void setRestaurantID(int restaurantID) {
         this.restaurantID = restaurantID;
     }
 
-    public Integer getPrivilege() {
+    public int getPrivilege() {
         return privilege;
     }
 
-    public void setPrivilege(Integer privilege) {
+    public void setPrivilege(int privilege) {
         this.privilege = privilege;
     }
 
