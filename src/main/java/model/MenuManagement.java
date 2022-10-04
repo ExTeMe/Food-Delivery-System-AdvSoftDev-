@@ -10,9 +10,6 @@ public class MenuManagement {
     this.menus = new ArrayList<Menu>();
     this.categories = new ArrayList<MenuCategory>();
 
-    // MenuCategory testCategory = new MenuCategory("Yummy food");
-    // categories.add(testCategory);
-    // categories.add(testCategory);
    }
    public List<Menu> GetAllMenus() {
     return menus;
