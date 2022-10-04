@@ -28,13 +28,6 @@ public class customerRegisterTest {
         HttpServletRequest request = mock(HttpServletRequest.class);       
         HttpServletResponse response = mock(HttpServletResponse.class);  
         DBManager manager = mock(DBManager.class);
-
-        HttpSession session = request.getSession();
-
-        DBConnector db;
-      //  DBManager manager;
-        Connection conn;
-        
     
         try {
             manager.addUser("firstName", "lastName", "password", "email", 1234567890, "1234-12-12", 123, "streetName", 1234, "state", "suburb", "country", true);
