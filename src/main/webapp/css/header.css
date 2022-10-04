@@ -22,7 +22,6 @@ header {
   position: sticky;
   background-color: #282828;
   top: 0;
-  width: 100%;
   margin: 0;
   z-index: 3;
   display: flex;
@@ -100,6 +99,9 @@ header .header-button {
   justify-content: center;
   align-items: center;
   border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  min-width: fit-content;
 }
 
 header .header-center {
@@ -129,12 +131,7 @@ header .header-center {
 
 .header-end {
   height: 65%;
-  width: 15%;
   min-width: 10rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .user-info {
@@ -142,6 +139,10 @@ header .header-center {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.user-info span {
+  white-space: nowrap;
 }
 
 .user-menu {

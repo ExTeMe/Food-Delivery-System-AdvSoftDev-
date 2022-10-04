@@ -31,12 +31,12 @@ public class ManageModeServlet extends HttpServlet {
             session.setAttribute("manageMode", true);
         }
 
-        request.getRequestDispatcher("index.jsp").include(request, response);
+        request.getRequestDispatcher("/index.jsp").include(request, response);
 
     }
 
     private void clear(HttpSession session) {
-        session.setAttribute("manageMode", null);
+        session.setAttribute("manageMode", false);
     }
 
 }
