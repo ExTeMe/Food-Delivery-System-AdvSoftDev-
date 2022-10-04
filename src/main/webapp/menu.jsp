@@ -66,7 +66,7 @@
 %>
 </table>
 
-        <a href="order.jsp" class="btn btn-dark text-light ms-2"> Back </a>
+        <a href="delete-order" class="btn btn-dark text-light ms-2"> Delete </a>
         <a href="cart" class="btn btn-dark text-light ms-2"> Cart </a>
     </body>
 </html>

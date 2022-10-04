@@ -376,9 +376,9 @@ public class DBManager {
     //     this.status = status;
     // }
 
-    public Order createOrder(int customerID, String orderType, String status) throws SQLException {
-        String insert = "INSERT INTO db.order(Customer_ID, Order_Type, Status)";
-        String values = "VALUES (" + customerID + ", '" + orderType + "', '" + status + "')";
+    public Order createOrder(int customerID, int restaurantID, String orderType, String status) throws SQLException {
+        String insert = "INSERT INTO db.order(Customer_ID, Restaurant_ID, Order_Type, Status)";
+        String values = "VALUES (" + customerID + ", "+ restaurantID+", '" + orderType + "', '" + status + "')";
         try {
             st.executeUpdate(insert + values);
             //Select from order where its the last row? rs.get(orderID)
@@ -426,8 +426,8 @@ public class DBManager {
             while (rs.next()) {
                 Customer customer = new Customer(
                         rs.getInt("Customer_ID"),
-                        rs.getString("Card_Number"),
-                        rs.getString("Card_Expiration"),
+                        rs.getLong("Card_Number"),
+                        rs.getDate("Card_Expiration"),
                         rs.getInt("Card_Pin"),
                         rs.getString("Card_Name"));
                 return customer;
@@ -474,6 +474,27 @@ public class DBManager {
 
     public void removeOrderItem(int orderID, int itemID){
         String insert = "DELETE FROM ORDER_ITEM WHERE Order_ID = '"+orderID+"' AND Item_ID= '"+itemID+"'" ;
+        try {
+            st.executeUpdate(insert);
+        }
+        catch (Exception e) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
+    public void removeOrder(int orderID){
+        String insert = " DELETE FROM order_item WHERE ORDER_ID = '"+orderID+"'";
+
+        //String insert = "DELETE FROM ORDER WHERE Order_ID = '"+orderID+"' AND Item_ID= '"+itemID+"'" ;
+        try {
+            st.executeUpdate(insert);
+        }
+        catch (Exception e) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        insert = "DELETE FROM DB.ORDER WHERE ORDER_ID = '"+orderID+"'";
+
         try {
             st.executeUpdate(insert);
         }

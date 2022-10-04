@@ -54,6 +54,7 @@ while(iterator.hasNext())
 </table>
 
         <a href="menu.jsp" class="btn btn-dark text-light ms-2"> Back </a>
+        <a href="createDelivery.jsp" class="btn btn-dark text-light ms-2"> Checkout </a>
 
     </body>
 </html>

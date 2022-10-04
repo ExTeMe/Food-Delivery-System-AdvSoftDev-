@@ -15,14 +15,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.MenuItem;
 import model.Order;
 import model.OrderItem;
 import dao.*;
 import java.sql.Connection;
 
-@WebServlet(name = "controller/AddMenuItem", value = "/add-menuItem")
-public class AddMenuItem extends HttpServlet {
+@WebServlet(name = "controller/DeleteOrder", value = "/delete-order")
+public class DeleteOrder extends HttpServlet {
     @Override
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,25 +34,14 @@ public class AddMenuItem extends HttpServlet {
         DBManager manager = (DBManager) session.getAttribute("manager");
 
         try {
-            // ArrayList<Restaurant> restaraunts = manager.fectRestaraunt();
-            // session.setAttribute("restaraunts", restaraunts);
-            // request.getRequestDispatcher("showCIM.jsp").include(request, response);
             Order order = (Order) session.getAttribute("order");            
             if(order == null){
-                System.out.println("Order is null");
+                System.out.println("Order is null - Remove");
             }
-            System.out.println("hello ");
-            //System.out.println(order.getOrderID());
-            session.setAttribute("order", order);
-            //System.out.println(order.getStatus());
-            int id = Integer.parseInt(request.getParameter("MenuItemID"));
-            OrderItem orderItem = manager.createOrderItem(order.getOrderID(), id, 1);
-
-            //ArrayList<OrderItem> orderItems = manager.fectOrderItem(order.getOrderID());
-            //session.setAttribute("order", order.getOrderID());
-            //session.setAttribute("orderItem", orderItem);
+            System.out.println(order.getOrderID());
+            manager.removeOrder(order.getOrderID());
+            request.getRequestDispatcher("order.jsp").include(request, response);
             
-            request.getRequestDispatcher("menu.jsp").include(request, response);
         } 
         catch (Exception ex) {
             Logger.getLogger(ShowRestaraunts.class.getName()).log(Level.SEVERE, null, ex);

@@ -27,8 +27,8 @@ INSERT INTO menu_item (Restaurant_ID, Item_Type, Servings, Price, Calories, Imag
 VALUES(1, 'Side', 1, 5.00, 100, 'Chips', 'Chips', 'Potato, Salt', 'None', 100);
 
 --Order
-INSERT INTO db.Order (Customer_ID, Order_Type, Coupon_ID, Status, Food_Rating, Food_Instructions, Food_Feedback)
-VALUES(1, 'Delivery', NULL, 'Accepted', NULL, NULL, NULL);
+INSERT INTO db.Order (Customer_ID, Restaurant_ID, Order_Type, Coupon_ID, Status, Food_Rating, Food_Instructions, Food_Feedback)
+VALUES(1, 1, 'Delivery', NULL, 'Accepted', NULL, NULL, NULL);
 
 --Order Item
 INSERT INTO order_item (Order_ID, Item_ID, Quantity, Comment)
@@ -46,11 +46,14 @@ VALUES(1, 3, 1, NULL);
 
 SELECT Order_ID FROM db.Order ORDER BY Order_ID DESC LIMIT 1;
 
-SELECT * FROM Order_ITEM WHERE Order_ID = '1';
+SELECT * FROM Order_ITEM WHERE Order_ID = 1;
 
 
-Set ROWC 1
-DELETE FROM ORDER_ITEM WHERE Order_ID = 88 AND Item_ID=1
-Set row 0;
+-- Set ROWC 1
+-- DELETE FROM ORDER_ITEM WHERE Order_ID = 88 AND Item_ID=1
+-- Set row 0;
 
 --88 order 103 item 1
+
+-- DELETE FROM db.order WHERE Order_ID = 1;
+

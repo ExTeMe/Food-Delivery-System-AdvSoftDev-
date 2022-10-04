@@ -39,7 +39,18 @@ public class ShowMenuItems extends HttpServlet {
             // ArrayList<Restaurant> restaraunts = manager.fectRestaraunt();
             // session.setAttribute("restaraunts", restaraunts);
             // request.getRequestDispatcher("showCIM.jsp").include(request, response);
-            Order order = manager.createOrder(1,"Delivery", "Empty");
+            int id = 0;
+            try {
+            id = Integer.parseInt(request.getParameter("RestaurantID"));
+            } 
+            catch(Exception ex){
+                System.out.println("Error");
+            }
+            Order order = manager.createOrder(1, id, "Delivery", "Empty");
+            if(order == null){
+                System.out.println("Order is null show menu");
+            }
+            //System.out.println("Order is not null");
             session.setAttribute("order", order);
             //OrderItem orderItems = (OrderItem) session.getAttribute("orderItems");
             //System.out.println("hello 2");

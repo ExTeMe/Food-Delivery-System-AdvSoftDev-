@@ -20,6 +20,14 @@ public class Customer {
         this.user = user;
     }
 
+    public Customer(Integer customerId, Long cardNumber, Date cardExpiration, Integer cardPin, String cardName){
+        this.customerId = customerId;
+        this.cardNumber = cardNumber;
+        this.cardExpiration = cardExpiration;
+        this.cardPin = cardPin;
+        this.cardName = cardName;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
