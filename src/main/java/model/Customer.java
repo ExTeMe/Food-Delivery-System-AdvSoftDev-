@@ -2,6 +2,8 @@ package model;
 
 import java.time.LocalDate;
 
+import java.util.Date;
+
 public class Customer {
 
     private int userID;
@@ -25,6 +27,7 @@ public class Customer {
     private LocalDate cardExpiration;
     private int cardPin;
     private String cardName;
+    private User user;
 
     public Customer(int userID, String firstName, String lastName, String password, String email, int phone, LocalDate dateOfBirth, int streetNumber, String streetName, int postcode, String state, String suburb, String country, boolean activated, int customerID, String cardNumber, LocalDate cardExpiration, int cardPin, String cardName) {
         this.userID = userID;
@@ -73,16 +76,16 @@ public class Customer {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return this.lastName;
+    public Integer getCustomerId() {
+        return customerId;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
     }
 
-    public String getEmail() {
-        return this.email;
+    public Long getCardNumber() {
+        return cardNumber;
     }
 
     public void setEmail(String email) {
@@ -185,16 +188,16 @@ public class Customer {
         this.cardExpiration = cardExpiration;
     }
 
-    public int getCardPin() {
-        return this.cardPin;
+    public Integer getCardPin() {
+        return cardPin;
     }
 
-    public void setCardPin(int cardPin) {
+    public void setCardPin(Integer cardPin) {
         this.cardPin = cardPin;
     }
 
     public String getCardName() {
-        return this.cardName;
+        return cardName;
     }
 
     public void setCardName(String cardName) {

@@ -3,6 +3,7 @@ package model;
 public class Order {
     private int orderID;
     private int customerID;
+    private int restaurantID;
     private String orderType;
     private int couponID;
     private String status;
@@ -10,10 +11,12 @@ public class Order {
     private String foodInstructions;
     private String foodFeedback;
 
-    public Order(int orderID, int customerID, String orderType, int couponID, String status, int foodRating,
+    public Order(int orderID, int customerID, int restaurantID, String orderType, int couponID, String status,
+            int foodRating,
             String foodInstructions, String foodFeedback) {
         this.orderID = orderID;
         this.customerID = customerID;
+        this.restaurantID = restaurantID;
         this.orderType = orderType;
         this.couponID = couponID;
         this.status = status;
@@ -43,6 +46,14 @@ public class Order {
 
     public void setCustomerID(int customerID) {
         this.customerID = customerID;
+    }
+
+    public int getRestaurantID() {
+        return restaurantID;
+    }
+
+    public void setRestaurantID(int restaurantID) {
+        this.restaurantID = restaurantID;
     }
 
     public String getOrderType() {
@@ -92,5 +103,4 @@ public class Order {
     public void setFoodFeedback(String foodFeedback) {
         this.foodFeedback = foodFeedback;
     }
-
 }
