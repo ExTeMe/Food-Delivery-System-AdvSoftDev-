@@ -27,7 +27,7 @@
 
         <div class="me-3">
             <a href="modifyCat.jsp" class="float-start btn btn-light text-dark ms-2"> Add </a>
-            <a href="index.jsp" class="float-end btn btn-light text-dark ms-2"> Exit </a>
+            <a href="staffMain.jsp" class="float-end btn btn-light text-dark ms-2"> Exit </a>
         </div>
 
         <h1 class="h1 text-light mt-3 ms-5">Manage Category</h1>
