@@ -2,6 +2,7 @@ package service;
 
 import exceptions.InvalidPrivilegeNumException;
 import model.Staff;
+import model.User;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
@@ -31,6 +32,23 @@ public class RestaurantEmpServiceTest{
         RestaurantEmpService rempImpl = new RestaurantEmpServiceImpl();
         List<Staff> staffs = rempImpl.empList(1, 0, 9);
         System.out.println(staffs);
+        SqlSessionUtil.close(sqlSession);
+    }
+
+    @Test
+    public void testSelectUserById()
+    {
+        SqlSession sqlSession = SqlSessionUtil.openSqlSession();
+        Object o = sqlSession.selectOne("mapper.UserMapper.selectById");
+        System.out.println((User) o);
+        SqlSessionUtil.close(sqlSession);
+    }
+    @Test
+    public void testSelectStaffById()
+    {
+        SqlSession sqlSession = SqlSessionUtil.openSqlSession();
+        Object o = sqlSession.selectOne("mapper.StaffMapper.selectById", 2);
+        System.out.println((Staff) o);
         SqlSessionUtil.close(sqlSession);
     }
 

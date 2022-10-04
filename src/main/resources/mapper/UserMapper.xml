@@ -11,7 +11,7 @@
         <result property="pass" column="Password"/>
         <result property="email" column="Email"/>
         <result property="phoneNo" column="PhoneNo"/>
-        <result property="dob" column="DOB" javaType="java.time.LocalDate"/>
+        <result property="dob" column="DOB" javaType="java.sql.Date"/>
         <result property="streetNo" column="Street_Number"/>
         <result property="streetName" column="Street_Name"/>
         <result property="postcode" column="Postcode"/>

@@ -18,14 +18,29 @@
         <result property="restaurantID" column="Restaurant_ID"/>
         <result property="privilege" column="Privilege"/>
         <result property="position" column="Position"/>
-        <!-- A staff object is associated with a user object. -->
+        <result property="UserID" column="UserID"/>
+        <result property="fname" column="First_Name" />
+        <result property="lname" column="Last_Name"/>
+        <result property="pass" column="Password"/>
+        <result property="email" column="Email"/>
+        <result property="phoneNo" column="PhoneNo"/>
+        <result property="dob" column="DOB" />
+        <result property="streetNo" column="Street_Number"/>
+        <result property="streetName" column="Street_Name"/>
+        <result property="postcode" column="Postcode"/>
+        <result property="state" column="State"/>
+        <result property="suburb" column="Suburb"/>
+        <result property="country" column="Country"/>
+        <result property="activated" column="Activated"/>
+        <!--    abandon
+            A staff object is associated with a user object.
         <association property="user"
                      select="mapper.UserMapper.selectById"
-                     column="UserID"/>
+                     column="UserID"/> -->
     </resultMap>
 
     <select id="selectById" resultMap="staffMap">
-        select * from staff where Staff_ID = #{staffID}
+        select * from staff s join user u on s.UserID = u.UserID where Staff_ID = #{staffID}
     </select>
 
     <select id="selectStaffByRestaurantIDAndPrivilegeRange" resultMap="staffMap">

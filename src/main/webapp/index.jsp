@@ -1,7 +1,7 @@
 
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="controller.*" %>
-<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.sql.Date" %>
 <%@ page import="model.*" %>
 <!DOCTYPE html>
 <html>
@@ -15,7 +15,7 @@
     </head>
 
     <%--Temporary Admin User to access all features for demonstration purposes--%>
-    <% User u = new User(0, "Admin", "Admin", "admin", "admin@gmail.com", 999, LocalDate.parse("2000-02-13"), 5,
+    <% User u = new User(0, "Admin", "Admin", "admin", "admin@gmail.com", 999, Date.valueOf("2000-02-13"), 5,
             "Chalter", 2678, "NSW", "Chatsforest", "Australia", true); %>
 
     <%-- Used to check if the appstaff has entered manageCategoryMode or not --%>
