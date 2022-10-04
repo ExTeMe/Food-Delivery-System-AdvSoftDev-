@@ -43,3 +43,4 @@ INSERT INTO restaurant_rcategory (RCategory_ID, Restaurant_ID)
 SELECT RC.RCategory_ID, Res.Restaurant_ID
 FROM (SELECT RCategory_ID FROM rcategory WHERE RCategory_Name = 'Slow Food') AS RC
          CROSS JOIN (SELECT Restaurant_ID FROM restaurant WHERE ABN = 12123233544) AS RES;
+

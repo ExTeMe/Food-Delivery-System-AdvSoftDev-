@@ -4,7 +4,7 @@
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="model.*" %>
+<%@ page import="model.MenuItem" %>
 <%@ page import="controller.*" %>
 
 <!DOCTYPE html>
@@ -19,69 +19,54 @@
     </head>
     
     <% 
-        ArrayList<Menu> restaurants = (ArrayList)session.getAttribute("restaurants");
+        ArrayList<MenuItem> menuItems = (ArrayList)session.getAttribute("menuItems");
     %>
     
     <body>
-        <h1>Show restaurants List</h1>
-        
-       
-        
-<!-- <table cellspacing="2" cellpadding="2"> -->
-
-<!-- <tr>
- <th>Restaurant Name</th>
- <th>Image</th>
- <th>Street Number</th>
- <th>Street Name</th>
- <th>Postcode</th>
- <th>State</th>
- <th>Suburb</th>
- <th>Country</th>
-</tr> -->
+    <table style="width:100%">
+        <h1>Show menu List</h1>
+    <tr>
+        <th>Item Type</th>
+        <th>Servings</th>
+        <th>Price</th>
+        <th>Calories</th>
+        <th>Image</th>
+        <th>Description</th>
+        <th>Ingredients</th>
+        <th>Allergy</th>
+        <th>ID</th>
+    </tr>
 
 <%
-// Iterating through restaurants
-
-	Iterator<Restaurant> iterator = restaurants.iterator();  // Iterator interface
+	Iterator<MenuItem> iterator = menuItems.iterator();  
 	
-	while(iterator.hasNext())  // iterate through all the data until the last record
+	while(iterator.hasNext())  
 	{
-		Restaurant restaurant = iterator.next(); //assign individual employee record to the employee class object
+		MenuItem menuItem = iterator.next(); 
 	%>
+    <tr>
+    <td><%=menuItem.getItemType()%></td>
+    <td><%=menuItem.getServings()%></td>
+    <td><%=menuItem.getPrice()%></td>
+    <td><%=menuItem.getCalories()%></td>
+    <td><%=menuItem.getImage()%></td>
+    <td><%=menuItem.getDescription()%></td>
+    <td><%=menuItem.getIngredients()%></td>
+    <td><%=menuItem.getAllergy()%></td>
+    <td><%=menuItem.getItemID()%></td>
+    <td><a href="add-menuItem?MenuItemID=<%= menuItem.getItemID()%>"  class="btn btn-dark text-light ms-2"> Add</a></td>
 
-    <!-- <p><%=restaurant.getImageReference()%></p> -->
+    </tr>
+
+    <!-- <p><%=menuItem.getItemType()%></p> -->
     
-
-	<!-- <tr>    
-            <td><%=restaurant.getRestaurantName()%></td>
-            <td><%=restaurant.getImageReference()%></td>
-            <td><%=restaurant.getStreetNum()%></td>
-            <td><%=restaurant.getStreetName()%></td>
-            <td><%=restaurant.getPostcode()%></td>
-            <td><%=restaurant.getState()%></td>
-            <td><%=restaurant.getSuburb()%></td>
-            <td><%=restaurant.getCountry()%></td>
-	</tr> -->
-
-
-
-    
-        <div class="bs">
-            <img src=<%="images/"+restaurant.getImageReference()%> width="200" height="200">
-        </div>
-        <div class="flex-column">
-            <a href="menu.jsp" class="btn btn-dark text-light ms-2"><%=restaurant.getRestaurantName()%></a>
-        </div>
-            
-
 	<%
 	}
 
 %>
-<!-- </table> -->
+</table>
 
-        <a href="index.jsp" class="btn btn-dark text-light ms-2"> Back </a>
-
+        <a href="order.jsp" class="btn btn-dark text-light ms-2"> Back </a>
+        <a href="cart" class="btn btn-dark text-light ms-2"> Cart </a>
     </body>
 </html>

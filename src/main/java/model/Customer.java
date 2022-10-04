@@ -8,6 +8,8 @@ public class Customer {
     private String password;
     private String dateOfBirth;
 
+    private int customerID;
+
     private String address;
 
     private String cardNumber;
@@ -27,6 +29,26 @@ public class Customer {
         this.cardExpiration = cardExpiration;
         this.cardPin = cardPin;
         this.cardName = cardName;
+    }
+
+    public Customer(int customerID, String cardNumber, String cardExpiration, int cardPin, String cardName){
+        this.customerID = customerID;
+        this.cardNumber = cardNumber;
+        this.cardExpiration = cardExpiration;
+        this.cardPin = cardPin;
+        this.cardName = cardName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public int getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(int customerID) {
+        this.customerID = customerID;
     }
 
     public void setFirstName(String firstName) {

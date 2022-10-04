@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Restaurant;
 
-@WebServlet(name = "controller/ShowRestaraunt", value = "/show-restaraunt")
+@WebServlet(name = "controller/ShowRestaraunts", value = "/show-restaraunt")
 public class ShowRestaraunts extends HttpServlet {
 
     @Override
@@ -32,7 +32,8 @@ public class ShowRestaraunts extends HttpServlet {
         try {
             ArrayList<Restaurant> restaraunts = manager.fectRestaraunt();
             session.setAttribute("restaraunts", restaraunts);
-            request.getRequestDispatcher("showCIM.jsp").include(request, response);
+            //session.getAttribute("customer");
+            request.getRequestDispatcher("index.jsp").include(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(ShowRestaraunts.class.getName()).log(Level.SEVERE, null, ex);
         }

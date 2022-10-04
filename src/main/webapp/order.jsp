@@ -69,10 +69,10 @@
     
         <div class="bs">
             <img src=<%="images/"+restaurant.getImageReference()%> width="200" height="200">
-        </div>
         <div class="flex-column">
-            <a href="menu.jsp" class="btn btn-dark text-light ms-2"><%=restaurant.getRestaurantName()%></a>
+            <a href="show-menuItems" class="btn btn-dark text-light ms-2"><%=restaurant.getRestaurantName()%></a>
         </div>
+    </div>
             
 
 	<%

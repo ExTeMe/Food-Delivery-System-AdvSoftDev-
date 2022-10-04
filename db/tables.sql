@@ -224,7 +224,6 @@ CREATE TABLE db.Order
     Coupon_ID INT,
     Status VARCHAR(10) NOT NULL,
     Food_Rating INT,
-    Driver_Rating INT,
     Food_Instructions VARCHAR(100),
     Food_Feedback VARCHAR(100),
     PRIMARY KEY (Order_ID),
