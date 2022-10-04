@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="./css/createOrder.css" rel="stylesheet" type="text/css" >
+        <link href="./css/createDelivery.css" rel="stylesheet" type="text/css" >
         <link href="./css/header.css" rel="stylesheet" type="text/css" >
         <title>Place Delivery</title>
     </head>
@@ -25,12 +25,18 @@
 
                 <div class="header-end">
                     <div class="user-info header-button">
-                        <span>Hello, <%= user.getFname()%></span>
-                        <div class="user-menu">
-                            <a class="header-button" href="edituser.jsp">Edit Account</a>
-                            <a class="header-button" href="ViewOrdersController">My Orders</a>
-                            <a class="header-button" href="logout.jsp">Logout</a>
-                        </div>
+                        <% if (user != null) { %> 
+                            <span>Hello, <%= user.getFname()%></span>
+                            <div class="user-menu">
+                                <a class="header-button" href="">View Account Details</a>
+                                <a class="header-button" href="">View Orders</a>
+                                <a class="header-button" href="">Logout</a>
+                            </div>
+                        <% } else { %>
+                            <a href="customerLogin.jsp">Login</a>
+                            <span>&nbsp;/&nbsp;</span>
+                            <a href="customerRegister.jsp">Register</a>
+                        <% } %>
                     </div>
                 </div>
             </div>
@@ -64,9 +70,19 @@
                         <input type="text" id="street" name="street" required>
                         <label for="suburb">Suburb</label>
                         <input type="text" id="suburb" name="suburb" required>
-                        <label for="state">State</label>
+                        <label for="state">State
+                            <% if (session.getAttribute("stateErr") != null) {%>
+                            <span class="warning-text"><%=session.getAttribute("stateErr")%></span>
+                            <% session.setAttribute("stateErr", null);
+                            } %>
+                        </label>
                         <input type="text" id="state" name="state" required>
-                        <label for="postal">Postal Code</label>
+                        <label for="postal">Postal Code
+                            <% if (session.getAttribute("postalErr") != null) {%>
+                            <span class="warning-text"><%=session.getAttribute("postalErr")%></span>
+                            <% session.setAttribute("postalErr", null);
+                            }%>
+                        </label>
                         <input type="text" id="postal" name="postal" required>
                     </div>
                     <hr />

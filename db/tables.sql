@@ -43,6 +43,14 @@ CREATE TABLE Restaurant
     PRIMARY KEY (Restaurant_ID)
 );
 
+DROP TABLE IF EXISTS PrivilegeLists;
+CREATE TABLE PrivilegeLists
+(
+    Privilege INT NOT NULL,
+    Actions VARCHAR(255) NOT NULL,
+    PRIMARY KEY (Privilege, Actions)
+);
+
 DROP TABLE IF EXISTS Staff;
 CREATE TABLE Staff
 (
@@ -50,10 +58,11 @@ CREATE TABLE Staff
     UserID INT UNSIGNED NOT NULL,
     Restaurant_ID INT UNSIGNED NOT NULL,
     Privilege INT NOT NULL DEFAULT 0,
-    Position VARCHAR(10),
-    PRIMARY KEY  (Staff_ID),
+    Position VARCHAR(100),
+    PRIMARY KEY (Staff_ID),
     FOREIGN KEY (UserID) REFERENCES `User`(UserID),
-    FOREIGN KEY (Restaurant_ID) REFERENCES Restaurant(Restaurant_ID)
+    FOREIGN KEY (Restaurant_ID) REFERENCES Restaurant(Restaurant_ID),
+    FOREIGN KEY (Privilege) REFERENCES PrivilegeLists(Privilege)
 );
 
 DROP TABLE IF EXISTS AppStaff;
@@ -129,14 +138,14 @@ DROP TABLE IF EXISTS Coupon;
 CREATE TABLE Coupon
 (
     Coupon_ID INT PRIMARY KEY AUTO_INCREMENT,
-    Coupon_Name VARCHAR(20) NOT NULL,
+    Coupon_Name VARCHAR(255) NOT NULL,
     Coupon_Scope INT NOT NULL,
     Coupon_Type INT NOT NULL,
     Coupon_Min_Money INT,
     Created_Date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     Coupon_Value DOUBLE NOT NULL,
     Coupon_Description VARCHAR(255) NOT NULL,
-    Coupon_Image VARCHAR(200) NOT NULL
+    Coupon_Image VARCHAR(255) NOT NULL
 );
 
 DROP TABLE IF EXISTS Coupon_Item;
@@ -153,8 +162,8 @@ DROP TABLE IF EXISTS Distribution_Rule;
 CREATE TABLE Distribution_Rule
 (
     D_Rule_ID INT PRIMARY KEY AUTO_INCREMENT,
-    Rule_Description VARCHAR(100) NOT NULL,
-    Additional_Conditions VARCHAR(100)
+    Rule_Description VARCHAR(255) NOT NULL,
+    Additional_Conditions VARCHAR(255)
 );
 
 DROP TABLE IF EXISTS Coupon_Batch;
@@ -220,14 +229,16 @@ CREATE TABLE db.Order
 (
     Order_ID INT NOT NULL AUTO_INCREMENT,
     Customer_ID INT NOT NULL,
+    Restaurant_ID INT UNSIGNED NOT NULL,
     Order_Type VARCHAR(10) NOT NULL,
     Coupon_ID INT,
-    Status VARCHAR(10) NOT NULL,
+    Status VARCHAR(15) NOT NULL,
     Food_Rating INT,
     Food_Instructions VARCHAR(100),
     Food_Feedback VARCHAR(100),
     PRIMARY KEY (Order_ID),
     FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID),
+    FOREIGN KEY (Restaurant_ID) REFERENCES Restaurant(Restaurant_ID),
     FOREIGN KEY (Coupon_ID) REFERENCES Coupon(Coupon_ID)
 );
 
