@@ -3,7 +3,12 @@
 
     <display-name>Food Delivery System</display-name>
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>ConnServlet</welcome-file>
+        <!--Set ConnServlet to be the file to run on startup-->
+        <!--Used to set default 'startup' files for each folder/directory
+            since subfolders may have their own 'startup' files-->
+        <!--https://stackoverflow.com/questions/35570440/
+            use-of-welcome-file-list-why-can-we-specify-a-list-if-it-would-run-only-one-->
     </welcome-file-list>
 
     <filter>

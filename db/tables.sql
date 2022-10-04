@@ -229,15 +229,16 @@ CREATE TABLE db.Order
 (
     Order_ID INT NOT NULL AUTO_INCREMENT,
     Customer_ID INT NOT NULL,
+    Restaurant_ID INT UNSIGNED NOT NULL,
     Order_Type VARCHAR(10) NOT NULL,
     Coupon_ID INT,
-    Status VARCHAR(10) NOT NULL,
+    Status VARCHAR(15) NOT NULL,
     Food_Rating INT,
-    Driver_Rating INT,
     Food_Instructions VARCHAR(100),
     Food_Feedback VARCHAR(100),
     PRIMARY KEY (Order_ID),
     FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID),
+    FOREIGN KEY (Restaurant_ID) REFERENCES Restaurant(Restaurant_ID),
     FOREIGN KEY (Coupon_ID) REFERENCES Coupon(Coupon_ID)
 );
 
@@ -271,9 +272,18 @@ CREATE TABLE Order_Item
     FOREIGN KEY (Order_ID) REFERENCES db.Order(Order_ID),
     FOREIGN KEY (Item_ID) REFERENCES Menu_Item(Item_ID)
 );
-/*
 --For testing
 INSERT INTO USER VALUES(989898, "MINH QUAN", "TRAN", "ABC", "ASLDA", 12131, NULL, 131, "141", 1341, "SAD", "RLQK", "ASDKLJ", 1);
 INSERT INTO CUSTOMER VALUES(202020, 989898, NULL, NULL, NULL, NULL);
-INSERT INTO DB.ORDER VALUES(101010, 202020, "Delivery", NULL, "Delivered", NULL, NULL, NULL, NULL);
-INSERT INTO DRIVER VALUES(454545, 989898, "AXY562", "Black Toyota", NULL, "CommBank", 117268, 45128935);*/
+INSERT INTO RESTAURANT VALUES(303030, "Testing", NULL, 123, "abc", 1234, "NSW", "North Ryde", "Australia", TRUE, 12345678, "test", 123456, 123);
+INSERT INTO PRIVILEGELISTS VALUES(1, "Something");
+INSERT INTO STAFF VALUES(123123, 989898, 303030, 1, "");
+INSERT INTO MENU_ITEM VALUES(321321, 303030, "Main", 1, 15.90, 2000, "https://papparich.com.my/pr/wp-content/uploads/2016/07/1-pappa-chicken-rice-1.jpg", "Hainan Steamed Chicken Rice", "Rice, Chicken, Bean Sprouts, Chilli, Dark Soya Sauce", "None", 100);
+INSERT INTO DB.ORDER VALUES(101010, 202020, 303030, "Delivery", NULL, "Order Received", NULL, "", NULL);
+INSERT INTO ORDER_ITEM VALUES(101010, 321321, 1, "");
+INSERT INTO DB.ORDER VALUES(111111, 202020, 303030, "Delivery", NULL, "Preparing", NULL, "Give me your money", NULL);
+
+INSERT INTO ORDER_ITEM VALUES(111111, 321321, 1, "");
+
+INSERT INTO ORDER_ITEM VALUES(111111, 321321, 2, "No Chili");
+INSERT INTO DRIVER VALUES(454545, 989898, "AXY562", "Black Toyota", NULL, "CommBank", 117268, 45128935);

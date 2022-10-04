@@ -4,6 +4,16 @@ body {
 
 main {
   margin: 10px;
+  color: white;
+}
+
+.section {
+  border-radius: 8px;
+  background-color: #282828;
+  padding: 1rem;
+  width: 80%;
+  margin: auto;
+  margin-top: 0.5rem;
 }
 
 h1 {
