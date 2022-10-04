@@ -9,9 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 import com.google.gson.Gson;
-
 import dao.*;
 import model.Order;
 import model.Delivery;
@@ -85,7 +83,6 @@ public class GetDelivery extends HttpServlet {
 
         try {
             db = new DBConnector();
-            response.setContentType("text/html;charset=UTF-8");
             HttpSession session = request.getSession();
 
             conn = db.openConnection();

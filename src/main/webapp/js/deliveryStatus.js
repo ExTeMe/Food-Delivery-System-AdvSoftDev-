@@ -1,5 +1,5 @@
 updateDetails();
-setInterval(updateDetails, 100);
+setInterval(updateDetails, 200);
 
 function updateDetails() {
   fetch(

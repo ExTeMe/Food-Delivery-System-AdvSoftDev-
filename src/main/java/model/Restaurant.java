@@ -1,10 +1,13 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Restaurant {
 
     private final int restaurantID;
-    private RCategory category;
+    private String imageReference;
     private String restaurantName;
+    private ArrayList<RCategory> categories;
     private int streetNum;
     private String streetName;
     private int postcode;
@@ -15,13 +18,17 @@ public class Restaurant {
     private final long abn;
     private String accountName;
     private int bsb;
-    private long accountNum;
+    private int accountNum;
 
-    public Restaurant(int restaurantID, RCategory category, String restaurantName, int streetNum, String streetName,
-                      int postcode, String state, String suburb, String country, Boolean activate, long abn, String accountName,
-                      int bsb, long accountNum) {
+    // For DBManager to use to fill in info + categories and passed to the controller fo use.
+    public Restaurant(int restaurantID, String imageReference, String restaurantName,
+                      ArrayList<RCategory> categories, int streetNum, String streetName,
+                      int postcode, String state, String suburb, String country,
+                      Boolean activate, long abn, String accountName,
+                      int bsb, int accountNum) {
         this.restaurantID = restaurantID;
-        this.category = category;
+        this.imageReference = imageReference;
+        this.categories = categories;
         this.restaurantName = restaurantName;
         this.streetNum = streetNum;
         this.streetName = streetName;
@@ -36,20 +43,87 @@ public class Restaurant {
         this.accountNum = accountNum;
     }
 
+    // For creating restaurants where controller uses this to pass to the DBManager for record creation
+    // Initially it has no categories
+    public Restaurant(String imageReference, String restaurantName,
+                      int streetNum, String streetName, int postcode, String state,
+                      String suburb, String country, Boolean activate, long abn, String accountName,
+                      int bsb, int accountNum) {
+        this.restaurantID = -1;
+        this.imageReference = imageReference;
+        this.restaurantName = restaurantName;
+        this.streetNum = streetNum;
+        this.streetName = streetName;
+        this.postcode = postcode;
+        this.state = state;
+        this.suburb = suburb;
+        this.country = country;
+        this.activate = activate;
+        this.abn = abn;
+        this.accountName = accountName;
+        this.bsb = bsb;
+        this.accountNum = accountNum;
+    }
+
+    // For Update w/ ID being passed in for check
+    public Restaurant(int restaurantID, String imageReference, String restaurantName,
+                      int streetNum, String streetName, int postcode, String state,
+                      String suburb, String country, Boolean activate, long abn, String accountName,
+                      int bsb, int accountNum) {
+        this.restaurantID = restaurantID;
+        this.imageReference = imageReference;
+        this.restaurantName = restaurantName;
+        this.streetNum = streetNum;
+        this.streetName = streetName;
+        this.postcode = postcode;
+        this.state = state;
+        this.suburb = suburb;
+        this.country = country;
+        this.activate = activate;
+        this.abn = abn;
+        this.accountName = accountName;
+        this.bsb = bsb;
+        this.accountNum = accountNum;
+    }
+
+
+    // To be used only when viewing list of restaurants under a particular category, no concern for other information
+    public Restaurant(int restaurantID, String restaurantName) {
+        this.restaurantID = restaurantID;
+        this.restaurantName = restaurantName;
+        this.imageReference = "";
+        this.categories = null;
+        this.streetNum = -1;
+        this.streetName = "";
+        this.postcode = -1;
+        this.state = "";
+        this.suburb = "";
+        this.country = "";
+        this.activate = false;
+        this.abn = -1;
+        this.accountName = "";
+        this.bsb = -1;
+        this.accountNum = -1;
+    }
+
     public int getRestaurantID() {
         return restaurantID;
     }
 
-    public RCategory getCategory() {
-        return category;
+    public String getImageReference() {
+        return imageReference;
     }
 
-    public void setCategory(RCategory category) {
-        this.category = category;
+    public void setImageReference(String imageReference) {
+        this.imageReference = imageReference;
     }
 
     public String getRestaurantName() {
         return restaurantName;
+    }
+
+    public ArrayList<RCategory> getCategories() {
+        return categories;
     }
 
     public void setRestaurantName(String restaurantName) {
@@ -132,11 +206,11 @@ public class Restaurant {
         this.bsb = bsb;
     }
 
-    public long getAccountNum() {
+    public int getAccountNum() {
         return accountNum;
     }
 
-    public void setAccountNum(long accountNum) {
+    public void setAccountNum(int accountNum) {
         this.accountNum = accountNum;
     }
 

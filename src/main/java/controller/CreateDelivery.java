@@ -31,24 +31,42 @@ public class CreateDelivery extends HttpServlet {
         Order order = (Order) session.getAttribute("order");
         order.setOrderType(orderType);
 
+        String path = "/get-delivery?orderID=" + order.getOrderID();
+
+        Validator validator = new Validator();
+        boolean passed = true;
+
         if (orderType.equals("delivery")) {
             String street = request.getParameter("street");
             String suburb = request.getParameter("suburb");
             String state = request.getParameter("state");
+            if (!validator.validateState(state)) {
+                path = "/createDelivery.jsp";
+                session.setAttribute("stateErr", "Invalid State, use state code with capital letters");
+                passed = false;
+            }
             String postal = request.getParameter("postal");
+            if (!validator.validatePostCode(postal)) {
+                path = "/createDelivery.jsp";
+                session.setAttribute("postalErr", "Invalid Postal Code");
+                passed = false;
+            }
             String instructions = request.getParameter("instructions");
             double fee = 55.55;
 
-            Delivery delivery = new Delivery(order.getOrderID(), street, suburb, state, postal, fee, instructions);
+            if (passed) {
+                session.removeAttribute("stateErr");
+                session.removeAttribute("postalErr");
+                Delivery delivery = new Delivery(order.getOrderID(), street, suburb, state, postal, fee, instructions);
 
-            if (manager.getDelivery(order.getOrderID()) != null) {
-                manager.updateDelivery(delivery);
-            } else {
-                manager.createDelivery(delivery);
+                if (manager.getDelivery(order.getOrderID()) != null) {
+                    manager.updateDelivery(delivery);
+                } else {
+                    manager.createDelivery(delivery);
+                }
             }
-
         }
-        String path = "/get-delivery?orderID=" + order.getOrderID();
+
         RequestDispatcher rd = getServletContext().getRequestDispatcher(path);
         rd.forward(request, response);
     }

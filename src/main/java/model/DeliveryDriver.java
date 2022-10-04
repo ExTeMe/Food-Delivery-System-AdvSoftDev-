@@ -1,6 +1,8 @@
 package model;
 
-public class DeliveryDriver {
+import java.sql.Date;
+
+public class DeliveryDriver extends User {
     private int driverID;
     private int userID;
     private String numberPlate;
@@ -10,8 +12,12 @@ public class DeliveryDriver {
     private int dBSB;
     private int dAccountNumber;
 
-    public DeliveryDriver(int driverID, int userID, String numberPlate, String vehicleDescription, double rating,
+    public DeliveryDriver(int userID, String fname, String lname, String pass, String email, int phoneNo, Date date,
+            int streetNo, String streetName, int postcode, String state, String suburb, String country,
+            boolean activated, int driverID, String numberPlate, String vehicleDescription, double rating,
             String dAccountName, int dBSB, int dAccountNumber) {
+        super(userID, fname, lname, pass, email, phoneNo, date, streetNo, streetName, postcode, state, suburb, country,
+                activated);
         this.driverID = driverID;
         this.userID = userID;
         this.numberPlate = numberPlate;
