@@ -39,6 +39,8 @@
             <div class="container">
                 <a class="h1 navbar-brand text-dark ms-2 mt-2" href="#">FDS</a>
                 <div class="float-end me-2">
+                    <!-- Use for R1 demo-->
+                    <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/empManage/showEmp">Emp Management</a>
                     <%-- If not in manage mode, show the register/login etc... buttons, else only show management related buttons --%>
                     <% if (!manageMode) { %>
                         <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="./customerLogin.jsp">Customer Login</a>
