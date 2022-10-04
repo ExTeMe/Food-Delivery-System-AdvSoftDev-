@@ -35,7 +35,7 @@ public class EmpManagementServlet extends HttpServlet{
 
     private void doList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        //For testing only---------------------------------------------------------------
+        //For demo, as there is currently no combined login system---------------------------------------------------------------
         session.setAttribute("staff", restaurantEmpService.getStaff("1"));
         //-------------------------------------------------------------------------------
         Staff staff = (Staff) session.getAttribute("staff");
