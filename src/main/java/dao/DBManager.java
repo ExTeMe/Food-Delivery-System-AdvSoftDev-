@@ -66,10 +66,11 @@ public class DBManager {
 
     // Order
     public Order getOrder(int orderID) {
+        System.out.println("Got here");
         try {
-            ResultSet rs = st.executeQuery("SELECT * FROM DB.ORDER WHERE ORDER_ID = " + orderID);
-            while (rs.next()) {
-                Order order = new Order(
+            ResultSet rs = st.executeQuery("SELECT * FROM db.Order WHERE Order_ID = " + orderID);
+            if (rs.next()) {
+                return new Order(
                         rs.getInt("ORDER_ID"),
                         rs.getInt("CUSTOMER_ID"),
                         rs.getInt("RESTAURANT_ID"),
@@ -79,7 +80,6 @@ public class DBManager {
                         rs.getInt("FOOD_RATING"),
                         rs.getString("FOOD_INSTRUCTIONS"),
                         rs.getString("FOOD_FEEDBACK"));
-                return order;
             }
         } catch (Exception e) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
@@ -200,7 +200,7 @@ public class DBManager {
     }
 
     // Delivery
-    public void createDelivery(Delivery delivery) {
+    public boolean createDelivery(Delivery delivery) {
         try {
             st.executeUpdate(
                     "INSERT INTO DELIVERY(ORDER_ID, DRIVER_ID, DELIVERY_STREET, DELIVERY_SUBURB, DELIVERY_STATE, DELIVERY_POSTAL, DELIVERY_FEE, DRIVER_INSTRUCTIONS) VALUES ("
@@ -211,15 +211,17 @@ public class DBManager {
                             + (delivery.getDriverInstructions() == null ? "NULL "
                                     : ("'" + delivery.getDriverInstructions() + "' "))
                             + ");");
+            return true;
         } catch (
 
         Exception e) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
             System.out.println("Exception is: " + e);
+            return false;
         }
     }
 
-    public void updateDelivery(Delivery delivery) {
+    public boolean updateDelivery(Delivery delivery) {
         try {
             st.executeUpdate("UPDATE DELIVERY SET " +
                     "ORDER_ID = " + delivery.getOrderID() +
@@ -233,11 +235,13 @@ public class DBManager {
                     ", DRIVER_INSTRUCTIONS = '" + delivery.getDriverInstructions() +
                     "', DRIVER_TIP = " + delivery.getDriverTip() +
                     " WHERE DELIVERY_ID = " + delivery.getDeliveryID());
+            return true;
         } catch (
 
         Exception e) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
             System.out.println("Exception is: " + e);
+            return false;
         }
     }
 
@@ -307,6 +311,7 @@ public class DBManager {
 
     // AppStaff Login - Benz
     public AppStaff appStaffLogin(String email, String pass) throws SQLException, Exception {
+        System.out.println("Got sql");
         ResultSet rs = st
                 .executeQuery("SELECT * FROM db.user U INNER JOIN db.appstaff A WHERE U.UserID = A.UserID AND " +
                         "Email ='" + email + "' AND Password='" + pass + "'");

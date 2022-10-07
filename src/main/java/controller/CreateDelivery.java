@@ -19,42 +19,60 @@ import java.sql.Connection;
 public class CreateDelivery extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        test(request, response);
+        // test(request, response);
 
         HttpSession session = request.getSession();
+        if (session.getAttribute("manager") == null) {
+            createManager(request, response);
+        }
         DBManager manager = (DBManager) session.getAttribute("manager");
+        Validator validator = new Validator();
 
         String orderType = request.getParameter("order-type");
 
-        Order order = (Order) session.getAttribute("order");
+        Order order = null;
+
+        if (validator.isNumeric(request.getParameter("orderID"))) {
+            order = manager.getOrder(Integer.parseInt(request.getParameter("orderID")));
+        }
+
+        if (order == null) {
+            session.setAttribute("orderErr", "Missing or wrong order");
+            request.getRequestDispatcher("createDelivery.jsp").include(request, response);
+            return;
+        }
         order.setOrderType(orderType);
 
-        String path = "/get-delivery?orderID=" + order.getOrderID();
-
-        Validator validator = new Validator();
         boolean passed = true;
 
-        if (orderType.equals("delivery")) {
+        if (orderType.equals("Delivery")) {
             String street = request.getParameter("street");
+            if (validator.isBlankOrNull(street)) {
+                session.setAttribute("streetErr", "Invalid street");
+                passed = false;
+            }
             String suburb = request.getParameter("suburb");
+            if (validator.isBlankOrNull(suburb)) {
+                session.setAttribute("suburbErr", "Invalid suburb");
+                passed = false;
+            }
             String state = request.getParameter("state");
             if (!validator.validateState(state)) {
-                path = "/createDelivery.jsp";
                 session.setAttribute("stateErr", "Invalid State, use state code with capital letters");
                 passed = false;
             }
             String postal = request.getParameter("postal");
             if (!validator.validatePostCode(postal)) {
-                path = "/createDelivery.jsp";
-                session.setAttribute("postalErr", "Invalid Postal Code");
+                session.setAttribute("postalErr", "Invalid Postal Code, 4 digits");
                 passed = false;
             }
             String instructions = request.getParameter("instructions");
             double fee = 55.55;
 
             if (passed) {
+                session.removeAttribute("orderErr");
                 session.removeAttribute("stateErr");
                 session.removeAttribute("postalErr");
                 Delivery delivery = new Delivery(order.getOrderID(), street, suburb, state, postal, fee, instructions);
@@ -64,11 +82,13 @@ public class CreateDelivery extends HttpServlet {
                 } else {
                     manager.createDelivery(delivery);
                 }
+            } else {
+                request.getRequestDispatcher("createDelivery.jsp").include(request, response);
+                return;
             }
         }
 
-        RequestDispatcher rd = getServletContext().getRequestDispatcher(path);
-        rd.forward(request, response);
+        request.getRequestDispatcher("get-delivery?orderID=" + order.getOrderID()).include(request, response);
     }
 
     private void test(HttpServletRequest request, HttpServletResponse response) {
@@ -87,6 +107,23 @@ public class CreateDelivery extends HttpServlet {
 
             Order order = new Order(101010, 202020, "Delivering");
             session.setAttribute("order", order);
+        } catch (Exception e) {
+            System.out.println("Exception is: " + e);
+        }
+    }
+
+    private void createManager(HttpServletRequest request, HttpServletResponse response) {
+        DBConnector db;
+        DBManager manager;
+        Connection conn;
+
+        try {
+            db = new DBConnector();
+            HttpSession session = request.getSession();
+
+            conn = db.openConnection();
+            manager = new DBManager(conn);
+            session.setAttribute("manager", manager);
         } catch (Exception e) {
             System.out.println("Exception is: " + e);
         }
