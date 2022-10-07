@@ -50,15 +50,15 @@
                 <label>Order type</label>
                 <ul id="order-type">
                     <li>
-                        <input type="radio" id="delivery" name="order-type" value="delivery" required>
+                        <input type="radio" id="delivery" name="order-type" value="Delivery" required>
                         <label for="delivery">Delivery</label>
                     </li>
                     <li>
-                        <input type="radio" id="pickup" name="order-type" value="pickup" required>
+                        <input type="radio" id="pickup" name="order-type" value="Pickup" required>
                         <label for="pickup">Pickup</label>
                     </li>
                     <li>
-                        <input type="radio" id="dinein" name="order-type" value="dinein" required>
+                        <input type="radio" id="dinein" name="order-type" value="Dinein" required>
                         <label for="dinein">Dine-in</label>
                     </li>
                 </ul>
@@ -90,7 +90,7 @@
                     <textarea id="instructions" name="instructions" maxlength="100" rows="4"></textarea>
                     <hr />
                 </div>
-                <button type="submit">Continue</button>
+                <button type="submit">Place delivery</button>
             </form>
         </main>
 

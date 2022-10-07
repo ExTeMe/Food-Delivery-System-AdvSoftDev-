@@ -127,7 +127,7 @@ function cancalOrder(orderID) {
     status: "Canceled",
   };
   fetch("update-order", {
-    method: "GET",
+    method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       Authorization: getCookie("access_token"),

@@ -230,7 +230,7 @@ CREATE TABLE db.Order
     Order_ID INT NOT NULL AUTO_INCREMENT,
     Customer_ID INT NOT NULL,
     Restaurant_ID INT UNSIGNED NOT NULL,
-    Order_Type VARCHAR(10) NOT NULL,
+    Order_Type VARCHAR(10),
     Coupon_ID INT,
     Status VARCHAR(15) NOT NULL,
     Food_Rating INT,
@@ -280,8 +280,10 @@ INSERT INTO RESTAURANT VALUES(303030, "Testing", NULL, 123, "abc", 1234, "NSW", 
 INSERT INTO PRIVILEGELISTS VALUES(1, "Something");
 INSERT INTO STAFF VALUES(123123, 989898, 303030, 1, "");
 INSERT INTO MENU_ITEM VALUES(321321, 303030, "Main", 1, 15.90, 2000, "https://papparich.com.my/pr/wp-content/uploads/2016/07/1-pappa-chicken-rice-1.jpg", "Hainan Steamed Chicken Rice", "Rice, Chicken, Bean Sprouts, Chilli, Dark Soya Sauce", "None", 100);
-INSERT INTO DB.ORDER VALUES(101010, 202020, 303030, "Delivery", NULL, "Order Received", NULL, "", NULL);
+INSERT INTO DB.ORDER VALUES(101010, 202020, 303030, NULL, NULL, "Submitted", NULL, "", NULL);
 INSERT INTO ORDER_ITEM VALUES(101010, 321321, 1, "");
+INSERT INTO DB.ORDER VALUES(121212, 202020, 303030, "Delivery", NULL, "Order Received", NULL, "", NULL);
+INSERT INTO ORDER_ITEM VALUES(121212, 321321, 1, "");
 INSERT INTO DB.ORDER VALUES(111111, 202020, 303030, "Delivery", NULL, "Preparing", NULL, "Give me your money", NULL);
 
 INSERT INTO ORDER_ITEM VALUES(111111, 321321, 1, "");
