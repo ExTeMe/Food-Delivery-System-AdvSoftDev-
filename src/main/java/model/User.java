@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class User {
 
-    private final int UserID;
+    private int UserID;
     private String fname;
     private String lname;
     private String pass;
@@ -19,9 +19,10 @@ public class User {
     private String country;
     private Boolean activated;
 
+    public User(){};
     public User(int userID, String fname, String lname, String pass,
-            String email, int phoneNo, Date dob, int streetNo, String streetName,
-            int postcode, String state, String suburb, String country, Boolean activated) {
+                String email, int phoneNo, Date dob, int streetNo, String streetName,
+                int postcode, String state, String suburb, String country, Boolean activated) {
         this.UserID = userID;
         this.fname = fname;
         this.lname = lname;

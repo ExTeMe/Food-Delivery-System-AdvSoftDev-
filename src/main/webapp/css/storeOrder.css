@@ -34,7 +34,7 @@ main {
 }
 
 .order-received {
-  background-color: yellow;
+  background-color: rgb(155, 155, 0);
 }
 
 .order-cancel,

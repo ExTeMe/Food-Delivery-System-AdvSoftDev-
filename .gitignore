@@ -40,3 +40,6 @@ build/
 
 ### Maven ###
 .mvn/
+
+### Pipeline ###
+azure-pipelines.yml

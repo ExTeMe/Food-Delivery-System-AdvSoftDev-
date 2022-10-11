@@ -36,7 +36,7 @@
         <h1 class="h1 text-center">Emp List</h1>
         <a href="index.jsp" class="position-absolute top-0 end-10 btn btn-info btn-lg">Main</a>
         <div class="alert alert-success" style="display:none" id="div1">Successful!</div>
-        <div class="alert alert-danger" style="display:none" id="div2">Failed!</div>
+        <div class="alert alert-danger" style="display:none" id="div2">Invalid privilege!</div>
         <div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="EditLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -44,7 +44,7 @@
                         <h5 class="modal-title" id="EditLabel">Set permission or position</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="EmpEdit" class ="form-horizontal" method="post">
+                    <form action="empManage/edit" class ="form-horizontal" method="post">
                         <div class="modal-body">
                             <input type="hidden" id="staffId" name="staffId" value=""/>
                             <div class = "form-floating mb-2">
@@ -76,7 +76,7 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${staffs}" var="staff">
+            <c:forEach items="${StoreEmps}" var="staff">
                 <tr>
                     <td>${staff.fname} ${staff.lname}</td>
                     <td>${staff.phoneNo}</td>
@@ -86,7 +86,7 @@
                     <td>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#EditModal"
                                 data-id="${staff.staffID}" data-privilege="${staff.privilege}" data-position="${staff.position}">Edit</button>
-                        <a href="EmpRemove?id=${staff.staffID}" class="btn btn-danger">Remove</a>
+                        <a href="empManage/removeEmp?id=${staff.staffID}" class="btn btn-danger">Remove</a>
                     </td>
                 </tr>
             </c:forEach>

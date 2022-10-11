@@ -31,6 +31,7 @@ public class UpdateOrder extends HttpServlet {
             createManager(request, response);
         }
         DBManager manager = (DBManager) session.getAttribute("manager");
+        Validator validator = new Validator();
 
         String auth = request.getHeader("Authorization");
         Staff staff = (Staff) session.getAttribute("staff" + auth);
@@ -49,22 +50,22 @@ public class UpdateOrder extends HttpServlet {
 
         try {
             Order order = manager.getOrder(orderID);
-            if (isNumeric(request.getParameter("customerID"))) {
+            if (validator.isNumeric(request.getParameter("customerID"))) {
                 order.setCustomerID(Integer.parseInt(request.getParameter("customerID")));
             }
-            if (isNumeric(request.getParameter("restaurantID"))) {
+            if (validator.isNumeric(request.getParameter("restaurantID"))) {
                 order.setRestaurantID(Integer.parseInt(request.getParameter("restaurantID")));
             }
             if (request.getParameter("orderType") != null) {
                 order.setOrderType(request.getParameter("orderType"));
             }
-            if (isNumeric(request.getParameter("couponID"))) {
+            if (validator.isNumeric(request.getParameter("couponID"))) {
                 order.setCouponID(Integer.parseInt(request.getParameter("couponID")));
             }
             if (request.getParameter("status") != null) {
                 order.setStatus(request.getParameter("status"));
             }
-            if (isNumeric(request.getParameter("foodRating"))) {
+            if (validator.isNumeric(request.getParameter("foodRating"))) {
                 order.setFoodRating(Integer.parseInt(request.getParameter("foodRating")));
             }
             if (request.getParameter("foodInstructions") != null) {
@@ -88,18 +89,6 @@ public class UpdateOrder extends HttpServlet {
         } catch (Exception e) {
             System.out.println("Exception is: " + e);
         }
-    }
-
-    public static boolean isNumeric(String strNum) {
-        if (strNum == null) {
-            return false;
-        }
-        try {
-            int i = Integer.parseInt(strNum);
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-        return true;
     }
 
     private void createManager(HttpServletRequest request, HttpServletResponse response) {

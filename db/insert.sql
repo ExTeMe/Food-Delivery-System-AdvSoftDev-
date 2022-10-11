@@ -89,3 +89,4 @@ INSERT INTO Staff VALUES
     (null, 6, 1, 3, 'General staff');
 INSERT INTO Staff VALUES
     (null, 7, 1, 3, 'General staff');
+

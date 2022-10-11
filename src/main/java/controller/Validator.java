@@ -59,6 +59,28 @@ public class Validator implements Serializable {
         return match.matches();
     }
 
+    public boolean isBlankOrNull(String input) {
+        if (input == null) {
+            return true;
+        }
+        if (input.isBlank()) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            int i = Integer.parseInt(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+
     public boolean checkLoginEmpty(String email, String password) {
         return email.isEmpty() || password.isEmpty();
     }
@@ -97,10 +119,16 @@ public class Validator implements Serializable {
     }
 
     public boolean validateState(String state) {
+        if (isBlankOrNull(state)) {
+            return false;
+        }
         return validate(statePattern, state);
     }
 
     public boolean validatePostCode(String postcode) {
+        if (isBlankOrNull(postcode)) {
+            return false;
+        }
         return validate(postcodePattern, postcode);
     }
 
