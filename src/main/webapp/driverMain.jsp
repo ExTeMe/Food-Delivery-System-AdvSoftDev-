@@ -12,6 +12,7 @@
         <link href="./css/driverMain.css" rel="stylesheet" type="text/css" >
         <link href="./css/header.css" rel="stylesheet" type="text/css" >
         <script src="./js/deliveryStatus.js" defer></script>
+        <script src="./js/driverMain.js" defer></script>
         <title>Driver Main</title>
     </head>
     <body>

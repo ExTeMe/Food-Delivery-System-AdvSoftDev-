@@ -77,15 +77,11 @@ public class Customer {
     }
 
     public Integer getCustomerId() {
-        return customerId;
+        return customerID;
     }
 
     public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
-    }
-
-    public Long getCardNumber() {
-        return cardNumber;
+        this.customerID = customerId;
     }
 
     public void setEmail(String email) {

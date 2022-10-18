@@ -9,10 +9,14 @@ import java.util.logging.Logger;
 import com.mysql.cj.protocol.Resultset;
 import com.mysql.cj.x.protobuf.MysqlxPrepare.Prepare;
 
+import model.AppStaff;
 import model.Customer;
 import model.Delivery;
 import model.DeliveryDriver;
+import model.MenuItem;
 import model.Order;
+import model.OrderItem;
+import model.Restaurant;
 import model.Staff;
 import model.User;
 
@@ -484,10 +488,11 @@ public class DBManager {
 
     // Order
     public Order getOrder(int orderID) {
+        System.out.println("Got here");
         try {
-            ResultSet rs = st.executeQuery("SELECT * FROM DB.ORDER WHERE ORDER_ID = " + orderID);
-            while (rs.next()) {
-                Order order = new Order(
+            ResultSet rs = st.executeQuery("SELECT * FROM db.Order WHERE Order_ID = " + orderID);
+            if (rs.next()) {
+                return new Order(
                         rs.getInt("ORDER_ID"),
                         rs.getInt("CUSTOMER_ID"),
                         rs.getInt("RESTAURANT_ID"),
@@ -497,7 +502,6 @@ public class DBManager {
                         rs.getInt("FOOD_RATING"),
                         rs.getString("FOOD_INSTRUCTIONS"),
                         rs.getString("FOOD_FEEDBACK"));
-                return order;
             }
         } catch (Exception e) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
@@ -618,7 +622,7 @@ public class DBManager {
     }
 
     // Delivery
-    public void createDelivery(Delivery delivery) {
+    public boolean createDelivery(Delivery delivery) {
         try {
             st.executeUpdate(
                     "INSERT INTO DELIVERY(ORDER_ID, DRIVER_ID, DELIVERY_STREET, DELIVERY_SUBURB, DELIVERY_STATE, DELIVERY_POSTAL, DELIVERY_FEE, DRIVER_INSTRUCTIONS) VALUES ("
@@ -629,15 +633,17 @@ public class DBManager {
                             + (delivery.getDriverInstructions() == null ? "NULL "
                                     : ("'" + delivery.getDriverInstructions() + "' "))
                             + ");");
+            return true;
         } catch (
 
         Exception e) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
             System.out.println("Exception is: " + e);
+            return false;
         }
     }
 
-    public void updateDelivery(Delivery delivery) {
+    public boolean updateDelivery(Delivery delivery) {
         try {
             st.executeUpdate("UPDATE DELIVERY SET " +
                     "ORDER_ID = " + delivery.getOrderID() +
@@ -651,11 +657,13 @@ public class DBManager {
                     ", DRIVER_INSTRUCTIONS = '" + delivery.getDriverInstructions() +
                     "', DRIVER_TIP = " + delivery.getDriverTip() +
                     " WHERE DELIVERY_ID = " + delivery.getDeliveryID());
+            return true;
         } catch (
 
         Exception e) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
             System.out.println("Exception is: " + e);
+            return false;
         }
     }
 
@@ -725,6 +733,7 @@ public class DBManager {
 
     // AppStaff Login - Benz
     public AppStaff appStaffLogin(String email, String pass) throws SQLException, Exception {
+        System.out.println("Got sql");
         ResultSet rs = st
                 .executeQuery("SELECT * FROM db.user U INNER JOIN db.appstaff A WHERE U.UserID = A.UserID AND " +
                         "Email ='" + email + "' AND Password='" + pass + "'");
@@ -735,6 +744,165 @@ public class DBManager {
             return new AppStaff(Integer.parseInt(userID), Integer.parseInt(asID));
         } else {
             return null;
+        }
+    }
+
+    public ArrayList<Restaurant> fectRestaraunt() throws SQLException {
+        String fetch = "SELECT * FROM RESTAURANT";
+        ResultSet rs = st.executeQuery(fetch);
+        ArrayList<Restaurant> temp = new ArrayList();
+
+        while (rs.next()) {
+
+            temp.add(new Restaurant(
+                    rs.getString("Image_Reference"),
+                    rs.getString("Restaraunt_Name"),
+                    rs.getInt("Street_Number"),
+                    rs.getString("Street_Name"),
+                    rs.getInt("Postcode"),
+                    rs.getString("State"),
+                    rs.getString("Suburb"),
+                    rs.getString("Country"),
+                    rs.getBoolean("Activated"),
+                    rs.getInt("ABN"),
+                    rs.getString("Account_Name"),
+                    rs.getInt("BSB"),
+                    rs.getInt("Account_Number")));
+        }
+        return temp;
+    }
+
+    public ArrayList<MenuItem> fectMenuItem() throws SQLException {
+        String fetch = "SELECT * FROM MENU_ITEM";
+        ResultSet rs = st.executeQuery(fetch);
+        ArrayList<MenuItem> temp = new ArrayList();
+
+        while (rs.next()) {
+
+            temp.add(new MenuItem(
+                    rs.getInt("Item_ID"),
+                    rs.getInt("Restaurant_ID"),
+                    rs.getString("Item_Type"),
+                    rs.getInt("Servings"),
+                    rs.getFloat("Price"),
+                    rs.getInt("Calories"),
+                    rs.getString("Image"),
+                    rs.getString("Description"),
+                    rs.getString("Ingredients"),
+                    rs.getString("Allergy"),
+                    rs.getInt("Stock")));
+        }
+        return temp;
+
+    }
+
+    // public Order(int orderID, int customerID, String orderType, String status) {
+    //     this.orderID = orderID;
+    //     this.customerID = customerID;
+    //     this.orderType = orderType;
+    //     this.status = status;
+    // }
+
+    public Order createOrder(int customerID, int restaurantID, String orderType, String status) throws SQLException {
+        String insert = "INSERT INTO db.order(Customer_ID, Restaurant_ID, Order_Type, Status)";
+        String values = "VALUES (" + customerID + ", "+ restaurantID+", '" + orderType + "', '" + status + "')";
+        try {
+            st.executeUpdate(insert + values);
+            //Select from order where its the last row? rs.get(orderID)
+            //insert = "SELECT Order_ID FROM db.Order ORDER BY Order_ID DESC LIMIT 1";
+            //int orderID = st.executeUpdate(insert);
+            
+            // String fetch = "SELECT Order_ID FROM db.Order ORDER BY Order_ID DESC LIMIT 1";
+            // ResultSet rs = st.executeQuery(fetch);
+
+            Order order = new Order(findOrderID(), customerID, orderType, status);
+
+            //Order order = new Order(customerID, orderType, status);
+            return order;
+        } catch (Exception e) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println("Exception is: " + e);
+            return null;
+        }
+
+    }
+
+    public int findOrderID(){
+        //String fetch = "SELECT Order_ID FROM db.Order ORDER BY Order_ID DESC LIMIT 1";
+        
+        try {
+            ResultSet rs = st.executeQuery("SELECT Order_ID FROM db.Order ORDER BY Order_ID DESC LIMIT 1");
+            if (rs.next()) {
+                return rs.getInt("Order_ID");
+           } else {
+                return 0;
+           }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return -1;
+        }
+        
+    }
+
+    public OrderItem createOrderItem(int orderID, int itemID, int quantity){
+        String insert = "INSERT INTO order_item(Order_ID, Item_ID, Quantity)";
+        String values = "VALUES (" + orderID + ", " + itemID + ", " + quantity + ")";
+        try {
+            st.executeUpdate(insert + values);
+            OrderItem orderItem = new OrderItem(orderID, itemID, quantity);
+            return orderItem;
+        } catch (Exception e) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println("Exception is: " + e);
+            return null;
+        }
+    }
+
+    public ArrayList<OrderItem> fectOrderItem(int orderID) throws SQLException {
+        String fetch = "SELECT * FROM ORDER_ITEM WHERE Order_ID = '"+orderID+"'";
+        ResultSet rs = st.executeQuery(fetch);
+        ArrayList<OrderItem> temp = new ArrayList();
+
+        while (rs.next()) {
+
+            temp.add(new OrderItem(
+                    rs.getInt("Order_ID"),
+                    rs.getInt("Item_ID"),
+                    rs.getInt("Quantity")));
+        }
+        return temp;
+
+    }
+
+    public void removeOrderItem(int orderID, int itemID){
+        String insert = "DELETE FROM ORDER_ITEM WHERE Order_ID = '"+orderID+"' AND Item_ID= '"+itemID+"'" ;
+        try {
+            st.executeUpdate(insert);
+        }
+        catch (Exception e) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
+    public void removeOrder(int orderID){
+        String insert = " DELETE FROM order_item WHERE ORDER_ID = '"+orderID+"'";
+
+        //String insert = "DELETE FROM ORDER WHERE Order_ID = '"+orderID+"' AND Item_ID= '"+itemID+"'" ;
+        try {
+            st.executeUpdate(insert);
+        }
+        catch (Exception e) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        insert = "DELETE FROM DB.ORDER WHERE ORDER_ID = '"+orderID+"'";
+
+        try {
+            st.executeUpdate(insert);
+        }
+        catch (Exception e) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 }

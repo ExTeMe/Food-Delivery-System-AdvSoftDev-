@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Staff extends User {
 
@@ -10,7 +11,8 @@ public class Staff extends User {
     private String pass;
     private String email;
     private int phoneNo;
-    private LocalDate dob;
+    private Date dob;
+    private LocalDate dob2;
     private int streetNo;
     private String streetName;
     private int postcode;
@@ -24,9 +26,10 @@ public class Staff extends User {
     private int privilege;
     private String position;
 
-    public Staff(int userID, String fname, String lname, String pass, String email, int phoneNo, Date dob,
-            int streetNo, String streetName, int postcode, String state, String suburb, String country,
-            Boolean activated, int staffID, int restaurantID, int privilege, String position) {
+    public Staff(){};
+    public Staff(int userID, String fname, String lname, String pass, String email, int phoneNo, LocalDate dob,
+                 int streetNo, String streetName, int postcode, String state, String suburb, String country,
+                 Boolean activated, int staffID, int restaurantID, int privilege, String position) {
         super(userID, fname, lname, pass, email, phoneNo, dob, streetNo, streetName, postcode, state, suburb, country,
                 activated);
         this.staffID = staffID;
@@ -40,7 +43,7 @@ public class Staff extends User {
         this.pass = pass;
         this.email = email;
         this.phoneNo = phoneNo;
-        this.dob = dob;
+        this.dob2 = dob;
         this.streetNo = streetNo;
         this.streetName = streetName;
         this.postcode = postcode;
@@ -126,11 +129,19 @@ public class Staff extends User {
         this.phoneNo = phoneNo;
     }
 
-    public LocalDate getDob() {
+    public LocalDate getDob2() {
+        return this.dob2;
+    }
+
+    public void setDob(LocalDate dob2) {
+        this.dob2 = dob2;
+    }
+
+    public Date getDob() {
         return this.dob;
     }
 
-    public void setDob(LocalDate dob) {
+    public void setDob(Date dob) {
         this.dob = dob;
     }
 

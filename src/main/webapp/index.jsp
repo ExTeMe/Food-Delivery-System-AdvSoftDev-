@@ -39,12 +39,15 @@
             <div class="container">
                 <a class="h1 navbar-brand text-dark ms-2 mt-2" href="#">FDS</a>
                 <div class="float-end me-2">
+                    <!-- Use for R1 demo-->
+                    <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/empManage/showEmp">Emp Management</a>
                     <%-- If not in manage mode, show the register/login etc... buttons, else only show management related buttons --%>
                     <% if (!manageMode) { %>
                         <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="./customerLogin.jsp">Customer Login</a>
                         <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="./customerRegister.jsp">Customer Register</a>
                         <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="./staffLogin.jsp">Staff Login</a>
                         <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="./staffRegister.jsp">Staff Register</a>
+                        <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="./order.jsp">Order</a>
                     <% } else { %>
                         <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="all-category">Manage Category</a>
                         <a class="btn text-dark ms-2 text-decoration-none btn-outline-success" href="all-restaurant">Manage Restaurant</a>
@@ -136,4 +139,5 @@
 
         </script>
     </body>
+
 </html>
