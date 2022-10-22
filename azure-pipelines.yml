@@ -63,6 +63,6 @@ stages:
               inputs:
                 azureSubscription: 'Azure-FDS10'
                 appName: '$(WebAppName)'
-                package: '$(Build.ArtifactStagingDirectory)/_BenzChua31.Food-Delivery-System-AdvSoftDev-/drop/target/FDS-1.0-SNAPSHOT.war'
+                package: '$(Build.ArtifactStagingDirectory)/drop/target/FDS-1.0-SNAPSHOT.war'
   
 
