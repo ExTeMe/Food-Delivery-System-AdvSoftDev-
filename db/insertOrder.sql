@@ -22,7 +22,7 @@ VALUES(1, 'Burger', 1, 10.00, 200, 'Chicken Burger', 'Chicken Burger', 'Fried Ch
 INSERT INTO menu_item (Restaurant_ID, Item_Type, Servings, Price, Calories, Image, Description, Ingredients, Allergy, Stock)
 VALUES(1, 'Drink', 1, 2.00, 10, 'Coca cola', 'Coca cola', 'Coca cola', 'None', 100);
 
---Side
+-- Side
 INSERT INTO menu_item (Restaurant_ID, Item_Type, Servings, Price, Calories, Image, Description, Ingredients, Allergy, Stock)
 VALUES(1, 'Side', 1, 5.00, 100, 'Chips', 'Chips', 'Potato, Salt', 'None', 100);
 
@@ -53,7 +53,7 @@ SELECT * FROM Order_ITEM WHERE Order_ID = 1;
 -- DELETE FROM ORDER_ITEM WHERE Order_ID = 88 AND Item_ID=1
 -- Set row 0;
 
---88 order 103 item 1
+-- 88 order 103 item 1
 
 -- DELETE FROM db.order WHERE Order_ID = 1;
 
