@@ -37,6 +37,7 @@ stages:
               targetFolder: '$(Build.ArtifactStagingDirectory)' 
 
           - task: PublishBuildArtifacts@1
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
 
   - stage: 'Deploy'
     displayName: 'Deploy the web app'
